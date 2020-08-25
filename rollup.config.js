@@ -5,6 +5,7 @@ import { readFileSync } from 'fs';
 
 import pkg from './package.json';
 
+const name = 'Schach.Pathfinding';
 const header = readFileSync('header.js', 'utf-8');
 
 export default [
@@ -12,8 +13,9 @@ export default [
         input: 'src/main.ts',
         output: [
             {
+                name,
                 file: `./dist/${pkg.name}.js`,
-                format: 'cjs',
+                format: 'iife',
                 sourcemap: false,
                 plugins: [
                     terser({
@@ -27,8 +29,9 @@ export default [
                 ]
             },
             {
+                name,
                 file: `../plugins/${pkg.name}.debug.js`,
-                format: 'cjs',
+                format: 'iife',
                 sourcemap: true,
                 banner: header
             }

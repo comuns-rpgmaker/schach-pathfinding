@@ -63,21 +63,38 @@ export interface Colored<T, C>
 type Point2 = [number, number];
 
 /**
- * Square grid map graph abstract class.
+ * Direction offsets
  */
-export abstract class SquareGridMap implements Graph<Point2>
+const Directions: Record<string, Point2[]> = {};
+Directions.DIR4 = Directions.ORTHOGONAL = zip([1, 0, -1, 0], [0, 1, 0, -1]);
+Directions.DIAGONAL = zip([1, 1, -1, -1], [1, -1, 1, -1]);
+Directions.DIR8 = Directions.ORTHOGONAL.concat(Directions.DIAGONAL);
+
+/**
+ * Square grid map graph class.
+ */
+export class SquareGridMap implements Graph<Point2>
 {
+
     readonly width: number;
     readonly height: number;
+
+    private readonly _directions: Point2[];
 
     /**
      * @param width - width of the grid.
      * @param height - height of the grid.
+     * @param directions - list of directions for the edges between cells.
      */
-    constructor(width: number, height: number)
+    constructor(
+        width: number,
+        height: number,
+        directions: Point2[] = Directions.DIR4
+    )
     {
         this.width = width;
         this.height = height;
+        this._directions = directions;
     }
 
     /**
@@ -98,41 +115,57 @@ export abstract class SquareGridMap implements Graph<Point2>
         return x >= 0 && x < this.width && y >= 0 && y < this.height;
     }
 
-    abstract neighbors([x, y]: Point2): Point2[];
-
-    protected _withOffsets([x, y]: Point2, offsets: Point2[]): Point2[]
+    neighbors([x, y]: Point2): Point2[]
     {
-        return offsets.map(([ox, oy]) => [x + ox, y + oy] as Point2)
-                      .filter(p => this.contains(p));
+        return this._directions.map(([ox, oy]) => [x + ox, y + oy] as Point2)
+                              .filter(p => this.contains(p));
     }
 }
 
 /**
- * Square grid map graph with edges between each cell and its orthogonal
- * neighbors.
+ * Generic colored square grid map graph class.
  */
-export class SquareGridMap4Dir extends SquareGridMap
+export class ColoredSquareGridMap<C>
+    extends SquareGridMap
+    implements Colored<Point2, C>
 {
-    private static readonly ORTHOGONAL = zip([1, 0, -1, 0], [0, 1, 0, -1]);
 
-    neighbors(p: Point2): Point2[]
+    readonly defaultColor;
+
+    private _map = new Map<number, Map<number, C>>();
+    
+    /**
+     * @param width - width of the grid.
+     * @param height - height of the grid.
+     * @param directions - list of directions for the edges between cells.
+     * @param defaultColor - default color for the graph.
+     */
+    constructor(
+        width: number,
+        height: number,
+        defaultColor: C,
+        directions: Point2[] = Directions.DIR4
+    )
     {
-        return this._withOffsets(p, SquareGridMap4Dir.ORTHOGONAL);
+        super(width, height, directions);
+        this.defaultColor = defaultColor;
     }
-}
 
-/**
- * Square grid map graph with edges between each cell and both its orthogonal
- * and diagonal neighbors.
- */
-export class SquareGridMap8Dir extends SquareGridMap4Dir
-{    
-    private static readonly DIAGONAL = zip([1, 1, -1, -1], [1, -1, 1, -1]);
-
-    neighbors(p: Point2): Point2[]
+    color([x, y]: [number, number]): C
     {
-        const orthogonal = super.neighbors(p);
-        const diagonal = this._withOffsets(p, SquareGridMap8Dir.DIAGONAL);
-        return orthogonal.concat(diagonal);
+        return this._map.get(x)?.get(y) || this.defaultColor;
+    }
+
+    setColor([x, y]: [number, number], color: C): void
+    {
+        let m = this._map.get(x);
+
+        if (m === undefined)
+        {
+            m = new Map();
+            this._map.set(x, m);
+        }
+
+        m.set(y, color);
     }
 }

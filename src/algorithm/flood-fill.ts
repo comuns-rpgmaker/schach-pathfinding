@@ -32,26 +32,30 @@ function isSized(x: Partial<Sized>): x is Sized
  * 
  * @note if `g` defines `size`, it is used to preallocate resources. This will
  *       usually yield significantly better performance.
+ * 
+ * @returns a list with all return values from the callback calls.
  */
-export function floodFill<T, C>(
+export function floodFill<T, C, U>(
     start: T,
     color: C,
     g: (Graph<T> | DiGraph<T>) & Colored<T, C> & Partial<Sized>,
-    callback?: (v: T, c?: C) => unknown
-): void
+    callback?: (v: T, c?: C) => U
+): U[]
 {
     const startColor = g.color(start);
-    if (startColor === color) return;
+    if (startColor === color) return [];
     
     g.setColor(start, color);
 
     const q = new Deque<T>(isSized(g) ? g.size : 32);
     q.push(start);
 
+    const mapped: U[] = [];
+
     for (let current = q.shift(); !isEmpty(current); current = q.shift())
     {
         const vertex = current.value;
-        if (callback) callback(vertex);
+        if (callback) mapped.push(callback(vertex));
 
         const next = 'from' in g ? g.from(vertex) : g.neighbors(vertex);
         next.filter(target => g.color(target) === startColor)
@@ -62,4 +66,6 @@ export function floodFill<T, C>(
                 }
             );
     }
+
+    return mapped;
 }
