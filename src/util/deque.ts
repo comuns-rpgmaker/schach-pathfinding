@@ -18,20 +18,9 @@ import { Maybe, just, empty, isEmpty } from './maybe';
 export class Deque<T>
 {
 
-    private _data: T[];
+    private _data: T[] = [];
     private _start = 0;
     private _length = 0;
-
-    /**
-     * @param initialSize - capacity of the queue on initialization.
-     * 
-     * @note passing the estimated capacity to the constructor is strongly
-     *       recommended, as it avoids unnecessary reallocations.
-     */
-    constructor(initialSize = 10)
-    {
-        this._data = new Array(initialSize);
-    }
 
     /**
      * @returns the length of the deque.
@@ -50,10 +39,13 @@ export class Deque<T>
     {
         this._length++;
 
-        if (this._length >= this._data.length) this._resize();
-
-        const index = this._index(this._length - 1);
-        this._data[index] = value;
+        if (this._length >= this._data.length) {
+            this._pack();
+            this._data.push(value);
+        } else {
+            const index = this._index(this._length - 1);
+            this._data[index] = value;
+        }
 
         return this;
     }
@@ -67,11 +59,14 @@ export class Deque<T>
     {
         this._length++;
         
-        if (this._length >= this._data.length) this._resize();
-        
-        const index = this._index(-1);
-        this._data[index] = value;
-        this._start = index;
+        if (this._length >= this._data.length) {
+            this._pack();
+            this._start = this._data.push(value) - 1;
+        } else {
+            const index = this._index(-1);
+            this._data[index] = value;
+            this._start = index;
+        }
         
         return this;
     }
@@ -149,7 +144,7 @@ export class Deque<T>
             ? [...iterable]
             : Array.from(iterable);
 
-        const result = new Deque<T>(0);
+        const result = new Deque<T>();
         result._data = array;
         result._length = array.length;
 
@@ -161,12 +156,11 @@ export class Deque<T>
         return (this._data.length + this._start + i) % this._data.length;
     }
 
-    private _resize(): void
+    private _pack(): void
     {
         this._data = [
             ...this._data.slice(this._start, this._start + this._length),
-            ...this._data.slice(0, this._index(this._length - 1)),
-            ...new Array(this._data.length)
+            ...this._data.slice(0, this._index(this._length - 1))
         ];
 
         this._start = 0;

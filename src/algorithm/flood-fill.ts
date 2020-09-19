@@ -13,15 +13,6 @@ import { isEmpty } from '../util/maybe';
 
 import type { Graph, DiGraph, Colored } from '../data/graph';
 
-type Sized = {
-    readonly size: number;
-}
-
-function isSized(x: Partial<Sized>): x is Sized
-{
-    return x.size !== undefined;
-}
-
 /**
  * Applies flood-fill to a generic colored graph.
  * 
@@ -38,7 +29,7 @@ function isSized(x: Partial<Sized>): x is Sized
 export function floodFill<T, C, U>(
     start: T,
     color: C,
-    g: (Graph<T> | DiGraph<T>) & Colored<T, C> & Partial<Sized>,
+    g: (Graph<T> | DiGraph<T>) & Colored<T, C>,
     callback?: (v: T, c?: C) => U
 ): U[]
 {
@@ -47,7 +38,7 @@ export function floodFill<T, C, U>(
     
     g.setColor(start, color);
 
-    const q = new Deque<T>(isSized(g) ? g.size : 32);
+    const q = new Deque<T>();
     q.push(start);
 
     const mapped: U[] = [];

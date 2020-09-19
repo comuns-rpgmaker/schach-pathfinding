@@ -66,6 +66,7 @@ type Point2 = [number, number];
  * Direction offsets
  */
 const Directions: Record<string, Point2[]> = {};
+
 Directions.DIR4 = Directions.ORTHOGONAL = zip([1, 0, -1, 0], [0, 1, 0, -1]);
 Directions.DIAGONAL = zip([1, 1, -1, -1], [1, -1, 1, -1]);
 Directions.DIR8 = Directions.ORTHOGONAL.concat(Directions.DIAGONAL);
