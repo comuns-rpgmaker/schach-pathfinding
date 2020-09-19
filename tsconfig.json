@@ -6,8 +6,6 @@
 >>>>>>> template/master
         "target": "ES5",
         "lib": ["ES5", "ES6", "DOM"],
-        "sourceMap": true,
-        "rootDir": "src",
         "downlevelIteration": true,
         "removeComments": true,
 <<<<<<< HEAD
