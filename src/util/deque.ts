@@ -8,7 +8,7 @@
  * Generic double-ended queue class implemented with a circular buffer.
  */
 
-import { Maybe, just, empty, isEmpty } from './maybe';
+import { Maybe, just, empty, isEmpty } from "./maybe";
 
 /**
  * Generic double-ended queue.

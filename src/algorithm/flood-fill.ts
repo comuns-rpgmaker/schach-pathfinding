@@ -8,10 +8,10 @@
  * Flood fill algorithm implementation.
  */
 
-import { Deque } from '../util/deque';
-import { isEmpty } from '../util/maybe';
+import { Deque } from "util/deque";
+import { isEmpty } from "util/maybe";
 
-import type { Graph, DiGraph, Colored } from '../data/graph';
+import type { Graph, DiGraph, Colored } from "data/graph";
 
 /**
  * Applies flood-fill to a generic colored graph.

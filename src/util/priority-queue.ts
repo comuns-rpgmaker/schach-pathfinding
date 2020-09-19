@@ -8,7 +8,7 @@
  * Generic priority queue class implemented with a Pairing Heap.
  */
 
-import { Maybe, just, empty, isEmpty } from './maybe';
+import { Maybe, just, empty, isEmpty } from "./maybe";
 
 type Relation<T> = (a: T, b: T) => boolean;
 
@@ -170,7 +170,7 @@ export class PriorityQueue<T> implements Iterator<T>
     /**
      * TODO:
      * 
-     * - Optimize memory usage by having only one insatnce of `isLess` and
+     * - Optimize memory usage by having only one instance of `isLess` and
      *   `elements`
      * 
      */

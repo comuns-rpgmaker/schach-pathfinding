@@ -8,7 +8,8 @@
  * Definitions of a generic interface and common implementations of Graphs.
  */
 
-import { zip } from "../util/array";
+import { zip } from "util/array";
+import { ArrayMap } from "util/array-map";
 
 /**
  * Generic graph interface.
@@ -119,7 +120,7 @@ export class SquareGridMap implements Graph<Point2>
     neighbors([x, y]: Point2): Point2[]
     {
         return this._directions.map(([ox, oy]) => [x + ox, y + oy] as Point2)
-                              .filter(p => this.contains(p));
+            .filter(p => this.contains(p));
     }
 }
 
@@ -131,9 +132,9 @@ export class ColoredSquareGridMap<C>
     implements Colored<Point2, C>
 {
 
-    readonly defaultColor;
+    readonly defaultColor: C;
 
-    private _map = new Map<number, Map<number, C>>();
+    private _map: Map<number, Map<number, C>>;
     
     /**
      * @param width - width of the grid.
@@ -150,14 +151,15 @@ export class ColoredSquareGridMap<C>
     {
         super(width, height, directions);
         this.defaultColor = defaultColor;
+        this._map = this._buildMap();
     }
 
-    color([x, y]: [number, number]): C
+    color([x, y]: Point2): C
     {
         return this._map.get(x)?.get(y) || this.defaultColor;
     }
 
-    setColor([x, y]: [number, number], color: C): void
+    setColor([x, y]: Point2, color: C): void
     {
         let m = this._map.get(x);
 
@@ -168,5 +170,11 @@ export class ColoredSquareGridMap<C>
         }
 
         m.set(y, color);
+    }
+
+    private _buildMap() {
+        // TODO: Pick an implementation based on map size and density to
+        //       balance space wasted vs performance.
+        return new ArrayMap(() => new ArrayMap(() => this.defaultColor));
     }
 }
