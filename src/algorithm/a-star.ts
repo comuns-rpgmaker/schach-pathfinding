@@ -38,6 +38,10 @@ export function aStar<T>(
         [target as any]: target
     };
 
+    function getFromPool(node: T) {
+        return node in pool ? pool[node] : (pool[node] = node);
+    }
+
     const visited = new Set<T>();
 
     const gscore = new Map<T, number>();
@@ -53,8 +57,7 @@ export function aStar<T>(
     const cameFrom = new Map<T, T>();
 
     for (let current = q.next(); !current.done; current = q.next()) {
-        if (!(current.value in pool)) pool[current.value] = current.value;
-        const node = pool[current.value];
+        const node = getFromPool(current.value);
         visited.add(node);
 
         if (node === target)
@@ -64,7 +67,7 @@ export function aStar<T>(
         else
         {
             g.from(node)
-            .map(neighbor => neighbor in pool ? pool[neighbor] : (pool[neighbor] = neighbor))
+            .map(getFromPool)
             .filter(neighbor => !visited.has(neighbor))
             .forEach((neighbor) =>
             {
