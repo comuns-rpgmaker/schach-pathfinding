@@ -9,9 +9,9 @@
  */
 
 import { PriorityQueue } from "util/priority-queue";
+import { Deque } from "util/deque";
 
-import type { Graph, Weighted } from "data/graph";
-import { Deque } from "main";
+import type { Colored, Graph, Weighted } from "data/graph";
 
 /**
  * Finds the shortest path between two points on a weighted graph using A*.
@@ -31,55 +31,51 @@ export function aStar<T>(
     heuristic: (s: T, t: T) => number
 ): Deque<T> | undefined
 {
-    // Terrible workaround to deal with the absence of a decent hash map and
-    // equality comparison function
-    const pool: any = {
-        [source as any]: source,
-        [target as any]: target
-    };
+    const sourceId = g.id(source)!;
+    const targetId = g.id(target)!;
 
-    function getFromPool(node: T) {
-        return node in pool ? pool[node] : (pool[node] = node);
-    }
+    const gscore = new Map<number, number>();
+    gscore.set(sourceId, 0);
 
-    const visited = new Set<T>();
-
-    const gscore = new Map<T, number>();
-    gscore.set(source, 0);
-
-    const fscore = new Map<T, number>();
-    fscore.set(source, heuristic(source, target));
+    const fscore = new Map<number, number>();
+    fscore.set(sourceId, heuristic(source, target));
 
     const q = new PriorityQueue<T>(
-        (a: T, b: T) => fscore.get(a)! < fscore.get(b)!);
+        (a: T, b: T) => fscore.get(g.id(a)!)! < fscore.get(g.id(b)!)!);
+
+    const open = new Set<number>();
     q.add(source);
 
-    const cameFrom = new Map<T, T>();
+    const cameFrom = new Map<number, T>();
 
     for (let current = q.next(); !current.done; current = q.next()) {
-        const node = getFromPool(current.value);
-        visited.add(node);
+        const node = current.value;
+        const nodeId = g.id(node)!;
 
-        if (node === target)
+        if (nodeId == targetId)
         {
-            return makePath(target, cameFrom);
+            return makePath(g, target, cameFrom);
         }
         else
         {
-            g.from(node)
-            .map(getFromPool)
-            .filter(neighbor => !visited.has(neighbor))
-            .forEach((neighbor) =>
+            open.delete(nodeId);
+            const nodeScore = gscore.get(nodeId)!;
+
+            g.from(node).forEach((neighbor) =>
             {
-                const score = gscore.get(node)! + g.weight(node, neighbor)!;
+                const score = nodeScore + g.weight(node, neighbor)!;
 
-                if (score < (gscore.get(neighbor) || Infinity))
+                const neighborId = g.id(neighbor)!;
+                if (score < (gscore.get(neighborId) ?? Infinity))
                 {
-                    cameFrom.set(neighbor, node);
-                    gscore.set(neighbor, score);
-                    fscore.set(neighbor, score + heuristic(neighbor, target));
+                    cameFrom.set(neighborId, node);
+                    gscore.set(neighborId, score);
+                    fscore.set(neighborId, score + heuristic(neighbor, target));
 
-                    if (!q.has(neighbor)) q.add(neighbor);
+                    if (!open.has(neighborId)) {
+                        q.add(neighbor);
+                        open.add(neighborId);
+                    }
                 }
             });
         }
@@ -88,15 +84,15 @@ export function aStar<T>(
     return undefined;
 }
 
-function makePath<T>(target: T, cameFrom: Map<T, T>): Deque<T>
+function makePath<T>(g: Graph<T>, target: T, cameFrom: Map<number, T>): Deque<T>
 {
     const path = new Deque<T>();
     path.push(target);
 
     let current = target;
-    while (cameFrom.has(current))
+    while (cameFrom.has(g.id(current)!))
     {
-        current = cameFrom.get(current)!;
+        current = cameFrom.get(g.id(current)!)!;
         path.unshift(current);
     }
 

@@ -21,6 +21,13 @@ export interface Graph<T>
     /**
      * @param v - a vertex on the graph.
      * 
+     * @returns an unique numeric identifier for the given node.
+     */
+    id(v: T): number | undefined;
+
+    /**
+     * @param v - a vertex on the graph.
+     * 
      * @returns a list of vertices connected to the given vertex.
      */
     from(v: T): T[];
@@ -117,6 +124,12 @@ export class SquareGridMap implements Graph<Point2>
     contains([x, y]: Point2): boolean
     {
         return x >= 0 && x < this.width && y >= 0 && y < this.height;
+    }
+
+    id([x, y]: Point2): number | undefined
+    {
+        if (!this.contains([x, y])) return undefined;
+        else return x + y * this.width;
     }
 
     from([x, y]: Point2): Point2[]
