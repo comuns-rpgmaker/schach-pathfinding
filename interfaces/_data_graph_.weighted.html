@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Colored | schach-pathfinding</title>
+	<title>Weighted | schach-pathfinding</title>
 	<meta name="description" content="Documentation for schach-pathfinding">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,10 +55,10 @@
 					<a href="../modules/_data_graph_.html">&quot;data/graph&quot;</a>
 				</li>
 				<li>
-					<a href="_data_graph_.colored.html">Colored</a>
+					<a href="_data_graph_.weighted.html">Weighted</a>
 				</li>
 			</ul>
-			<h1>Interface Colored&lt;T, C&gt;</h1>
+			<h1>Interface Weighted&lt;T&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -68,7 +68,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Generic colored graph interface.</p>
+						<p>Generic weighted graph interface.</p>
 					</div>
 				</div>
 			</section>
@@ -83,21 +83,13 @@
 							</div>
 						</div>
 					</li>
-					<li>
-						<h4>C</h4>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>color type.</p>
-							</div>
-						</div>
-					</li>
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Colored</span>
+						<span class="target">Weighted</span>
 					</li>
 				</ul>
 			</section>
@@ -108,8 +100,7 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_data_graph_.colored.html#color" class="tsd-kind-icon">color</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_data_graph_.colored.html#setcolor" class="tsd-kind-icon">set<wbr>Color</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_data_graph_.weighted.html#weight" class="tsd-kind-icon">weight</a></li>
 							</ul>
 						</section>
 					</div>
@@ -118,51 +109,28 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="color" class="tsd-anchor"></a>
-					<h3>color</h3>
+					<a name="weight" class="tsd-anchor"></a>
+					<h3>weight</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">color<span class="tsd-signature-symbol">(</span>v<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+						<li class="tsd-signature tsd-kind-icon">weight<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/e7bf607/src/data/graph.ts#L62">data/graph.ts:62</a></li>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/e7bf607/src/data/graph.ts#L51">data/graph.ts:51</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>v: <span class="tsd-signature-type">T</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">C</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="setcolor" class="tsd-anchor"></a>
-					<h3>set<wbr>Color</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>Color<span class="tsd-signature-symbol">(</span>v<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, color<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/e7bf607/src/data/graph.ts#L63">data/graph.ts:63</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>v: <span class="tsd-signature-type">T</span></h5>
+									<h5>source: <span class="tsd-signature-type">T</span></h5>
 								</li>
 								<li>
-									<h5>color: <span class="tsd-signature-type">C</span></h5>
+									<h5>target: <span class="tsd-signature-type">T</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -205,30 +173,27 @@
 					<li class=" tsd-kind-class tsd-parent-kind-module">
 						<a href="../classes/_data_graph_.squaregridmap.html" class="tsd-kind-icon">Square<wbr>Grid<wbr>Map</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_data_graph_.colored.html" class="tsd-kind-icon">Colored</a>
-						<ul>
-							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_data_graph_.colored.html#color" class="tsd-kind-icon">color</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_data_graph_.colored.html#setcolor" class="tsd-kind-icon">set<wbr>Color</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_data_graph_.digraph.html" class="tsd-kind-icon">Di<wbr>Graph</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_data_graph_.graph.html" class="tsd-kind-icon">Graph</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_data_graph_.weighted.html" class="tsd-kind-icon">Weighted</a>
+						<ul>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="_data_graph_.weighted.html#weight" class="tsd-kind-icon">weight</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 				</ul>
 			</nav>
 		</div>
