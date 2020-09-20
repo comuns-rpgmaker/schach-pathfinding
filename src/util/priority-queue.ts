@@ -8,9 +8,7 @@
  * Generic priority queue class implemented with a Pairing Heap.
  */
 
-import { Maybe, just, empty, isEmpty } from "./maybe";
-
-type Relation<T> = (a: T, b: T) => boolean;
+import { Relation, less } from "./order";
 
 /**
  * Generic priority queue.
@@ -22,17 +20,17 @@ export class PriorityQueue<T> implements Iterator<T>
 
     readonly isLess: Relation<T>;
     
-    private _data: Maybe<T>;
+    private _data: T | undefined;
     private _children: PriorityQueue<T>[];
     private _elements: Set<T>;
 
     /** 
      * @param isLess - strict total order in `T`.
      */
-    constructor(isLess: Relation<T> = (a, b) => a < b)
+    constructor(isLess: Relation<T> = less)
     {
         this.isLess = isLess;
-        this._data = empty();
+        this._data = undefined;
         this._children = [];
         this._elements = new Set();
     }
@@ -55,7 +53,7 @@ export class PriorityQueue<T> implements Iterator<T>
         this._elements.add(value);
 
         const wrapper = new PriorityQueue<T>(this.isLess);
-        wrapper._data = just(value);
+        wrapper._data = value;
 
         const { _data: data, _children: children } = this._merge(wrapper);
         this._data = data;
@@ -69,7 +67,7 @@ export class PriorityQueue<T> implements Iterator<T>
      */
     clear(): void 
     {
-        this._data = empty();
+        this._data = undefined;
         this._children = [];
         this._elements.clear();
     }
@@ -77,7 +75,7 @@ export class PriorityQueue<T> implements Iterator<T>
     /**
      * @returns the first element in the queue.
      */
-    peek = (): T | undefined => this._data.value;
+    peek = (): T | undefined => this._data;
 
     /**
      * Removes and returns the first element in the queue.
@@ -86,12 +84,12 @@ export class PriorityQueue<T> implements Iterator<T>
      */
     next(): IteratorResult<T>
     {
-        if (isEmpty(this._data))
+        if (!this._data)
         {
             return { done: true, value: null };
         }
 
-        const value = this._data.value;
+        const value = this._data;
         this._elements.delete(value);
 
         const { _data: data, _children: children } = this._mergePairs(this._children);
@@ -131,12 +129,12 @@ export class PriorityQueue<T> implements Iterator<T>
 
     private _merge(other: PriorityQueue<T>)
     {
-        if (isEmpty(this._data)) return other;
-        if (isEmpty(other._data)) return this;
+        if (!this._data) return other;
+        if (!other._data) return this;
 
         const merged = new PriorityQueue<T>(this.isLess);
 
-        if (this.isLess(this._data.value, other._data.value))
+        if (this.isLess(this._data, other._data))
         {
             merged._data = this._data;
             merged._children = [other, ...this._children];
@@ -144,7 +142,13 @@ export class PriorityQueue<T> implements Iterator<T>
         else
         {
             merged._data = other._data;
-            merged._children = [Object.assign({}, this), ...other._children];
+            const clone = new PriorityQueue<T>(this.isLess);
+            clone._data = this._data;
+            clone._children = this._children;
+            merged._children = [
+                clone,
+                ...other._children
+            ];
         }
 
         return merged;

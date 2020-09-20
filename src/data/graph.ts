@@ -19,11 +19,11 @@ import { ArrayMap } from "util/array-map";
 export interface Graph<T>
 {
     /**
-     * @param v - vertex on the graph.
+     * @param v - a vertex on the graph.
      * 
      * @returns a list of vertices connected to the given vertex.
      */
-    neighbors(v: T): T[];
+    from(v: T): T[];
 }
 
 /**
@@ -31,22 +31,24 @@ export interface Graph<T>
  * 
  * @template T - type of vertex on the graph.
  */
-export interface DiGraph<T>
+export interface DiGraph<T> extends Graph<T>
 {
-    /**
-     * @param v - a vertex on the graph.
-     * 
-     * @returns a list of all vertices with incoming edges from the given
-     *          vertex.
-     */
-    from(v: T): T[];
-
     /**
      * @param v - a vertex on the graph.
      * 
      * @returns a list of all vertices with outgoing edges to the given vertex.
      */
     to(v: T): T[];
+}
+
+/**
+ * Generic weighted graph interface.
+ * 
+ * @template T - type of vertex on the graph.
+ */
+export interface Weighted<T>
+{
+    weight(source: T, target: T): number | undefined;
 }
 
 /**
@@ -57,7 +59,7 @@ export interface DiGraph<T>
  */
 export interface Colored<T, C>
 {
-    color(v: T): C;
+    color(v: T): C | undefined;
     setColor(v: T, color: C): void;
 }
 
@@ -117,46 +119,89 @@ export class SquareGridMap implements Graph<Point2>
         return x >= 0 && x < this.width && y >= 0 && y < this.height;
     }
 
-    neighbors([x, y]: Point2): Point2[]
+    from([x, y]: Point2): Point2[]
     {
         return this._directions.map(([ox, oy]) => [x + ox, y + oy] as Point2)
             .filter(p => this.contains(p));
+    }
+
+    /**
+     * Builds a weighted graph from this one.
+     * 
+     * @param weight - Weight function.
+     */
+    weighted(weight: (s: Point2, t: Point2) => number): this & Weighted<Point2>
+    {
+        const clone = Object.setPrototypeOf(Object.assign({}, this), this.constructor.prototype);
+        return Object.assign(clone, { weight });
+    }
+
+    /**
+     * Builds a colored graph from this one.
+     * 
+     * @param defaultColor - Default color.
+     */
+    colored<C>(defaultColor: C): this & Colored<Point2, C>
+    {
+        const clone = Object.setPrototypeOf(Object.assign({}, this), this.constructor.prototype);
+        const coloring = new SquareGridMapColoring(clone, defaultColor);
+
+        return Object.assign(clone, {
+            color: coloring.color.bind(coloring),
+            setColor: coloring.setColor.bind(coloring)
+        });
+    }
+
+    /**
+     * Manhattan distance between vertices.
+     * 
+     * @param param0 - Source vertex.
+     * @param param1 - Target vertex.
+     */
+    static d1([x1, y1]: Point2, [x2, y2]: Point2): number
+    {
+        return Math.abs(x2 - x1) + Math.abs(y2 - y1);
+    }
+
+    /**
+     * Euclidean distance between vertices.
+     * 
+     * @param param0 - Source vertex.
+     * @param param1 - Target vertex.
+     */
+    static d2([x1, y1]: Point2, [x2, y2]: Point2): number
+    {
+        return Math.hypot(x2 - x1, y2 - y1);
     }
 }
 
 /**
  * Generic colored square grid map graph class.
  */
-export class ColoredSquareGridMap<C>
-    extends SquareGridMap
-    implements Colored<Point2, C>
+class SquareGridMapColoring<C> implements Colored<Point2, C>
 {
-
     readonly defaultColor: C;
 
+    private readonly _graph: SquareGridMap;
     private _map: Map<number, Map<number, C>>;
     
     /**
-     * @param width - width of the grid.
-     * @param height - height of the grid.
-     * @param directions - list of directions for the edges between cells.
      * @param defaultColor - default color for the graph.
      */
-    constructor(
-        width: number,
-        height: number,
-        defaultColor: C,
-        directions: Point2[] = Directions.DIR4
-    )
+    constructor(g: SquareGridMap, defaultColor: C)
     {
-        super(width, height, directions);
+        this._graph = g;
         this.defaultColor = defaultColor;
         this._map = this._buildMap();
     }
 
-    color([x, y]: Point2): C
+    color([x, y]: Point2): C | undefined
     {
-        return this._map.get(x)?.get(y) || this.defaultColor;
+        if (this._graph.contains([x, y])) {
+            return this._map.get(x)?.get(y) || this.defaultColor;
+        } else {
+            return undefined;
+        }
     }
 
     setColor([x, y]: Point2, color: C): void

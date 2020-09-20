@@ -8,8 +8,6 @@
  * Generic double-ended queue class implemented with a circular buffer.
  */
 
-import { Maybe, just, empty, isEmpty } from "./maybe";
-
 /**
  * Generic double-ended queue.
  * 
@@ -74,16 +72,16 @@ export class Deque<T>
     /**
      * @returns the element at the top of the deque.
      */
-    top(): Maybe<T>
+    top(): T | undefined
     {
         if (this._length === 0)
         {
-            return empty();
+            return undefined;
         }
         else
         {
             const index = this._index(this._length - 1);
-            return just(this._data[index]);
+            return this._data[index];
         }
         
     }
@@ -91,15 +89,15 @@ export class Deque<T>
     /**
      * @returns the element at the bottom of the deque.
      */
-    bottom(): Maybe<T>
+    bottom(): T | undefined
     {
         if (this._length === 0)
         {
-            return empty();
+            return undefined;
         }
         else
         {
-            return just(this._data[this._start]);
+            return this._data[this._start];
         }
     }
 
@@ -108,10 +106,10 @@ export class Deque<T>
      * 
      * @returns the element at the top of the deque.
      */
-    pop(): Maybe<T>
+    pop(): T | undefined
     {
         const top = this.top();
-        if (!isEmpty(top)) this._length--;
+        if (top) this._length--;
         return top;
     }
     
@@ -120,11 +118,11 @@ export class Deque<T>
      * 
      * @returns the element at the bottom of the deque.
      */
-    shift(): Maybe<T>
+    shift(): T | undefined
     {
         const bottom = this.bottom();
 
-        if (!isEmpty(bottom))
+        if (bottom)
         {
             this._length--;
             this._start = this._index(1);

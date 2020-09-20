@@ -53,7 +53,7 @@ export class ArrayMap<V> implements Map<number, V>
 
     get(key: number): V | undefined {
         if (this.has(key)) return this._data[key];
-        else if (this._provider) return this._provider();
+        else if (this._provider) return this._data[key] = this._provider();
         else return undefined;
     }
 
@@ -71,12 +71,12 @@ export class ArrayMap<V> implements Map<number, V>
         return this._data.length;
     }
 
-    *[Symbol.iterator](): IterableIterator<[number, V]> {
-        this._data.forEach((value, index) => yield [index, value]);
+    [Symbol.iterator](): IterableIterator<[number, V]> {
+        return this.entries();
     }
 
     *entries(): IterableIterator<[number, V]> {
-        this._data.forEach((value, index) => yield [index, value]);
+        for (let i = 0; i < this.size; i++) yield [i, this._data[i]];
     }
 
     *keys(): IterableIterator<number> {
