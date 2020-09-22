@@ -156,10 +156,8 @@ export class Deque<T>
 
     private _pack(): void
     {
-        this._data = [
-            ...this._data.slice(this._start, this._start + this._length),
-            ...this._data.slice(0, this._index(this._length - 1))
-        ];
+        this._data = this._data.slice(this._start, this._start + this._length)
+            .concat(this._data.slice(0, this._index(this._length - 1)));
 
         this._start = 0;
     }

@@ -40,17 +40,16 @@ export function aStar<T>(
     const fscore = new Map<number, number>();
     fscore.set(sourceId, heuristic(source, target));
 
-    const q = new PriorityQueue<T>(
-        (a: T, b: T) => fscore.get(g.id(a)!)! < fscore.get(g.id(b)!)!);
+    const q = new PriorityQueue<{ id: number, node: T }>(
+        ({ id: idA }, { id: idB }) => fscore.get(idA)! < fscore.get(idB)!);
 
     const open = new Set<number>();
-    q.add(source);
+    q.add({ id: sourceId, node: source });
 
     const cameFrom = new Map<number, T>();
 
     for (let current = q.next(); !current.done; current = q.next()) {
-        const node = current.value;
-        const nodeId = g.id(node)!;
+        const { id: nodeId, node } = current.value;
 
         if (nodeId == targetId)
         {
@@ -73,7 +72,7 @@ export function aStar<T>(
                     fscore.set(neighborId, score + heuristic(neighbor, target));
 
                     if (!open.has(neighborId)) {
-                        q.add(neighbor);
+                        q.add({ id: neighborId, node: neighbor });
                         open.add(neighborId);
                     }
                 }
@@ -89,10 +88,11 @@ function makePath<T>(g: Graph<T>, target: T, cameFrom: Map<number, T>): Deque<T>
     const path = new Deque<T>();
     path.push(target);
 
+    let currentId: number;
     let current = target;
-    while (cameFrom.has(g.id(current)!))
+    while (cameFrom.has(currentId = g.id(current)!))
     {
-        current = cameFrom.get(g.id(current)!)!;
+        current = cameFrom.get(currentId)!;
         path.unshift(current);
     }
 

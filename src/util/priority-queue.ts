@@ -22,7 +22,7 @@ export class PriorityQueue<T> implements Iterator<T>
     
     private _data: T | undefined;
     private _children: PriorityQueue<T>[];
-    private _elements: Set<T>;
+    private _size: number;
 
     /** 
      * @param isLess - strict total order in `T`.
@@ -32,7 +32,6 @@ export class PriorityQueue<T> implements Iterator<T>
         this.isLess = isLess;
         this._data = undefined;
         this._children = [];
-        this._elements = new Set();
     }
 
     /**
@@ -40,7 +39,7 @@ export class PriorityQueue<T> implements Iterator<T>
      */
     get size(): number
     {
-        return this._elements.size;
+        return this._size;
     }
 
     /**
@@ -50,7 +49,7 @@ export class PriorityQueue<T> implements Iterator<T>
      */
     add(value: T): this
     {
-        this._elements.add(value);
+        this._size++;
 
         const wrapper = new PriorityQueue<T>(this.isLess);
         wrapper._data = value;
@@ -69,7 +68,7 @@ export class PriorityQueue<T> implements Iterator<T>
     {
         this._data = undefined;
         this._children = [];
-        this._elements.clear();
+        this._size = 0;
     }
 
     /**
@@ -90,7 +89,7 @@ export class PriorityQueue<T> implements Iterator<T>
         }
 
         const value = this._data;
-        this._elements.delete(value);
+        this._size--;
 
         const { _data: data, _children: children } = this._mergePairs(this._children);
         this._data = data;
@@ -98,12 +97,6 @@ export class PriorityQueue<T> implements Iterator<T>
 
         return { done: false, value };
     }
-
-    /**
-     * @param elem - element to be looked for.
-     * @returns `true` if `elem` is queued.
-     */
-    has = (elem: T): boolean => this._elements.has(elem)
 
     /**
      * Creates a priority queue from an iterable.
@@ -137,7 +130,7 @@ export class PriorityQueue<T> implements Iterator<T>
         if (this.isLess(this._data, other._data))
         {
             merged._data = this._data;
-            merged._children = [other, ...this._children];
+            merged._children = [other].concat(this._children);
         }
         else
         {
@@ -145,10 +138,7 @@ export class PriorityQueue<T> implements Iterator<T>
             const clone = new PriorityQueue<T>(this.isLess);
             clone._data = this._data;
             clone._children = this._children;
-            merged._children = [
-                clone,
-                ...other._children
-            ];
+            merged._children = [clone].concat(other._children);
         }
 
         return merged;
@@ -160,14 +150,20 @@ export class PriorityQueue<T> implements Iterator<T>
         {
             return new PriorityQueue(this.isLess);
         }
-        else if (queues.length === 1)
-        {
-            return queues[0];
-        }
         else
         {
-            const rest = this._mergePairs(queues.slice(2));
-            return queues[0]._merge(queues[1])._merge(rest);
+            const pairs: PriorityQueue<T>[] = [];
+
+            for (let i = 0; i < queues.length - 1; i += 2) {
+                pairs.push(queues[i]._merge(queues[i + 1]));
+            }
+
+            // Add remaining heap if it's odd
+            if ((queues.length & 1) === 1) {
+                pairs.push(queues[queues.length - 1]);
+            }
+
+            return pairs.reduceRight((result, heap) => result._merge(heap));
         }
     }
 
