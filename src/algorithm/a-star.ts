@@ -11,7 +11,7 @@
 import { PriorityQueue } from "util/priority-queue";
 import { Deque } from "util/deque";
 
-import type { Colored, Graph, Weighted } from "data/graph";
+import type { Graph, Weighted } from "data/graph";
 
 /**
  * Finds the shortest path between two points on a weighted graph using A*.
