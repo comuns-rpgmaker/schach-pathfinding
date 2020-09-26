@@ -46,13 +46,7 @@ import {
 import { PriorityQueue } from "util/priority-queue";
 import { Deque } from "util/deque";
 
-enum REANodeType {
-    GPOINT,
-    HPOINT
-}
-
 type REANode = {
-    mode: REANodeType,
     gvalue: number,
     hvalue?: number,
     fvalue?: number
@@ -101,7 +95,7 @@ class REAStar<C>
         this.color = g.color(target)!;
 
         this.nodes = new SquareGridMap(g.width, g.height)
-            .colored<REANode>({ mode: REANodeType.GPOINT, gvalue: Infinity });
+            .colored<REANode>({ gvalue: Infinity });
 
         this.open = new PriorityQueue<SearchNode>((a, b) =>
             a.minfval < b.minfval);
@@ -142,7 +136,6 @@ class REAStar<C>
     
             this.cameFrom.set(this.g.id(p)!, this.source);
             this.nodes.setColor(p, {
-                mode: REANodeType.GPOINT,
                 gvalue: octile(this.source, p)
             });
         }
@@ -191,7 +184,6 @@ class REAStar<C>
                 this.cameFrom.set(this.g.id(p)!, pp);
                 const hvalue = octile(p, this.target);
                 this.nodes.setColor(p, {
-                    mode: REANodeType.HPOINT,
                     gvalue: pgvalue,
                     hvalue,
                     fvalue: pgvalue + hvalue
@@ -243,13 +235,12 @@ class REAStar<C>
                     const pp = interval.at(k);
                     const g = this.nodes.color(pp)!.gvalue + octile(p, pp);
 
-                    const { mode, gvalue, hvalue } = this.nodes.color(p)!;
+                    const { gvalue, hvalue } = this.nodes.color(p)!;
 
                     if (g < gvalue)
                     {
                         this.cameFrom.set(this.g.id(p)!, pp);
                         this.nodes.setColor(p, {
-                            mode,
                             gvalue: g,
                             hvalue,
                             fvalue: hvalue ? g + hvalue : undefined
