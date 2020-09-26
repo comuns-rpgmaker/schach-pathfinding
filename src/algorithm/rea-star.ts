@@ -8,6 +8,32 @@
  * Rectangle expansion A* algorithm implementation.
  */
 
+declare class Bitmap
+{
+    constructor(width: number, height: number);
+
+    fillAll(color: string): void;
+}
+
+declare class Sprite
+{
+    x: number;
+    y: number;
+    opacity: number;
+
+    constructor(bitmap: Bitmap);
+}
+
+declare namespace SceneManager
+{
+    const _scene: { addChild(s: Sprite): void };
+}
+
+declare namespace Graphics
+{
+    function _updateAllElements(): void;
+}
+
 import {
     SquareGridMap,
     ColoredSquareGridMap,
@@ -32,9 +58,7 @@ type REANode = {
     fvalue?: number
 };
 
-type REANodeMap = ColoredSquareGridMap<REANode | undefined>;
-
-type SearchNode = { interval: Interval, minfval: number};
+type SearchNode = { interval: Interval, minfval: number };
 
 /**
  * Finds the shortest path between two points on a square grid graph using
@@ -63,6 +87,7 @@ class REAStar<C>
     readonly source: Point2;
     readonly target: Point2;
     readonly g: ColoredSquareGridMap<C>;
+
     readonly nodes: ColoredSquareGridMap<REANode>;
     readonly open: PriorityQueue<SearchNode>;
     readonly cameFrom: Map<number, Point2>;
@@ -93,7 +118,6 @@ class REAStar<C>
         while (this.open.size > 0)
         {
             const node = this.open.next();
-            console.log('visiting', node.value);
             path = this.expand(node.value);
 
             if (path) return path;
@@ -105,6 +129,7 @@ class REAStar<C>
     insertStart(): Deque<Point2> | undefined
     {
         const rect = Rect.expand(this.source, this.g);
+        showRect(rect, 'gray');
     
         if (rect.contains(this.target))
         {
@@ -115,143 +140,129 @@ class REAStar<C>
         for (let i = 0; i < boundaries.length; i++) {
             const p = boundaries[i];
     
+            this.cameFrom.set(this.g.id(p)!, this.source);
             this.nodes.setColor(p, {
                 mode: REANodeType.GPOINT,
                 gvalue: octile(this.source, p)
             });
         }
     
-        const color = this.g.color(this.source);
         for (let i = 0; i < Cardinals.length; i++) {
             let cardinal = i as Cardinal;
     
             const interval = rect.extendNeighborInterval(cardinal);
             if (!interval.isValid(this.g)) continue;
     
-            const path = this.successor(interval, interval);
+            const path = this.successor(interval);
             if (path) return path;
         }
     
         return undefined;
     }
 
-    successor(interval: Interval, parentNode: Interval): Deque<Point2> | undefined
+    successor(interval: Interval): Deque<Point2> | undefined
     {
-        const eni = interval.freeSubIntervals(this.g, this.color);
+        const freeSubIntervals = interval.freeSubIntervals(this.g, this.color);
         
-        for (let i = 0; i < eni.length; i++)
+        for (let i = 0; i < freeSubIntervals.length; i++)
         {
-            const fsi = eni[i];
-            let updated = false;
-    
-            for (let j = 0; j < fsi.length; j++)
-            {
-                const p = fsi.at(j);
-                const pp = fsi.parent().at(j); // TODO: all reachable
-    
-                const gvalue = this.nodes.color(p)?.gvalue || Infinity;
-                const pGvalue = this.nodes.color(pp)!.gvalue;
-    
-                if (pGvalue + 1 < gvalue)
-                {
-                    const hvalue = octile(p, this.target);
-                    this.nodes.setColor(p, {
-                        mode: REANodeType.HPOINT,
-                        gvalue: pGvalue,
-                        hvalue,
-                        fvalue: gvalue + hvalue
-                    });
-                    updated = true;
-                }
-            }
-    
-            if (fsi.contains(this.target)
-                &&
-                this.nodes.color(this.target)!.fvalue! <= this.minFvalue(parentNode))
-            {
-                return Deque.from([this.target]); // FIXME
-            }
-    
-            if (updated)
-            {
-                const minfval = this.minFvalue(fsi);
+            const path = this.freeSuccessor(freeSubIntervals[i]);
+            if (path) return path;
+        }
 
-                console.log('added', fsi, 'to open set');
-                this.open.add({ interval: fsi, minfval });
+        return undefined;
+    }
+
+    freeSuccessor(fsi: Interval): Deque<Point2> | undefined
+    {
+        const parent = fsi.parent();
+        let updated = false;
+
+        for (let i = 0; i < fsi.length; i++)
+        {
+            const p = fsi.at(i);
+            const gvalue = this.nodes.color(p)?.gvalue || Infinity;
+
+            const pp = parent.at(i); // TODO: all reachable
+            const pgvalue = this.nodes.color(pp)!.gvalue;
+
+            if (pgvalue + 1 < gvalue)
+            {
+                this.cameFrom.set(this.g.id(p)!, pp);
+                const hvalue = octile(p, this.target);
+                this.nodes.setColor(p, {
+                    mode: REANodeType.HPOINT,
+                    gvalue: pgvalue,
+                    hvalue,
+                    fvalue: pgvalue + hvalue
+                });
+                updated = true;
             }
         }
-    
-        return undefined;
+
+        if (fsi.contains(this.target)) return this.makePath();
+
+        if (updated)
+        {
+            showInterval(fsi, 'red');
+            const minfval = this.minFvalue(fsi);
+            
+            this.open.add({ interval: fsi, minfval });
+        }
     }
 
     expand(node: SearchNode): Deque<Point2> | undefined
     {
         const interval = node.interval;
-        console.log('expanding', interval);
-        if (interval.contains(this.target)) return Deque.from([this.target]); // FIXME
-    
-        const rect = interval.expandRect(this.g);
-        console.log('expanded rect', rect);
-        if (rect.contains(this.target)) return Deque.from([this.target]); // FIXME
-    
-        const perp = rect.perpendicular(interval.cardinal);
-        for (let i = 0; i < perp.length; i++)
+        if (interval.contains(this.target)) return this.makePath();
+
+        const rect = interval.expandRect(this.g, this.color);
+        showRect(rect, 'grey');
+
+        if (rect.contains(this.target))
         {
-            const p = perp[i];
-            let v = this.nodes.color(p.at(0))!.gvalue;
-            for (let j = 1, oct = Math.SQRT2; j < p.length; j++, oct += Math.SQRT2)
-            {
-                const a = p.at(j);
-    
-                const { mode, gvalue } = this.nodes.color(a)!;
-                const pGvalue = Math.min(v + 1, oct);
-    
-                if (pGvalue < gvalue) {
-                    //this.cameFrom.set(g.id(a)!, p.at(j - 1));
-                    this.nodes.setColor(a, {
-                        mode,
-                        gvalue: pGvalue
-                    });
-                    v = pGvalue;
-                }
-                else
-                {
-                    v = gvalue;
-                }
-            };
-    
-            const path = this.successor(
-                rect.extendNeighborInterval(p.cardinal),
-                interval
-            );
-    
-            if (path) return path;
+            this.cameFrom.set(this.g.id(this.target)!, interval.at(this.findMinFvalue(interval)));
+            return this.makePath();
         }
-    
+
         // TODO: optimize
-        const p = rect.parallel(interval.cardinal);
-        for (let i = 0; i < p.length; i++)
+        const walls =
+            rect.perpendicular(interval.cardinal)
+            .concat(rect.parallel(interval.cardinal));
+
+        for (let i = 0; i < 3; i++)
         {
-            const a = p.at(i);
-            const { mode, gvalue } = this.nodes.color(a)!;
-    
-            for (let j = 0; j < interval.length; j++)
+            const pi = walls[i];
+
+            for (let j = 0; j < pi.length; j++)
             {
-                const pGvalue = octile(interval.at(j), a);
-    
-                if (pGvalue < gvalue) {
-                    this.nodes.setColor(a, {
-                        mode,
-                        gvalue: pGvalue
-                    });
+                const p = pi.at(j);
+
+                for (let k = 0; k < interval.length; k++)
+                {
+                    const pp = interval.at(k);
+                    const g = this.nodes.color(pp)!.gvalue + octile(p, pp);
+
+                    const { mode, gvalue, hvalue } = this.nodes.color(p)!;
+
+                    if (g < gvalue)
+                    {
+                        this.cameFrom.set(this.g.id(p)!, pp);
+                        this.nodes.setColor(p, {
+                            mode,
+                            gvalue: g,
+                            hvalue,
+                            fvalue: hvalue ? g + hvalue : undefined
+                        });
+                    }
                 }
             }
+
+            const path = this.successor(rect.extendNeighborInterval(pi.cardinal));
+            if (path) return path;
         }
-    
-        return this.successor(
-            rect.extendNeighborInterval(p.cardinal),
-            interval
-        );
+
+        return undefined;
     }
 
     minFvalue(interval: Interval): number
@@ -265,6 +276,41 @@ class REAStar<C>
     
         return min;
     }
+
+    // TODO: optimize
+    findMinFvalue(interval: Interval): number
+    {
+        let min: number = Infinity, r = 0;
+    
+        for (let i = 0; i < interval.length; i++) {
+            const fval = this.nodes.color(interval.at(i))!.fvalue!;
+            if (fval < min)
+            {
+                min = fval;
+                r = i;
+            }
+        }
+    
+        return r;
+    }
+
+    makePath(): Deque<Point2>
+    {
+        this.cameFrom.delete(this.g.id(this.source)!);
+
+        const path = new Deque<Point2>();
+        path.push(this.target);
+
+        let currentId: number;
+        let current = this.target;
+        while (this.cameFrom.has(currentId = this.g.id(current)!))
+        {
+            current = this.cameFrom.get(currentId)!;
+            path.unshift(current);
+        }
+
+        return path;
+    }
 }
 
 function octile(source: Point2, p: Point2): number
@@ -273,4 +319,32 @@ function octile(source: Point2, p: Point2): number
           dy = Math.abs(source[1] - p[1]);
 
     return Math.SQRT2 * Math.min(dx, dy) + Math.abs(dx - dy);
+}
+
+// TODO: remove this
+export function showRect(rect: Rect, color: string)
+{
+    const b = rect.boundaries();
+    for (let i = 0; i < b.length; i++) {
+        showTile(b[i], color);
+    }
+}
+
+export function showInterval(interval: Interval, color: string)
+{
+    for (let i = 0; i < interval.length; i++) {
+        showTile(interval.at(i), color);
+    }
+}
+
+export function showTile([x, y]: Point2, color: string)
+{
+    let bmp = new Bitmap(48, 48);
+    bmp.fillAll(color);
+
+    let s = new Sprite(bmp);
+    s.x = x * 48;
+    s.y = y * 48;
+    s.opacity = 50;
+    SceneManager._scene.addChild(s);
 }

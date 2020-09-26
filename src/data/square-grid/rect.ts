@@ -24,8 +24,6 @@ export class Rect
 
     static expand(p: Point2, g: ColoredSquareGridMap<unknown>): Rect
     {
-        console.log("expanding rect for", p);
-
         const color = g.color(p);
 
         let [left, top] = p;
@@ -50,8 +48,6 @@ export class Rect
             top--;
         }
         top++;
-
-        console.log("expanded rect", { left, top, right, bottom });
 
         return new Rect(left, top, right, bottom);
     }
@@ -169,7 +165,7 @@ export class Rect
         {
             case Cardinal.NORTH:
             case Cardinal.SOUTH:
-                return [this.east, this.west];
+                return [this.west, this.east];
             
             case Cardinal.EAST:
             case Cardinal.WEST:

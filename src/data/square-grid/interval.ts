@@ -1,3 +1,4 @@
+import { showInterval } from "algorithm/rea-star";
 /**
  * @file rect.ts
  * 
@@ -135,13 +136,15 @@ export abstract class Interval {
      * @returns an unblocked rect on the given graph.  
      */
     expandRect(
-        g: ColoredSquareGridMap<unknown>
+        g: ColoredSquareGridMap<unknown>,
+        color: unknown
     ): Rect
     {
-        const color = g.color(this.at(0));
-        
         let other: Interval = this;
-        for (let i = other; i.isFree(g, color); i = i.step()) other = i;
+        for (let i = other; i.isFree(g, color); i = i.step()) {
+            showInterval(i, "white");
+            other = i;
+        }
 
         return Rect.between(this, other);
     }
