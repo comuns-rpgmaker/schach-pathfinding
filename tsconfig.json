@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "esModuleInterop": true,
+        "moduleResolution": "node",
         "target": "ES6",
         "lib": ["ES5", "ES6", "DOM"],
         "downlevelIteration": true,

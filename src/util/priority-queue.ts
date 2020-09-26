@@ -32,6 +32,7 @@ export class PriorityQueue<T> implements Iterator<T>
         this.isLess = isLess;
         this._data = undefined;
         this._children = [];
+        this._size = 0;
     }
 
     /**
