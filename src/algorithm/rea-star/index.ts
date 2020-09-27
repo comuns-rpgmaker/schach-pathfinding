@@ -216,8 +216,6 @@ class REAStar<C>
         // TODO: optimize
         const walls = rect.perpendicular(interval.cardinal).concat(rect.parallel(interval.cardinal));
 
-        console.log(walls);
-
         for (let i = 0; i < 3; i++)
         {
             const wall = walls[i];
