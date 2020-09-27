@@ -11,6 +11,8 @@ const header = readFileSync(`${__dirname}/dist/annotations.js`)
                 + '\n'
                 + readFileSync('header.js', 'utf-8');
 
+const wasm = readFileSync(`${__dirname}/wasm/dist/rea_star.js`);
+
 export default [
 	{
         input: 'src/main.ts',
@@ -20,6 +22,7 @@ export default [
                 name: pkg.namespace,
                 format: 'iife',
                 sourcemap: false,
+                outro: wasm,
                 plugins: [
                     terser({
                         format: {
@@ -34,7 +37,8 @@ export default [
                 name: pkg.namespace,
                 format: 'iife',
                 sourcemap: true,
-                banner: header
+                banner: header,
+                outro: wasm
             }
         ],
         plugins: [

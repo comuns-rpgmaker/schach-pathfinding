@@ -13,29 +13,37 @@
 #include <vector>
 
 namespace rea_star {
-    struct point {
-        int x;
-        int y;
+    union Point {
+        struct {
+            int x;
+            int y;
+        };
+
+        int coords[2];
     };
 
     template <typename T>
-    class grid {
+    class Grid {
         public:
-            grid(int width, int height) {}
+            Grid(int width, int height) {}
 
-            grid(int width, int height, T defaultValue):
+            Grid(int width, int height, T defaultValue):
                 m_width(width),
                 m_height(height),
                 m_data(width * height, defaultValue) {}
 
             __attribute__((hot))
-            T operator[](const point& p) const {
+            T at(const Point& p) {
+                assert(p.x < m_width);
+                assert(p.y < m_height);
+
                 return m_data[p.y * m_width + p.x];
-            }
+            };
 
-            T at(const point& p) __attribute__((alias("operator[]")));
+            void set(const Point& p, const T& value) {
+                assert(p.x < m_width);
+                assert(p.y < m_height);
 
-            void set(const point& p, const T& value) {
                 m_data[p.y * m_width + p.x] = value;
             }
 
