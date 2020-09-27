@@ -142,7 +142,6 @@ export abstract class Interval {
     {
         let other: Interval = this;
         for (let i = other; i.isFree(g, color); i = i.step()) {
-            showInterval(i, "white");
             other = i;
         }
 

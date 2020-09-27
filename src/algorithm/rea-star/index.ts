@@ -35,7 +35,6 @@ declare namespace Graphics
 }
 
 import {
-    SquareGridMap,
     ColoredSquareGridMap,
     Point2,
     Cardinal, 
@@ -46,13 +45,8 @@ import {
 import { PriorityQueue } from "util/priority-queue";
 import { Deque } from "util/deque";
 
-type REANode = {
-    gvalue: number,
-    hvalue?: number,
-    fvalue?: number
-};
-
-type SearchNode = { interval: Interval, minfval: number };
+import { REAStarNodeMap } from './nodes';
+import { REAStarPathBuilder } from "./path-builder";
 
 /**
  * Finds the shortest path between two points on a square grid graph using
@@ -76,15 +70,18 @@ export function rectangleExpansionAStar<C>(
     return new REAStar(source, target, g).findPath();
 }
 
+type SearchNode = { interval: Interval, minfval: number, pmin: Point2 };
+
 class REAStar<C>
 {
     readonly source: Point2;
     readonly target: Point2;
     readonly g: ColoredSquareGridMap<C>;
 
-    readonly nodes: ColoredSquareGridMap<REANode>;
+    readonly nodes: REAStarNodeMap;
+    readonly builder: REAStarPathBuilder;
+
     readonly open: PriorityQueue<SearchNode>;
-    readonly cameFrom: Map<number, Point2>;
     readonly color: C;
 
     constructor(source: Point2, target: Point2, g: ColoredSquareGridMap<C>)
@@ -94,13 +91,12 @@ class REAStar<C>
         this.g = g;
         this.color = g.color(target)!;
 
-        this.nodes = new SquareGridMap(g.width, g.height)
-            .colored<REANode>({ gvalue: Infinity });
+        this.nodes = new REAStarNodeMap();
 
         this.open = new PriorityQueue<SearchNode>((a, b) =>
             a.minfval < b.minfval);
 
-        this.cameFrom = new Map<number, Point2>();
+        this.builder = new REAStarPathBuilder(source, target, g);
     }
 
     findPath()
@@ -134,10 +130,8 @@ class REAStar<C>
         for (let i = 0; i < boundaries.length; i++) {
             const p = boundaries[i];
     
-            this.cameFrom.set(this.g.id(p)!, this.source);
-            this.nodes.setColor(p, {
-                gvalue: octile(this.source, p)
-            });
+            this.builder.setParent(p, this.source);
+            this.nodes.set(p, octile(this.source, p));
         }
     
         for (let i = 0; i < Cardinals.length; i++) {
@@ -174,133 +168,99 @@ class REAStar<C>
         for (let i = 0; i < fsi.length; i++)
         {
             const p = fsi.at(i);
-            const gvalue = this.nodes.color(p)?.gvalue || Infinity;
+            let gvalue = this.nodes.get(p).gvalue;
 
-            const pp = parent.at(i); // TODO: all reachable
-            const pgvalue = this.nodes.color(pp)!.gvalue;
-
-            if (pgvalue + 1 < gvalue)
+            for (let j = i - 1; j <= i + 1; j++)
             {
-                this.cameFrom.set(this.g.id(p)!, pp);
-                const hvalue = octile(p, this.target);
-                this.nodes.setColor(p, {
-                    gvalue: pgvalue,
-                    hvalue,
-                    fvalue: pgvalue + hvalue
-                });
-                updated = true;
+                if (j < 0 || j >= parent.length) continue;
+
+                const pp = parent.at(j);
+                const pgvalue = this.nodes.get(pp).gvalue;
+                const ppgvalue = pgvalue + octile(p, pp);
+
+                if (ppgvalue < gvalue)
+                {
+                    gvalue = ppgvalue;
+                    this.builder.setParent(p, pp);
+                    const hvalue = octile(p, this.target);
+                    this.nodes.set(p, gvalue, hvalue);
+                    updated = true;
+                }
             }
         }
 
-        if (fsi.contains(this.target)) return this.makePath();
+        if (fsi.contains(this.target)) return this.builder.build();
 
         if (updated)
         {
             showInterval(fsi, 'red');
-            const minfval = this.minFvalue(fsi);
-            
-            this.open.add({ interval: fsi, minfval });
+            const { minfval, pmin } = this.findMinFvalue(fsi);
+            this.open.add({ interval: fsi, minfval, pmin });
         }
     }
 
     expand(node: SearchNode): Deque<Point2> | undefined
     {
         const interval = node.interval;
-        if (interval.contains(this.target)) return this.makePath();
+        if (interval.contains(this.target)) return this.builder.build();
 
         const rect = interval.expandRect(this.g, this.color);
         showRect(rect, 'grey');
 
         if (rect.contains(this.target))
         {
-            this.cameFrom.set(this.g.id(this.target)!, interval.at(this.findMinFvalue(interval)));
-            return this.makePath();
+            this.builder.setParent(this.target, node.pmin);
+            return this.builder.build();
         }
 
         // TODO: optimize
-        const walls =
-            rect.perpendicular(interval.cardinal)
-            .concat(rect.parallel(interval.cardinal));
+        const walls = rect.perpendicular(interval.cardinal).concat(rect.parallel(interval.cardinal));
+
+        console.log(walls);
 
         for (let i = 0; i < 3; i++)
         {
-            const pi = walls[i];
-
-            for (let j = 0; j < pi.length; j++)
+            const wall = walls[i];
+            for (let j = 0; j < wall.length; j++)
             {
-                const p = pi.at(j);
+                const p = wall.at(j);
 
                 for (let k = 0; k < interval.length; k++)
                 {
                     const pp = interval.at(k);
-                    const g = this.nodes.color(pp)!.gvalue + octile(p, pp);
-
-                    const { gvalue, hvalue } = this.nodes.color(p)!;
+                    const g = this.nodes.get(pp).gvalue + octile(p, pp);
+                    const gvalue = this.nodes.get(p).gvalue;
 
                     if (g < gvalue)
                     {
-                        this.cameFrom.set(this.g.id(p)!, pp);
-                        this.nodes.setColor(p, {
-                            gvalue: g,
-                            hvalue,
-                            fvalue: hvalue ? g + hvalue : undefined
-                        });
+                        this.builder.setParent(p, pp);
+                        this.nodes.set(p, g);
                     }
                 }
             }
 
-            const path = this.successor(rect.extendNeighborInterval(pi.cardinal));
+            const path = this.successor(rect.extendNeighborInterval(wall.cardinal));
             if (path) return path;
         }
 
         return undefined;
     }
 
-    minFvalue(interval: Interval): number
+    findMinFvalue(interval: Interval): { minfval: number, pmin: Point2 }
     {
-        let min: number = Infinity;
+        let minfval: number = Infinity, pmin: Point2 = [0, 0];
     
         for (let i = 0; i < interval.length; i++) {
-            const fval = this.nodes.color(interval.at(i))!.fvalue!;
-            if (fval < min) min = fval;
-        }
-    
-        return min;
-    }
-
-    // TODO: optimize
-    findMinFvalue(interval: Interval): number
-    {
-        let min: number = Infinity, r = 0;
-    
-        for (let i = 0; i < interval.length; i++) {
-            const fval = this.nodes.color(interval.at(i))!.fvalue!;
-            if (fval < min)
+            const p = interval.at(i);
+            const fval = this.nodes.get(p).fvalue!;
+            if (fval < minfval)
             {
-                min = fval;
-                r = i;
+                minfval = fval;
+                pmin = p;
             }
         }
     
-        return r;
-    }
-
-    makePath(): Deque<Point2>
-    {
-        this.cameFrom.delete(this.g.id(this.source)!);
-
-        const path = new Deque<Point2>();
-        path.push(this.target);
-
-        let currentId: number;
-        let current = this.target;
-        while (this.cameFrom.has(currentId = this.g.id(current)!))
-        {
-            current = this.cameFrom.get(currentId)!;
-            path.unshift(current);
-        }
-
-        return path;
+        return { minfval, pmin };
     }
 }
 
@@ -328,14 +288,23 @@ export function showInterval(interval: Interval, color: string)
     }
 }
 
+declare const $gameMap: any;
+
 export function showTile([x, y]: Point2, color: string)
 {
     let bmp = new Bitmap(48, 48);
     bmp.fillAll(color);
 
     let s = new Sprite(bmp);
-    s.x = x * 48;
-    s.y = y * 48;
-    s.opacity = 50;
+    s.opacity = 100;
+
+    let update = () => {
+        s.x = (x - $gameMap.displayX()) * 48;
+        s.y = (y - $gameMap.displayY()) * 48;
+        requestAnimationFrame(update);
+    };
+
+    requestAnimationFrame(update);
+
     SceneManager._scene.addChild(s);
 }
