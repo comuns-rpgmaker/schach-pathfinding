@@ -7,8 +7,12 @@
         "downlevelIteration": true,
         "removeComments": true,
         "strictNullChecks": true,
-        "baseUrl": "src"
+        "baseUrl": "src",
+        "rootDirs": [
+            "src",
+            "wasm"
+        ]
     },
-    "include": ["src/**/*", "spec/**/*"],
+    "include": ["src/**/*.ts", "spec/**/*.ts"],
     "exclude": ["node_modules"]
 }

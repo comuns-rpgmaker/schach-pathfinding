@@ -44,7 +44,8 @@ export default [
         plugins: [
             typescript(),
             externalGlobals({
-                "rmmz": "window"
+                "rmmz": "window",
+                "wasm": pkg.namespace
             })
         ]
 	}

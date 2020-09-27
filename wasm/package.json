@@ -1,0 +1,8 @@
+{
+    "name": "rea-star",
+    "version": "1.0.0",
+    "description": "REA* implementation with WASM",
+    "types": "index.d.ts",
+    "author": "Brandt",
+    "license": "Zlib"
+}

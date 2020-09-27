@@ -13,7 +13,7 @@ EMSCRIPTEN_BINDINGS(rea_star) {
         .element(&Point::x)
         .element(&Point::y);
 
-    class_<Grid<bool>>("BoolGrid")
+    class_<Grid<bool>>("BooleanGrid")
         .constructor<int, int, bool>()
         .function("at", &Grid<bool>::at)
         .function("set", &Grid<bool>::set)

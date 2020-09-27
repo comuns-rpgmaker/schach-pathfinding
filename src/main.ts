@@ -8,7 +8,15 @@ export * from "algorithm/rea-star";
 export * from "data/square-grid";
 
 import { rectangleExpansionAStar, showTile } from "algorithm/rea-star";
-import { Point2, SquareGridMap } from "data/square-grid";
+import { ColoredSquareGridMap, Point2, SquareGridMap } from "data/square-grid";
+
+import { initREAStarWASM, REAStarWASM } from "rea-star-wasm";
+
+let REAStarWASMInstance: typeof REAStarWASM;
+
+export async function init() {
+    REAStarWASMInstance = await initREAStarWASM();
+}
 
 declare class Game_Event
 {
@@ -24,16 +32,20 @@ declare const $gameMap: {
 
 export function test(p: Point2, q: Point2)
 {
-    let m = new SquareGridMap($gameMap.width(), $gameMap.height());
-    let cm = m.colored(true);
+    let m = new REAStarWASMInstance.BooleanGrid($gameMap.width(), $gameMap.height(), true);
 
     for (let x = 0; x < $gameMap.width(); x++) {
         for (let y = 0; y < $gameMap.height(); y++) {
             const pass = $gameMap.checkPassage(x, y, 0xf);
             const collides = $gameMap.eventsXyNt(x, y).some(event => event.isNormalPriority());
-            cm.setColor([x, y], pass && !collides);
+            m.set([x, y], pass && !collides);
         }
     }
+
+    let cm = Object.assign(new SquareGridMap(m.width(), m.height()), {
+        color(p: Point2): boolean { return m.at(p); },
+        setColor(p: Point2, value: boolean): void { m.set(p, value); }
+    }) as ColoredSquareGridMap<boolean>;
 
     let path = rectangleExpansionAStar(p, q, cm)!;
     while (path.length > 0)
