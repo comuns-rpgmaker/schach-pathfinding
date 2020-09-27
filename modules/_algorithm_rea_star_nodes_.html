@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;algorithm/flood-fill&quot; | schach-pathfinding</title>
+	<title>&quot;algorithm/rea-star/nodes&quot; | schach-pathfinding</title>
 	<meta name="description" content="Documentation for schach-pathfinding">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -52,10 +52,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_algorithm_flood_fill_.html">&quot;algorithm/flood-fill&quot;</a>
+					<a href="_algorithm_rea_star_nodes_.html">&quot;algorithm/rea-star/nodes&quot;</a>
 				</li>
 			</ul>
-			<h1>Module &quot;algorithm/flood-fill&quot;</h1>
+			<h1>Module &quot;algorithm/rea-star/nodes&quot;</h1>
 		</div>
 	</div>
 </header>
@@ -67,77 +67,45 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Functions</h3>
+							<h3>Classes</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter"><a href="_algorithm_flood_fill_.html#floodfill" class="tsd-kind-icon">flood<wbr>Fill</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/_algorithm_rea_star_nodes_.reastarnodemap.html" class="tsd-kind-icon">REAStar<wbr>Node<wbr>Map</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Type aliases</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="_algorithm_rea_star_nodes_.html#reanode" class="tsd-kind-icon">REANode</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
-					<a name="floodfill" class="tsd-anchor"></a>
-					<h3>flood<wbr>Fill</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">flood<wbr>Fill&lt;T, C, U&gt;<span class="tsd-signature-symbol">(</span>start<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, color<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">C</span>, g<span class="tsd-signature-symbol">: </span><a href="../interfaces/_data_graph_.graph.html" class="tsd-signature-type">Graph</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><a href="../interfaces/_data_graph_.colored.html" class="tsd-signature-type">Colored</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span>, callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>v<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, c<span class="tsd-signature-symbol">?: </span><a href="" class="tsd-signature-type">C</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">U</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">U</span><span class="tsd-signature-symbol">[]</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/b13f76b/src/algorithm/flood-fill.ts#L25">algorithm/flood-fill.ts:25</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Applies flood-fill to a generic colored graph.</p>
-								</div>
-							</div>
-							<h4 class="tsd-type-parameters-title">Type parameters</h4>
-							<ul class="tsd-type-parameters">
-								<li>
-									<h4>T</h4>
-								</li>
-								<li>
-									<h4>C</h4>
-								</li>
-								<li>
-									<h4>U</h4>
-								</li>
-							</ul>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>start: <span class="tsd-signature-type">T</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>starting vertex.</p>
-									</div>
-								</li>
-								<li>
-									<h5>color: <span class="tsd-signature-type">C</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>color to fill in.</p>
-									</div>
-								</li>
-								<li>
-									<h5>g: <a href="../interfaces/_data_graph_.graph.html" class="tsd-signature-type">Graph</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><a href="../interfaces/_data_graph_.colored.html" class="tsd-signature-type">Colored</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>colored graph.</p>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>v<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, c<span class="tsd-signature-symbol">?: </span><a href="" class="tsd-signature-type">C</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">U</span><span class="tsd-signature-symbol">)</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>callback for each recolored vertex.</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">U</span><span class="tsd-signature-symbol">[]</span></h4>
-							<p>a list with all return values from the callback calls.</p>
-						</li>
-					</ul>
+				<h2>Type aliases</h2>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
+					<a name="reanode" class="tsd-anchor"></a>
+					<h3>REANode</h3>
+					<div class="tsd-signature tsd-kind-icon">REANode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>fvalue<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>gvalue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>hvalue<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/b13f76b/src/algorithm/rea-star/nodes.ts#L14">algorithm/rea-star/nodes.ts:14</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> fvalue<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5>gvalue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> hvalue<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+							</li>
+						</ul>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -150,13 +118,13 @@
 					<li class=" tsd-kind-module">
 						<a href="_algorithm_a_star_.html">&quot;algorithm/a-<wbr>star&quot;</a>
 					</li>
-					<li class="current tsd-kind-module">
+					<li class=" tsd-kind-module">
 						<a href="_algorithm_flood_fill_.html">&quot;algorithm/flood-<wbr>fill&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="_algorithm_rea_star_index_.html">&quot;algorithm/rea-<wbr>star/index&quot;</a>
 					</li>
-					<li class=" tsd-kind-module">
+					<li class="current tsd-kind-module">
 						<a href="_algorithm_rea_star_nodes_.html">&quot;algorithm/rea-<wbr>star/nodes&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -202,8 +170,11 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="_algorithm_flood_fill_.html#floodfill" class="tsd-kind-icon">flood<wbr>Fill</a>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/_algorithm_rea_star_nodes_.reastarnodemap.html" class="tsd-kind-icon">REAStar<wbr>Node<wbr>Map</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="_algorithm_rea_star_nodes_.html#reanode" class="tsd-kind-icon">REANode</a>
 					</li>
 				</ul>
 			</nav>
