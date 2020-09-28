@@ -59,6 +59,8 @@ namespace rea_star {
 
         __attribute__((hot))
         bool is_free(const Grid<bool>& g) const {
+            if (!is_valid(g)) return false;
+
             for (int i = 0; i < length(); i++) {
                 Point p = at(i);
                 if (!g.at(p)) return false;
@@ -67,8 +69,26 @@ namespace rea_star {
             return true;
         }
 
+        __attribute__((hot))
+        bool is_valid(const Grid<bool>& g) const {
+            return fixed() >= 0 && (
+                (axis() == Axis::X && fixed() <= g.width()) ||
+                (axis() == Axis::Y && fixed() <= g.height()));
+        }
+
+        template <typename T>
+        Interval clip(const Grid<T>& g) const {
+            return Interval(
+                m_cardinal,
+                m_fixed,
+                std::max(m_min, 0),
+                std::min(m_max, axis() == Axis::X ? g.height() : g.width())
+            );
+        }
+
         std::vector<Interval> free_subintervals(const Grid<bool>& g) const {
-            int len = length();
+            Interval clipped = clip(g);
+            int len = clipped.length();
             
             std::vector<Interval> subIntervals;
             subIntervals.reserve(len / 2);
@@ -77,14 +97,14 @@ namespace rea_star {
 
             int start = 0;
             do {
-                while (start <= len && !g.at(at(start))) start++;
+                while (start <= len && !g.at(clipped.at(start))) start++;
 
                 if (start > len) break;
 
                 int end = start;
-                while (end + 1 < len && g.at(at(end + 1))) end++;
+                while (end + 1 < len && g.at(clipped.at(end + 1))) end++;
 
-                subIntervals.push_back(subinterval(start, end));
+                subIntervals.push_back(clipped.subinterval(start, end));
 
                 start = end + 1;
             } while (start <= len);
