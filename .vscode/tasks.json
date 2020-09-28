@@ -4,7 +4,11 @@
             "type": "shell",
             "label": "Build plugin",
             "command": "npm run build",
-            "group": "build"
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$tsc"]
         }
     ],
     "version": "2.0.0"

@@ -12,7 +12,7 @@ import { ColoredSquareGridMap, Point2, SquareGridMap } from "data/square-grid";
 
 import { initREAStarWASM, REAStarWASM } from "rea-star-wasm";
 
-let REAStarWASMInstance: typeof REAStarWASM;
+export let REAStarWASMInstance: typeof REAStarWASM;
 
 export async function init() {
     REAStarWASMInstance = await initREAStarWASM();
@@ -42,7 +42,7 @@ export function test(p: Point2, q: Point2)
         }
     }
 
-    let cm = Object.assign(new SquareGridMap(m.width(), m.height()), {
+    let cm = Object.assign(new SquareGridMap(m.width, m.height), {
         color(p: Point2): boolean { return m.at(p); },
         setColor(p: Point2, value: boolean): void { m.set(p, value); }
     }) as ColoredSquareGridMap<boolean>;

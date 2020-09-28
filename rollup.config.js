@@ -45,7 +45,7 @@ export default [
             typescript(),
             externalGlobals({
                 "rmmz": "window",
-                "wasm": pkg.namespace
+                "rea-star-wasm": pkg.namespace
             })
         ]
 	}

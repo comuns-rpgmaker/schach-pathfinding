@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include <cassert>
 #include <vector>
 
 namespace rea_star {
@@ -25,7 +26,13 @@ namespace rea_star {
     template <typename T>
     class Grid {
         public:
-            Grid(int width, int height) {}
+            Grid() = default;
+            Grid(const Grid&) = default;
+            Grid(Grid&&) = default;
+
+            Grid(int width, int height):
+                m_width(width),
+                m_height(height) {}
 
             Grid(int width, int height, T defaultValue):
                 m_width(width),
@@ -33,13 +40,16 @@ namespace rea_star {
                 m_data(width * height, defaultValue) {}
 
             __attribute__((hot))
-            T at(const Point& p) {
+            T at(const Point& p) const {
+                assert(p.x >= 0);
+                assert(p.y >= 0);
                 assert(p.x < m_width);
                 assert(p.y < m_height);
 
                 return m_data[p.y * m_width + p.x];
-            };
+            }
 
+            __attribute__((cold))
             void set(const Point& p, const T& value) {
                 assert(p.x < m_width);
                 assert(p.y < m_height);

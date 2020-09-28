@@ -4,16 +4,16 @@ export declare namespace REAStarWASM {
     interface Grid<T> {
         at(p: Point2): T;
         set(p: Point2, value: T): void;
-        width(): number;
-        height(): number;
+        readonly width: number;
+        readonly height: number;
     }
 
     class BooleanGrid implements Grid<boolean> {
         constructor(width: number, height: number, defaultValue: boolean);
         at(p: Point2): boolean;
         set(p: Point2, value: boolean): void;
-        width(): number;
-        height(): number;
+        get width(): number;
+        get height(): number;
     }
 
     enum Cardinal {
