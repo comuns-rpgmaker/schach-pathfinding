@@ -1,5 +1,5 @@
 /**
- * @file map.ts
+ * @file square-grid.ts
  * 
  * @author Brandt
  * @date 2020/09/25
@@ -8,9 +8,9 @@
  * Definitions for square grid map graphs.
  */
 
-import { Colored, Graph, Weighted } from "data/graph";
-import { zip } from "util/array";
-import { ArrayMap } from "util/array-map";
+import { Colored, Graph, Weighted } from "../data/graph";
+import { zip } from "../util/array";
+import { ArrayMap } from "../util/array-map";
 
 export type Point2 = [number, number];
 

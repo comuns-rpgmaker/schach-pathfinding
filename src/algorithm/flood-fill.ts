@@ -8,9 +8,9 @@
  * Flood fill algorithm implementation.
  */
 
-import { Deque } from "util/deque";
+import { Deque } from "../util/deque";
 
-import type { Graph, Colored } from "data/graph";
+import type { Graph, Colored } from "../data/graph";
 
 /**
  * Applies flood-fill to a generic colored graph.

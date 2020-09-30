@@ -3,9 +3,7 @@
 #include "algorithm/rea_star.hpp"
 
 #include "data/grid.hpp"
-#include "data/cardinal.hpp"
 #include "data/interval.hpp"
-#include "data/rect.hpp"
 
 using namespace emscripten;
 using namespace rea_star;

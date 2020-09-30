@@ -42,10 +42,12 @@ namespace rea_star {
         return static_cast<Cardinal>(static_cast<int>(c) ^ 0x11);
     }
 
+    [[gnu::always_inline, gnu::hot]]
     inline constexpr int step(Cardinal c) {
         return -1 + ((static_cast<int>(c) & 0x1) << 1);
     }
 
+    [[gnu::always_inline, gnu::hot]]
     inline constexpr Axis axis(Cardinal c) {
         return static_cast<Axis>((static_cast<int>(c) & 0x10) == 0);
     }

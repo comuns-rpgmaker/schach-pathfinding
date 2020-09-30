@@ -14,7 +14,22 @@
                 "__clang__"
             ],
             "compilerPath": "${env:EMSDK}/upstream/emscripten/em++.bat",
-            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        },
+        {
+            "name": "Linux",
+            "includePath": [
+                "${env:EMSDK}/lib/clang/12.0.0/include",
+                "${env:EMSDK}/upstream/include",
+                "${env:EMSDK}/upstream/emscripten/system/include"
+            ],
+            "defines": [
+                "__EMSCRIPTEN__",
+                "__llvm__",
+                "__clang__"
+            ],
+            "compilerPath": "${env:EMSDK}/upstream/emscripten/em++",
             "cppStandard": "c++17",
             "intelliSenseMode": "clang-x64"
         }

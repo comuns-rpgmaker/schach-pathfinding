@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "description": "Pathfinding plugin for RPG Maker MZ",
   "namespace": "Schach.Pathfinding",
-  "testProjectDir": "../..",
   "scripts": {
     "postinstall": "emsdk install 2.0.4",
     "prebuild": "npm run build:metadata && npm run build:wasm",
     "build:metadata": "mz-mtdt -i ./plugin-metadata.yaml -o dist/annotations.js",
-    "build:wasm": "emsdk activate 2.0.4 && cd wasm && make",
+    "build:wasm": "emsdk activate 2.0.4 && cd wasm/rea-star && make",
     "build": "rollup -c",
     "test": "ts-node node_modules/jasmine/bin/jasmine",
     "coverage": "nyc -r lcov -e .ts -x \"spec/*\" npm run test"
