@@ -99,7 +99,7 @@ class REAStar<C>
         this.builder = new REAStarPathBuilder(source, target, g);
     }
 
-    findPath()
+    findPath(): Deque<Point2> | undefined
     {
         let path = this.insertStart();
 

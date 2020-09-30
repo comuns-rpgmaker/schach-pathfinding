@@ -16,12 +16,11 @@ export declare namespace REAStarWASM {
         get height(): number;
     }
 
-    enum Cardinal {
-        NORTH,
-        SOUTH,
-        EAST,
-        WEST
-    }
+    function rectangleExpansionAStar(
+        source: Point2,
+        target: Point2,
+        map: BooleanGrid
+    ): { size(): number, get(i: number): Point2 };
 }
 
 export declare const initREAStarWASM: () => Promise<typeof REAStarWASM>;

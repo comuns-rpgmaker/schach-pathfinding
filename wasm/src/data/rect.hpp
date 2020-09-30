@@ -155,6 +155,19 @@ namespace rea_star {
             return points;
         }
 
+        std::vector<Interval> walls(Cardinal cardinal) const {
+            switch (cardinal) {
+            case Cardinal::NORTH:
+                return { east(), west(), south() };
+            case Cardinal::SOUTH:
+                return { east(), west(), north() };
+            case Cardinal::EAST:
+                return { north(), south(), west() };
+            case Cardinal::WEST:
+                return { north(), south(), east() };
+            }
+        }
+
         Interval extend_neighbor_interval(Cardinal cardinal) const {
             switch (cardinal)
             {

@@ -42,15 +42,6 @@ export function test(p: Point2, q: Point2)
         }
     }
 
-    let cm = Object.assign(new SquareGridMap(m.width, m.height), {
-        color(p: Point2): boolean { return m.at(p); },
-        setColor(p: Point2, value: boolean): void { m.set(p, value); }
-    }) as ColoredSquareGridMap<boolean>;
-
-    let path = rectangleExpansionAStar(p, q, cm)!;
-    while (path.length > 0)
-    {
-        const p = path.shift()!;
-        showTile(p, 'blue');
-    }
+    let path = REAStarWASMInstance.rectangleExpansionAStar(p, q, m)!;
+    for (let i = 0; i < path.size(); i++) showTile(path.get(i), 'blue');
 }

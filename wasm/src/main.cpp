@@ -10,6 +10,13 @@
 using namespace emscripten;
 using namespace rea_star;
 
+val rectangle_expansion_astar_js(Point source, Point target, Grid<bool> g) {
+    auto path = rectangle_expansion_astar(source, target, g);
+
+    if (path.has_value()) return val(path.value());
+    return val::undefined();
+}
+
 EMSCRIPTEN_BINDINGS(rea_star) {    
     value_array<Point>("Point2")
         .element(&Point::x)
@@ -25,55 +32,5 @@ EMSCRIPTEN_BINDINGS(rea_star) {
         .property("width", &Grid<bool>::width)
         .property("height", &Grid<bool>::height);
 
-    enum_<Axis>("Axis")
-        .value("X", Axis::X)
-        .value("Y", Axis::Y);
-
-    enum_<Cardinal>("Cardinal")
-        .value("NORTH", Cardinal::NORTH)
-        .value("SOUTH", Cardinal::SOUTH)
-        .value("EAST", Cardinal::EAST)
-        .value("WEST", Cardinal::WEST);
-
-    function("opposite", opposite);
-    function("left_orthogonal", left_orthogonal);
-    function("right_orthogonal", right_orthogonal);
-    function("step", step);
-    function("axis", axis);
-
-    class_<Interval>("Interval")
-        .constructor<Cardinal, int, int, int>()
-        .function("at", &Interval::at)
-        .function("subinterval", &Interval::subinterval)
-        .function("contains", &Interval::contains)
-        .function("isFree", &Interval::is_free)
-        .function("isValid", &Interval::is_valid)
-        .function("clip", &Interval::clip<bool>)
-        .function("freeSubIntervals", &Interval::free_subintervals)
-        .property("length", &Interval::length)
-        .property("axis", &Interval::axis)
-        .property("fixed", &Interval::fixed)
-        .property("min", &Interval::min)
-        .property("max", &Interval::max);
-
-    class_<Rect>("Rect")
-        .constructor<int, int, int, int>()
-        .constructor<const Interval&>()
-        .class_function("expandPoint", &Rect::expand_point)
-        .class_function("expandInterval", &Rect::expand_interval)
-        .class_function("between", &Rect::between)
-        .function("contains", &Rect::contains)
-        .function("merge", &Rect::merge)
-        .property("left", &Rect::left)
-        .property("top", &Rect::top)
-        .property("right", &Rect::right)
-        .property("bottom", &Rect::bottom)
-        .property("width", &Rect::width)
-        .property("height", &Rect::height)
-        .property("north", &Rect::north)
-        .property("south", &Rect::south)
-        .property("east", &Rect::east)
-        .property("west", &Rect::west)
-        .property("boundaries", &Rect::boundaries)
-        .function("extendNeighborInterval", &Rect::extend_neighbor_interval);
+    function("rectangleExpansionAStar", rectangle_expansion_astar_js);
 }

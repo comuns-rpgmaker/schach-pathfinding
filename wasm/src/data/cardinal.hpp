@@ -18,6 +18,13 @@ namespace rea_star {
         WEST  = 0x10
     };
 
+    static constexpr Cardinal CARDINALS[] = {
+        Cardinal::NORTH,
+        Cardinal::SOUTH,
+        Cardinal::EAST,
+        Cardinal::WEST
+    };
+
     enum class Axis {
         X = 0,
         Y = 1

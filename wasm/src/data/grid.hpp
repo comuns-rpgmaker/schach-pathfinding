@@ -23,6 +23,14 @@ namespace rea_star {
         int coords[2];
     };
 
+    static bool operator==(const Point& a, const Point& b) {
+        return a.x == b.x && a.y == b.y;
+    }
+
+    static bool operator!=(const Point& a, const Point& b) {
+        return a.x != b.x || a.y != b.y;
+    }
+
     template <typename T>
     class Grid {
         public:

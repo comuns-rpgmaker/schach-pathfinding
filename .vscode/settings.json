@@ -70,6 +70,10 @@
         "ostream": "cpp",
         "tuple": "cpp",
         "type_traits": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "queue": "cpp",
+        "deque": "cpp",
+        "__functional_03": "cpp",
+        "memory_resource": "cpp"
     }
 }

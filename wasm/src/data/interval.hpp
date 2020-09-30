@@ -97,9 +97,9 @@ namespace rea_star {
 
             int start = 0;
             do {
-                while (start <= len && !g.at(clipped.at(start))) start++;
+                while (start < len && !g.at(clipped.at(start))) start++;
 
-                if (start > len) break;
+                if (start >= len) break;
 
                 int end = start;
                 while (end + 1 < len && g.at(clipped.at(end + 1))) end++;
@@ -107,14 +107,16 @@ namespace rea_star {
                 subIntervals.push_back(clipped.subinterval(start, end));
 
                 start = end + 1;
-            } while (start <= len);
+            } while (start < len);
 
             return subIntervals;
         }
 
-        int length() const { return m_max - m_min; }
+        int length() const { return m_max - m_min + 1; }
 
         Axis axis() const { return ::rea_star::axis(m_cardinal); }
+
+        Cardinal cardinal() const { return m_cardinal; };
 
         int fixed() const { return m_fixed; }
         int min() const { return m_min; }
@@ -124,6 +126,15 @@ namespace rea_star {
             m_fixed += ::rea_star::step(m_cardinal);
         }
 
+        Interval parent() const {
+            return Interval(
+                m_cardinal,
+                m_fixed - ::rea_star::step(m_cardinal),
+                m_min,
+                m_max
+            );
+        }
+
         class IntervalIterator {
         public:
             using iterator_category = std::input_iterator_tag;
@@ -131,6 +142,9 @@ namespace rea_star {
             using difference_type = int;
             using pointer = Point*;
             using reference = Point&;
+
+            IntervalIterator(const Interval* interval, int index):
+                m_interval(interval), m_index(index) {};
 
             IntervalIterator(): IntervalIterator(nullptr, 0) {};
             IntervalIterator(const IntervalIterator&) = default;
@@ -158,18 +172,20 @@ namespace rea_star {
             }
 
         private:
-            IntervalIterator(Interval* interval, int index):
-                m_interval(interval), m_index(index) {};
-
-            Interval* m_interval;
+            const Interval* m_interval;
             int m_index;
         };
 
         using iterator = IntervalIterator;
         using const_iterator = const iterator;
 
-        iterator begin() const;
-        iterator end() const;
+        iterator begin() const {
+            return IntervalIterator(this, 0);
+        }
+
+        iterator end() const {
+            return IntervalIterator(this, length());
+        }
 
     private:
         Cardinal m_cardinal;
