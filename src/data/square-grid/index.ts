@@ -6,7 +6,4 @@
  * @license Zlib
  */
 
-export * from './cardinal';
 export * from './map';
-export * from './rect';
-export * from './interval';

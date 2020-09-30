@@ -19,7 +19,7 @@ export declare namespace REAStarWASM {
     function rectangleExpansionAStar(
         source: Point2,
         target: Point2,
-        map: BooleanGrid
+        grid: BooleanGrid
     ): { size(): number, get(i: number): Point2 };
 }
 
