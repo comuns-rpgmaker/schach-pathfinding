@@ -20,7 +20,7 @@
 namespace rea_star {
     class Rect {
     public:
-        __attribute__((cold))
+        [[gnu::cold]]
         static Rect expand_point(const Point& p, const Grid<bool>& g) {
             int l = p.x, t = p.y,
                 r = l, b = t;

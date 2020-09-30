@@ -57,7 +57,7 @@ namespace rea_star {
             return fixed == m_fixed && m_min <= broad && broad <= m_max;
         }
 
-        __attribute__((hot))
+        [[gnu::hot]]
         bool is_free(const Grid<bool>& g) const {
             if (!is_valid(g)) return false;
 
@@ -69,7 +69,7 @@ namespace rea_star {
             return true;
         }
 
-        __attribute__((hot))
+        [[gnu::hot]]
         bool is_valid(const Grid<bool>& g) const {
             return fixed() >= 0 && (
                 (axis() == Axis::X && fixed() <= g.width()) ||

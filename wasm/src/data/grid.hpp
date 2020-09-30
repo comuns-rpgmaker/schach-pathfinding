@@ -39,7 +39,7 @@ namespace rea_star {
                 m_height(height),
                 m_data(width * height, defaultValue) {}
 
-            __attribute__((hot))
+            [[gnu::hot]]
             T at(const Point& p) const {
                 assert(p.x >= 0);
                 assert(p.y >= 0);
@@ -49,7 +49,7 @@ namespace rea_star {
                 return m_data[p.y * m_width + p.x];
             }
 
-            __attribute__((cold))
+            [[gnu::cold]]
             void set(const Point& p, const T& value) {
                 assert(p.x < m_width);
                 assert(p.y < m_height);
