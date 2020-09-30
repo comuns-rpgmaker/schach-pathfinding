@@ -1,4 +1,4 @@
-CFLAGS=-O3 -std=c++17 -flto
+CFLAGS=-O3 -std=c++17 -flto -fno-exceptions
 EMFLAGS=-s WASM -s ASSERTIONS -s INVOKE_RUN=0 -s SINGLE_FILE -s MODULARIZE -s EXPORT_NAME=initREAStarWASM --closure 1
 
 .PHONY: all clean data
