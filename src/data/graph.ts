@@ -64,5 +64,15 @@ export interface Weighted<T>
 export interface Colored<T, C>
 {
     color(v: T): C | undefined;
+}
+
+/**
+ * Generic mutably colored graph interface.
+ * 
+ * @template T - type of vertex on the graph.
+ * @template C - color type.
+ */
+export interface ColoredMutable<T, C> extends Colored<T, C>
+{
     setColor(v: T, color: C): void;
 }

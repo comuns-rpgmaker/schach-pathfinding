@@ -10,7 +10,7 @@
 
 import { Deque } from "../util/deque";
 
-import type { Graph, Colored } from "../data/graph";
+import type { Graph, Colored, ColoredMutable } from "../data/graph";
 
 /**
  * Applies flood-fill to a generic colored graph.
@@ -25,7 +25,7 @@ import type { Graph, Colored } from "../data/graph";
 export function floodFill<T, C, U>(
     start: T,
     color: C,
-    g: Graph<T> & Colored<T, C>,
+    g: Graph<T> & ColoredMutable<T, C>,
     callback?: (v: T, c?: C) => U
 ): U[]
 {

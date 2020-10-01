@@ -38,7 +38,7 @@ bool Interval::is_free(const Grid<bool>& g) const {
 
     for (int i = 0; i < length(); i++) {
         Point p = at(i);
-        if (!g.at(p)) return false;
+        if (!g[p]) return false;
     }
 
     return true;
@@ -73,12 +73,12 @@ std::vector<Interval> Interval::free_subintervals(const Grid<bool>& g) const {
 
     int start = 0;
     do {
-        while (start < len && !g.at(clipped.at(start))) start++;
+        while (start < len && !g[clipped.at(start)]) start++;
 
         if (start >= len) break;
 
         int end = start;
-        while (end + 1 < len && g.at(clipped.at(end + 1))) end++;
+        while (end + 1 < len && g[clipped.at(end + 1)]) end++;
 
         subIntervals.push_back(clipped.subinterval(start, end));
 

@@ -93,11 +93,11 @@ namespace rea_star {
                 }
 
                 for (const Point& p : rect.boundaries()) {
-                    m_parents.set(p, m_source);
-                    m_nodes.set(p, Node {
+                    m_parents[p] = m_source;
+                    m_nodes[p] = Node {
                         .type = NodeType::GPOINT,
                         .gvalue = octile(p, m_source)
-                    });
+                    };
                 }
 
                 for (Cardinal cardinal : CARDINALS) {
@@ -118,23 +118,24 @@ namespace rea_star {
 
                     for (int i = 0; i < fsi.length(); i++) {
                         Point p = fsi.at(i);
-                        double gvalue = m_nodes.at(p).gvalue;
+                        double gvalue = m_nodes[p].gvalue;
 
                         for (int j = i - 1; j <= i + 1; j++) {
                             if (j < 0 || j >= fsi.length()) continue;
 
                             Point pp = parent.at(j);
                             double d = octile(p, pp);
-                            double pgvalue = m_nodes.at(pp).gvalue + d;
+                            double pgvalue = m_nodes[pp].gvalue + d;
 
                             if (pgvalue < gvalue) {
                                 gvalue = pgvalue;
-                                m_parents.set(p, pp);
-                                m_nodes.set(p, Node {
+                                m_parents[p] = pp;
+                                m_nodes[p] = Node {
                                     .type = NodeType::HPOINT,
                                     .gvalue = gvalue,
                                     .hvalue = octile(p, m_target)
-                                });
+                                };
+
                                 updated = true;
                             }
                         }
@@ -154,7 +155,7 @@ namespace rea_star {
 
                 auto rect = Rect::expand_interval(interval, m_g);
                 if (rect.contains(m_target)) {
-                    m_parents.set(m_target, node.min_point);
+                    m_parents[m_target] = node.min_point;
                     return build_path();
                 }
 
@@ -162,26 +163,13 @@ namespace rea_star {
                     for (const Point& p : wall) {
                         for (const Point& pp : interval) {
                             double d = octile(p, pp);
-                            double pgvalue = m_nodes.at(pp).gvalue + d;
+                            double pgvalue = m_nodes[pp].gvalue + d;
 
-                            Node pnode = m_nodes.at(p);
+                            Node pnode = m_nodes[p];
 
                             if (pgvalue < pnode.gvalue) {
-                                m_parents.set(p, pp);
-
-                                double hvalue;
-                                if (pnode.type == NodeType::HPOINT) {
-                                    m_nodes.set(p, {
-                                        .type = NodeType::HPOINT,
-                                        .gvalue = pgvalue,
-                                        .hvalue = pnode.hvalue
-                                    });
-                                } else {
-                                    m_nodes.set(p, {
-                                        .type = NodeType::GPOINT,
-                                        .gvalue = pgvalue
-                                    });
-                                }
+                                m_parents[p] = pp;
+                                m_nodes[p].gvalue = pgvalue;
                             }
                         }
                     }
@@ -201,7 +189,7 @@ namespace rea_star {
                 Point current = m_target;
                 do { 
                     path.push_back(current);
-                    current = m_parents.at(current);
+                    current = m_parents[current];
                 } while (current != m_source);
 
                 path.push_back(m_source);
@@ -215,7 +203,7 @@ namespace rea_star {
                 double minfval = INFINITY;
 
                 for (const auto& p : interval) {
-                    auto node = m_nodes.at(p);
+                    auto node = m_nodes[p];
                     double fvalue = node.gvalue + node.hvalue;
                     if (fvalue < minfval) {
                         minfval = fvalue;

@@ -29,15 +29,15 @@ Rect Rect::expand_point(const Point& p, const Grid<bool>& g) {
     int l = p.x, t = p.y,
         r = l, b = t;
 
-    while (r < g.width() && g.at({ .x = r, .y = t })) r++;
+    while (r < g.width() && g[{ .x = r, .y = t }]) r++;
     r--;
 
-    while (l >= 0 && g.at({ .x = l, .y = t })) l--;
+    while (l >= 0 && g[{ .x = l, .y = t }]) l--;
     l++;
 
     while (b < g.height()) {
         for (int x = l; x <= r; x++) {
-            if (!g.at({ .x = x, .y = b })) goto bottom_done;
+            if (!g[{ .x = x, .y = b }]) goto bottom_done;
         }
         b++;
     }
@@ -45,7 +45,7 @@ Rect Rect::expand_point(const Point& p, const Grid<bool>& g) {
 
     while (t >= 0 && t < g.height()) {
         for (int x = l; x <= r; x++) {
-            if (!g.at({ .x = x, .y = t })) goto top_done;
+            if (!g[{ .x = x, .y = t }]) goto top_done;
         }
         t--;
     }

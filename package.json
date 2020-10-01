@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Pathfinding plugin for RPG Maker MZ",
   "namespace": "Schach.Pathfinding",
+  "testProjectDir": "../..",
   "scripts": {
     "postinstall": "emsdk install 2.0.4",
     "prebuild": "npm run build:metadata && npm run build:wasm",

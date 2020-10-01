@@ -10,10 +10,11 @@ import {
     rectangleExpansionAStar,
     init as initREAStar
 } from "./algorithm/rea-star";
+import { GameMapGraph } from "./data/game-map-graph";
 
 export { rectangleExpansionAStar };
 
-import { Point2, SquareGridMap } from "./data/square-grid";
+import { Point2 } from "./data/square-grid";
 
 export async function init(): Promise<void>
 {
@@ -74,18 +75,11 @@ export function showTile([x, y]: Point2, color: string)
     SceneManager._scene.addChild(s);
 }
 
-export function test(p: Point2, q: Point2)
+export function test(p: Point2, q: Point2, m?: GameMapGraph): GameMapGraph
 {
-    let m = new SquareGridMap($gameMap.width(), $gameMap.height()).colored(true);
-
-    for (let x = 0; x < $gameMap.width(); x++) {
-        for (let y = 0; y < $gameMap.height(); y++) {
-            const pass = $gameMap.checkPassage(x, y, 0xf);
-            const collides = $gameMap.eventsXyNt(x, y).some(event => event.isNormalPriority());
-            m.setColor([x, y], pass && !collides);
-        }
-    }
-
+    m ||= new GameMapGraph();
     let path = rectangleExpansionAStar(p, q, m)!;
     path.forEach(p => showTile(p, 'blue'));
+
+    return m;
 }

@@ -21,12 +21,10 @@ EMSCRIPTEN_BINDINGS(rea_star) {
         .element(&Point::y);
 
     register_vector<Point>("PointArray");
-    register_vector<Interval>("IntervalArray");
 
     class_<Grid<bool>>("BooleanGrid")
-        .constructor<int, int, bool>()
-        .function("at", &Grid<bool>::at)
-        .function("set", &Grid<bool>::set)
+        .constructor<val>()
+        .function("at", &Grid<bool>::operator[])
         .property("width", &Grid<bool>::width)
         .property("height", &Grid<bool>::height);
 

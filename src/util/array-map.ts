@@ -32,6 +32,13 @@ export class ArrayMap<V> implements Map<number, V>
         this._provider = provider;
     }
 
+    /**
+     * @returns this map as an array.
+     */
+    toArray(): V[] {
+        return this._data;
+    }
+
     clear(): void {
         this._data = [];
     }
