@@ -25,16 +25,17 @@ export declare namespace REAStarWASM
     function rectangleExpansionAStar(
         source: Point2,
         target: Point2,
-        grid: BooleanGrid
+        grid: BooleanGrid,
+        maxlen: number
     ): { size(): number, get(i: number): Point2, delete(): void; };
 }
 
-export declare const initREAStarWASM: () => Promise<typeof REAStarWASM>;
+declare const initREAStarWASM: () => Promise<typeof REAStarWASM>;
 
 /**
  * WASM Instance for REA*
  */
-export let WASM: typeof REAStarWASM;
+let WASM: typeof REAStarWASM;
 
 /**
  * Initializes the REA* algorithm module.
@@ -54,7 +55,8 @@ export async function init(): Promise<void>
 export function rectangleExpansionAStar(
     source: Point2,
     target: Point2,
-    map: SquareGridMap & Colored<Point2, boolean>
+    map: SquareGridMap & Colored<Point2, boolean>,
+    maxlen: number
 ): Point2[] | undefined
 {
     if (!WASM) throw "REA* is uninitialized";
@@ -64,9 +66,10 @@ export function rectangleExpansionAStar(
 
     let grid = new WASM.BooleanGrid(map);
 
-    const path = WASM.rectangleExpansionAStar(source, target, grid);
-    const size = path.size();
+    const path = WASM.rectangleExpansionAStar(source, target, grid, maxlen);
+    if (!path) return undefined;
 
+    const size = path.size();
     const result: Point2[] = [];
     for (let i = 0; i < size; i++) result.push(path.get(i));
 

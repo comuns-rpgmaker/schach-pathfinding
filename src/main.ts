@@ -75,10 +75,10 @@ export function showTile([x, y]: Point2, color: string)
     SceneManager._scene.addChild(s);
 }
 
-export function test(p: Point2, q: Point2, m?: GameMapGraph): GameMapGraph
+export function test(p: Point2, q: Point2, maxlen?: number, m?: GameMapGraph): GameMapGraph
 {
     m ||= new GameMapGraph();
-    let path = rectangleExpansionAStar(p, q, m)!;
+    let path = rectangleExpansionAStar(p, q, m, maxlen || 65536)!;
     path.forEach(p => showTile(p, 'blue'));
 
     return m;

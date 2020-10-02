@@ -8,8 +8,13 @@
 using namespace emscripten;
 using namespace rea_star;
 
-val rectangle_expansion_astar_js(Point source, Point target, Grid<bool> g) {
-    auto path = rectangle_expansion_astar(source, target, g);
+val rectangle_expansion_astar_js(
+    Point source,
+    Point target,
+    Grid<bool> g,
+    int maxlen = INT32_MAX
+) {
+    auto path = rectangle_expansion_astar(source, target, g, maxlen);
 
     if (path.has_value()) return val(path.value());
     return val::undefined();

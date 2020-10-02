@@ -45,7 +45,8 @@ namespace rea_star {
             REAStarSolver(
                 const Point& source,
                 const Point& target,
-                const Grid<bool>& g
+                const Grid<bool>& g,
+                int maxlen
             ): m_source(source),
                 m_target(target),
                 m_g(g),
@@ -57,7 +58,8 @@ namespace rea_star {
                         .gvalue = INFINITY
                     }
                 ),
-                m_parents(g.width(), g.height()) {}
+                m_parents(g.width(), g.height()),
+                m_maxlen(maxlen) {}
 
             std::optional<path_t> find_path() {
                 auto path = insert_start();
@@ -80,6 +82,8 @@ namespace rea_star {
             Grid<bool> m_g;
             Grid<Node> m_nodes;
             Grid<Point> m_parents;
+            int m_maxlen;
+
             std::priority_queue<
                 SearchNode,
                 std::vector<SearchNode>,
@@ -127,7 +131,7 @@ namespace rea_star {
                             double d = octile(p, pp);
                             double pgvalue = m_nodes[pp].gvalue + d;
 
-                            if (pgvalue < gvalue) {
+                            if (pgvalue < gvalue && pgvalue < m_maxlen) {
                                 gvalue = pgvalue;
                                 m_parents[p] = pp;
                                 m_nodes[p] = Node {
@@ -167,7 +171,7 @@ namespace rea_star {
 
                             Node pnode = m_nodes[p];
 
-                            if (pgvalue < pnode.gvalue) {
+                            if (pgvalue < pnode.gvalue && pgvalue < m_maxlen) {
                                 m_parents[p] = pp;
                                 m_nodes[p].gvalue = pgvalue;
                             }
@@ -223,7 +227,8 @@ namespace rea_star {
 std::optional<rea_star::path_t> rea_star::rectangle_expansion_astar(
     Point source,
     Point target,
-    Grid<bool> g
+    Grid<bool> g,
+    int maxlen
 ) {
-    return rea_star::REAStarSolver(source, target, g).find_path();
+    return rea_star::REAStarSolver(source, target, g, maxlen).find_path();
 }
