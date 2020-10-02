@@ -1,5 +1,16 @@
+/**
+ * @file rea-star.ts
+ * 
+ * @author Brandt
+ * @date 2020/10/02
+ * @license Zlib
+ * 
+ * Interface for the REA* algorithm WASM implementation.
+ */
+
 import { SquareGridMap, Point2 } from "../data/square-grid";
 import { Colored } from '../data/graph';
+import { Deque } from "../util/deque";
 
 export declare namespace REAStarWASM
 {
@@ -57,7 +68,7 @@ export function rectangleExpansionAStar(
     target: Point2,
     map: SquareGridMap & Colored<Point2, boolean>,
     maxlen: number
-): Point2[] | undefined
+): Deque<Point2> | undefined
 {
     if (!WASM) throw "REA* is uninitialized";
 
@@ -70,7 +81,7 @@ export function rectangleExpansionAStar(
     if (!path) return undefined;
 
     const size = path.size();
-    const result: Point2[] = [];
+    const result = new Deque<Point2>();
     for (let i = 0; i < size; i++) result.push(path.get(i));
 
     grid.delete();

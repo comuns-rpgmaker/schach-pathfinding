@@ -6,10 +6,13 @@ export * from "./algorithm/a-star";
 
 export * from "./data/square-grid";
 
+import "./patch/game-character";
+
 import {
     rectangleExpansionAStar,
     init as initREAStar
 } from "./algorithm/rea-star";
+
 import { GameMapGraph } from "./data/game-map-graph";
 
 export { rectangleExpansionAStar };
@@ -79,7 +82,13 @@ export function test(p: Point2, q: Point2, maxlen?: number, m?: GameMapGraph): G
 {
     m ||= new GameMapGraph();
     let path = rectangleExpansionAStar(p, q, m, maxlen || 65536)!;
-    path.forEach(p => showTile(p, 'blue'));
+    
+    while (true) {
+        const p = path.shift();
+        if (p === undefined) break;
+
+        showTile(p, 'blue');
+    }
 
     return m;
 }

@@ -8,6 +8,6 @@
         "removeComments": true,
         "strictNullChecks": true
     },
-    "include": ["src/**/*.ts", "spec/**/*.ts"],
+    "include": ["src/**/*.ts", "spec/**/*.ts", "src/patch/game-character.js"],
     "exclude": ["node_modules"]
 }
