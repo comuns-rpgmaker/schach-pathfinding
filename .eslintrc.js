@@ -8,6 +8,7 @@ module.exports = {
         "plugin:@typescript-eslint/recommended"
     ],
     rules: {
-        "brace-style": ["error", "allman", { "allowSingleLine": true }]
+        "brace-style": ["error", "allman", { "allowSingleLine": true }],
+        "@typescript-eslint/no-namespace": ["error", { "allowDeclarations": true }]
     }
 };
