@@ -9,7 +9,7 @@
  */
 
 import { Point2, SquareGridMap } from '../data/square-grid';
-import { Colored } from './graph';
+import { Colored, Weighted } from './graph';
 
 declare class Game_Vehicle {
     posNt(x: number, y: number): boolean;
@@ -38,12 +38,15 @@ declare const $dataMap: {
 };
 
 export class GameMapGraph extends SquareGridMap
-implements Colored<Point2, boolean> {
-    get width(): number {
+    implements Colored<Point2, boolean>, Weighted<Point2>
+{
+    get width(): number
+    {
         return $gameMap.width();
     }
 
-    get height(): number {
+    get height(): number
+    {
         return $gameMap.height();
     }
 
@@ -58,30 +61,6 @@ implements Colored<Point2, boolean> {
         }
 
         return neighbors;
-    }
-
-    private canPass([x, y]: Point2, d: number): boolean
-    {
-        if (!$gameMap.isValid(x, y)) return false;
-
-        const d2 = 10 - d;
-        if (!$gameMap.isPassable(x, y, d) || !$gameMap.isPassable(x, y, d2))
-        {
-            return false;
-        }
-
-        if ($gameMap.boat().posNt(x, y) || $gameMap.ship().posNt(x, y))
-        {
-            return false;
-        }
-
-        return this.collidesWithEvents(x, y);
-    }
-
-    private collidesWithEvents(x: number, y: number): boolean
-    {
-        const events = $gameMap.eventsXyNt(x, y);
-        return events.some(e => e.isNormalPriority());
     }
 
     color([x, y]: Point2): boolean
@@ -101,5 +80,33 @@ implements Colored<Point2, boolean> {
         }
 
         return true;
+    }
+
+    weight(source: Point2, target: Point2): number {
+        return SquareGridMap.d1(source, target);
+    }
+
+    private canPass([x, y]: Point2, d: number): boolean
+    {
+        if (!$gameMap.isValid(x, y)) return false;
+
+        const d2 = 10 - d;
+        if (!$gameMap.isPassable(x, y, d) || !$gameMap.isPassable(x, y, d2))
+        {
+            return false;
+        }
+
+        if ($gameMap.boat().posNt(x, y) || $gameMap.ship().posNt(x, y))
+        {
+            return false;
+        }
+
+        return !this.collidesWithEvents(x, y);
+    }
+
+    private collidesWithEvents(x: number, y: number): boolean
+    {
+        const events = $gameMap.eventsXyNt(x, y);
+        return events.some(e => e.isNormalPriority());
     }
 }
