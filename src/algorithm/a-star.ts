@@ -28,7 +28,8 @@ export function aStar<T>(
     source: T,
     target: T,
     g: Graph<T> & Weighted<T>,
-    heuristic: (s: T, t: T) => number
+    heuristic: (s: T, t: T) => number,
+    maxlen: number
 ): Deque<T> | undefined
 {
     const sourceId = g.id(source)!;
@@ -65,7 +66,9 @@ export function aStar<T>(
                 const score = nodeScore + g.weight(node, neighbor)!;
 
                 const neighborId = g.id(neighbor)!;
-                if (score < (gscore.get(neighborId) ?? Infinity))
+                if (score < maxlen &&
+                    score < (gscore.get(neighborId) ?? Infinity)
+                )
                 {
                     cameFrom.set(neighborId, node);
                     gscore.set(neighborId, score);
