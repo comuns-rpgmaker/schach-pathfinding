@@ -97,13 +97,13 @@ std::vector<Point> Rect::boundaries() const {
 std::vector<Interval> Rect::walls(Cardinal cardinal) const {
     switch (cardinal) {
     case Cardinal::NORTH:
-        return { east(), west(), south() };
-    case Cardinal::SOUTH:
         return { east(), west(), north() };
+    case Cardinal::SOUTH:
+        return { east(), west(), south() };
     case Cardinal::EAST:
-        return { north(), south(), west() };
-    case Cardinal::WEST:
         return { north(), south(), east() };
+    case Cardinal::WEST:
+        return { north(), south(), west() };
     }
 }
 

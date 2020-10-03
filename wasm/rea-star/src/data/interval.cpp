@@ -45,9 +45,11 @@ bool Interval::is_free(const Grid<bool>& g) const {
 }
 
 bool Interval::is_valid(const Grid<bool>& g) const {
-    return fixed() >= 0 && (
-        (axis() == Axis::X && fixed() <= g.width()) ||
-        (axis() == Axis::Y && fixed() <= g.height()));
+    int f = fixed();
+    Axis a = axis();
+    return f >= 0 && (
+        (a == Axis::X && f < g.width()) ||
+        (a == Axis::Y && f < g.height()));
 }
 
 template<typename T>
@@ -56,7 +58,7 @@ Interval Interval::clip(const Grid<T>& g) const {
         m_cardinal,
         m_fixed,
         std::max(m_min, 0),
-        std::min(m_max, axis() == Axis::X ? g.height() : g.width())
+        std::min(m_max, (axis() == Axis::X ? g.height() : g.width()) - 1)
     );
 }
 

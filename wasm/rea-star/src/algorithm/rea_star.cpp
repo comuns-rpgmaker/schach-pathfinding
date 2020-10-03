@@ -179,6 +179,8 @@ namespace rea_star {
                     }
 
                     auto eni = rect.extend_neighbor_interval(wall.cardinal());
+                    if (!eni.is_valid(m_g)) continue;
+
                     auto path = successor(eni);
                     if (path.has_value()) return path;
                 }

@@ -70,7 +70,7 @@ export class GameMapGraph extends SquareGridMap
         const width = this.width;
         const height = this.height;
         const flags = $gameMap.tilesetFlags();
-        for (let z = 0; z < 4; z++)
+        for (let z = 3; z >= 0; z--)
         {
             const tile = $dataMap.data[(z * height + y) * width + x] || 0;
             const flag = flags[tile];
