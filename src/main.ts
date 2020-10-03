@@ -6,7 +6,10 @@ export * from "./algorithm/a-star";
 
 export * from "./data/square-grid";
 
+export * from "./strategy/standard";
+
 import "./patch/game-character";
+import "./patch/game-map";
 
 import {
     rectangleExpansionAStar,

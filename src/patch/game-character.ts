@@ -1,21 +1,32 @@
 import { Point2 } from "../data/square-grid";
 
 import { PathFollower } from "../core/path-follower";
-import { TargetFollower } from "../core/target-follower";
+import { TargetFollower, TargetFollowingStrategy } from "../core/target-follower";
 import { Deque } from "../util/deque";
+import { StandardMap } from "../strategy/standard";
+
+declare const $gameMap: {
+    graph(): StandardMap
+};
+
+type Strategy = TargetFollowingStrategy<Point2, StandardMap>;
 
 declare class Game_Character
     implements
         PathFollower<Point2>,
-        TargetFollower<Game_Character>,
-        TargetFollower<Point2>
+        TargetFollower<Game_Character, Point2, StandardMap>,
+        TargetFollower<Point2, Point2, StandardMap>
 {
     updateStop(): void;
     isMoveRouteForcing(): boolean;
     findDirectionTo(x: number, y: number): number;
     moveStraight(d: number): void;
 
-    follow(target: Game_Character | Point2): void;
+    follow<T extends Game_Character | Point2>(
+        target: T,
+        strategy: new (s: Game_Character, t: T) => Strategy
+    ): void;
+
     assignPath(path: Deque<Point2>): void;
     walkToPoint(x: number, y: number): void;
 
@@ -26,18 +37,22 @@ declare class Game_Character
 const updateStop = Game_Character.prototype.updateStop;
 Game_Character.prototype.updateStop = function() {
     updateStop.call(this);
-    if (this._assignedPath !== undefined && !this.isMoveRouteForcing())
-    {
-        this._updateFollowPath();
-    }
+
+    if (this.isMoveRouteForcing()) return;
+    if (!this._pathFollowingStrategy) return;
+
+    this._pathFollowingStrategy.update($gameMap.graph());
+    this._assignedPath = this._pathFollowingStrategy.path();
+
+    if (this._assignedPath !== undefined) this._updateFollowPath();
 };
 
-Game_Character.prototype.follow = function(target: Game_Character | Point2): void
+Game_Character.prototype.follow = function<T>(
+    target: T,
+    strategy: new (s: Game_Character, t: T) => Strategy
+): void
 {
-    if (target instanceof Game_Character)
-    {
-
-    }
+    this._pathFollowingStrategy = new strategy(this, target);
 }
 
 Game_Character.prototype.assignPath = function(path: Deque<Point2>): void
@@ -50,8 +65,9 @@ Game_Character.prototype['_updateFollowPath'] = function(): void
     let p = this._assignedPath.bottom();
     if (p === undefined)
     {
-        this._assignedPath = undefined;
-        return;
+        this._pathFollowingStrategy.onFinish($gameMap.graph(), [this.x, this.y]);
+        this._assignedPath = this._pathFollowingStrategy.path();
+        if (!this._assignedPath) return;
     }
 
     const [x, y] = p;
@@ -64,4 +80,9 @@ Game_Character.prototype.walkToPoint = function(x: number, y: number): void
 {
     const d = this.findDirectionTo(x, y);
     this.moveStraight(d);
+
+    if (!this.isMovementSucceeded())
+    {
+        this._pathFollowingStrategy.onFail($gameMap.graph());
+    }
 }
