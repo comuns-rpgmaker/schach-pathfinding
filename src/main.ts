@@ -8,6 +8,7 @@ export * as Strategy from "./strategy";
 import "./patch/game-character";
 import "./patch/game-player";
 import "./patch/game-map";
+import "./patch/game-system";
 
 import "./plugin";
 

@@ -49,7 +49,11 @@ export declare class Game_Character
     canMoveBasic(): boolean;
     canMove(): boolean;
     isFollowingPath(): boolean;
+
+    static followingPath: number;
 };
+
+Game_Character.followingPath = 0;
 
 const updateStop = Game_Character.prototype.updateStop;
 Game_Character.prototype.updateStop = function() {
@@ -72,11 +76,13 @@ Game_Character.prototype.follow = function<T  extends Game_Character | Point2>(
     strategy: new (s: Game_Character, t: T) => Strategy
 ): void
 {
+    Game_Character.followingPath++;
     this._pathFollowingStrategy = new strategy(this, target);
 }
 
 Game_Character.prototype.clearPathFollowingStrategy = function(): void
 {
+    Game_Character.followingPath--;
     this._pathFollowingStrategy = undefined;
 }
 
