@@ -58,7 +58,7 @@ namespace rea_star {
                         .gvalue = INFINITY
                     }
                 ),
-                m_parents(g.width(), g.height()),
+                m_parents(g.width(), g.height(), source),
                 m_maxlen(maxlen) {}
 
             std::optional<path_t> find_path() {

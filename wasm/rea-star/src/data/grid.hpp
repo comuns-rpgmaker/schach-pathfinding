@@ -16,13 +16,9 @@
 #include <vector>
 
 namespace rea_star {
-    union Point {
-        struct {
-            int x;
-            int y;
-        };
-
-        int coords[2];
+    struct Point {
+        int x;
+        int y;
     };
 
     static bool operator==(const Point& a, const Point& b) {
@@ -49,10 +45,6 @@ namespace rea_star {
                 m_width(width),
                 m_height(height),
                 m_data(data) {};
-
-            Grid(int width, int height):
-                m_width(width),
-                m_height(height) {}
 
             Grid(int width, int height, T defaultValue):
                 m_width(width),

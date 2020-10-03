@@ -27,9 +27,17 @@ Interval Interval::subinterval(int start, int end) const {
 }
 
 bool Interval::contains(const Point& p) const {
-    int a = static_cast<int>(axis());
+    Axis a = axis();
 
-    int fixed = p.coords[a], broad = p.coords[!a];
+    int fixed, broad;
+    if (a == Axis::X) {
+        fixed = p.x;
+        broad = p.y;
+    } else {
+        fixed = p.y;
+        broad = p.x;
+    }
+
     return fixed == m_fixed && m_min <= broad && broad <= m_max;
 }
 
