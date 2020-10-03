@@ -55,7 +55,8 @@ export type StandardMap =
  * events).
  * 
  * Paths are limited to 128 steps for REA* and 32 for plain A* to avoid
- * lagging.
+ * lagging. Some optimizations are applied to avoid running to far when the
+ * target is close to the source.
  * 
  * @see LoopingStrategy
  */
@@ -137,21 +138,23 @@ export class StandardStrategy
         const source: Point2 = [this._source.x, this._source.y];
         const target: Point2 = [this._targetX, this._targetY];
         
+        const h = SquareGridMap.d1(source, target);
+
         let path: Deque<Point2> | undefined;
-        if (fallback) {
+        if (fallback || h < this.reaStarThreshold()) {
             path = aStar(
                 source,
                 target,
                 map,
                 SquareGridMap.d1,
-                this.aStarSearchLimit()
+                this.aStarSearchLimit(source, target)
             );
         } else {
             path = rectangleExpansionAStar(
                 source,
                 target,
                 map,
-                this.reaStarSearchLimit()
+                this.reaStarSearchLimit(source, target)
             );
         }
 
@@ -161,18 +164,29 @@ export class StandardStrategy
     }
 
     /**
+     * Minimum distance between points such that REA* should be applied.
+     * 
+     * Simple A* is actually more efficient for short paths depending on the
+     * room size.
+     */
+    reaStarThreshold(): number
+    {
+        return 4;
+    }
+
+    /**
      * Maximum number of steps allowed on a path using REA*.
      */
-    reaStarSearchLimit(): number
+    reaStarSearchLimit(source: Point2, target: Point2): number
     {
-        return 128;
+        return Math.min(128, 4 * SquareGridMap.octile(source, target));
     }
 
     /**
      * Maximum number of steps allowed on a path using A*.
      */
-    aStarSearchLimit(): number
+    aStarSearchLimit(source: Point2, target: Point2): number
     {
-        return 32;
+        return Math.min(32, 2 * SquareGridMap.d1(source, target));
     }
 }
