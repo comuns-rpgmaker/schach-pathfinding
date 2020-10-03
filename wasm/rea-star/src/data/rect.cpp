@@ -25,7 +25,7 @@ Rect::Rect(const Interval& interval) {
     m_bottom = bottom;
 }
 
-Rect Rect::expand_point(const Point& p, const Grid<bool>& g) {
+Rect Rect::expand_point(const Point& p, Grid<bool>& g) {
     int l = p.x, t = p.y,
         r = l, b = t;
 
@@ -54,7 +54,7 @@ Rect Rect::expand_point(const Point& p, const Grid<bool>& g) {
     return Rect(l, t, r, b);
 }
 
-Rect Rect::expand_interval(const Interval& interval, const Grid<bool>& g) {
+Rect Rect::expand_interval(const Interval& interval, Grid<bool>& g) {
     Interval expanded = interval;
     for (Interval i = expanded; i.is_free(g); i.step()) {
         expanded = i;

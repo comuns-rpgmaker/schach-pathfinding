@@ -16,6 +16,8 @@
 #include "../data/grid.hpp"
 
 namespace rea_star {
+    extern emscripten::val show_tile;
+
     /**
      * Path container type.
      */
@@ -38,7 +40,7 @@ namespace rea_star {
     std::optional<path_t> rectangle_expansion_astar(
         Point source,
         Point target,
-        Grid<bool> g,
+        const Grid<bool>& g,
         int maxlen = DEFAULT_PATH_MAXLEN
     );
 };

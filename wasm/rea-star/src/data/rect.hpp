@@ -21,9 +21,9 @@ namespace rea_star {
     class Rect {
     public:
         [[gnu::cold]]
-        static Rect expand_point(const Point& p, const Grid<bool>& g);
+        static Rect expand_point(const Point& p, Grid<bool>& g);
 
-        static Rect expand_interval(const Interval& interval, const Grid<bool>& g);
+        static Rect expand_interval(const Interval& interval, Grid<bool>& g);
         
         static Rect between(const Interval& a, const Interval& b) { return Rect(a).merge(Rect(b)); }
 

@@ -41,7 +41,7 @@ bool Interval::contains(const Point& p) const {
     return fixed == m_fixed && m_min <= broad && broad <= m_max;
 }
 
-bool Interval::is_free(const Grid<bool>& g) const {
+bool Interval::is_free(Grid<bool>& g) const {
     if (!is_valid(g)) return false;
 
     for (int i = 0; i < length(); i++) {
@@ -72,7 +72,7 @@ Interval Interval::clip(const Grid<T>& g) const {
 
 template Interval Interval::clip<bool>(const Grid<bool>& g) const;
 
-std::vector<Interval> Interval::free_subintervals(const Grid<bool>& g) const {
+std::vector<Interval> Interval::free_subintervals(Grid<bool>& g) const {
     Interval clipped = clip(g);
     int len = clipped.length();
     

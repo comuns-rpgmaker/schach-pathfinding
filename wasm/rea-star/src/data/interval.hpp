@@ -35,7 +35,7 @@ namespace rea_star {
         bool contains(const Point& p) const;
 
         [[gnu::hot]]
-        bool is_free(const Grid<bool>& g) const;
+        bool is_free(Grid<bool>& g) const;
 
         [[gnu::hot]]
         bool is_valid(const Grid<bool>& g) const;
@@ -43,7 +43,7 @@ namespace rea_star {
         template <typename T>
         Interval clip(const Grid<T>& g) const;
 
-        std::vector<Interval> free_subintervals(const Grid<bool>& g) const;
+        std::vector<Interval> free_subintervals(Grid<bool>& g) const;
 
         Interval parent() const;
 

@@ -11,7 +11,7 @@ using namespace rea_star;
 val rectangle_expansion_astar_js(
     Point source,
     Point target,
-    Grid<bool> g,
+    const Grid<bool>& g,
     int maxlen = INT32_MAX
 ) {
     auto path = rectangle_expansion_astar(source, target, g, maxlen);
@@ -20,10 +20,18 @@ val rectangle_expansion_astar_js(
     return val::undefined();
 }
 
+val rea_star::show_tile = val::undefined();
+
+void register_show_tile(val show_tile) {
+    rea_star::show_tile = show_tile;
+}
+
 EMSCRIPTEN_BINDINGS(rea_star) {    
     value_array<Point>("Point2")
         .element(&Point::x)
         .element(&Point::y);
+
+    function("registerShowTile", &register_show_tile);
 
     register_vector<Point>("PointArray");
 

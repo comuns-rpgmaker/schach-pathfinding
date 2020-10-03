@@ -11,6 +11,7 @@
 import { SquareGridMap, Point2 } from "../data/square-grid";
 import { Colored } from '../data/graph';
 import { Deque } from "../util/deque";
+import { showTile } from "../main";
 
 export declare namespace REAStarWASM
 {
@@ -39,6 +40,8 @@ export declare namespace REAStarWASM
         grid: BooleanGrid,
         maxlen: number
     ): { size(): number, get(i: number): Point2, delete(): void; };
+
+    function registerShowTile(f: (p: Point2, color: string) => void): void;
 }
 
 declare const initREAStarWASM: () => Promise<typeof REAStarWASM>;
@@ -54,6 +57,7 @@ let WASM: typeof REAStarWASM;
 export async function init(): Promise<void>
 {
     WASM = await initREAStarWASM();
+    WASM.registerShowTile(() => {});
 }
 
 /**
@@ -71,9 +75,6 @@ export function rectangleExpansionAStar(
 ): Deque<Point2> | undefined
 {
     if (!WASM) throw "REA* is uninitialized";
-
-    const color = map.color(source);
-    if (map.color(target) !== color) return undefined;
 
     let grid = new WASM.BooleanGrid(map);
 

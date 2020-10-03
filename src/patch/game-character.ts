@@ -100,7 +100,9 @@ Game_Character.prototype.updateFollowPath = function(): void
     {
         this.onFinishFollowingPath();
         if (!this._assignedPath) return;
-        else p = this._assignedPath.bottom();
+        
+        p = this._assignedPath.bottom();
+        if (!p) return;
     }
 
     const [x, y] = p;

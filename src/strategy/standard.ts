@@ -61,7 +61,7 @@ export class StandardStrategy
     {
         if (this._target.x != x || this._target.y != y)
         {
-            this.refresh(map);
+            this.refresh(map, true);
             return false;
         }
 
@@ -85,19 +85,41 @@ export class StandardStrategy
                 || this._targetY !== this._target.y;
     }
 
-    refresh(map: StandardMap): void
+    refresh(map: StandardMap, fallback: boolean = false): void
     {
         this._cached = undefined;
 
         const source: Point2 = [this._source.x, this._source.y];
         const target: Point2 = [this._target.x, this._target.y];
+        const h = SquareGridMap.d1(source, target);
+        
+        let path: Deque<Point2> | undefined;
+        if (fallback || h < this.reaStarDistanceThreshold()) {
+            path = aStar(
+                source,
+                target,
+                map,
+                SquareGridMap.d1,
+                this.aStarSearchLimit()
+            );
+        } else {
+            path = rectangleExpansionAStar(
+                source,
+                target,
+                map,
+                this.reaStarSearchLimit()
+            );
+        }
 
-        let path = rectangleExpansionAStar(source, target, map, this.reaStarSearchLimit());
-        path ||= aStar(source, target, map, SquareGridMap.d1, this.aStarSearchLimit());
+        path?.shift();
 
         this._cached = path;
-
         this._forceRefresh = false;
+    }
+
+    reaStarDistanceThreshold(): number
+    {
+        return 4;
     }
 
     reaStarSearchLimit(): number
