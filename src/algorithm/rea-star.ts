@@ -12,7 +12,7 @@ import { SquareGridMap, Point2 } from "../data/square-grid";
 import { Colored } from '../data/graph';
 import { Deque } from "../util/deque";
 
-export declare namespace REAStarWASM
+declare namespace REAStarWASM
 {
     interface Grid<T>
     {
@@ -39,8 +39,6 @@ export declare namespace REAStarWASM
         grid: BooleanGrid,
         maxlen: number
     ): { size(): number, get(i: number): Point2, delete(): void; };
-
-    function registerShowTile(f: (p: Point2, color: string) => void): void;
 }
 
 declare const initREAStarWASM: () => Promise<typeof REAStarWASM>;
