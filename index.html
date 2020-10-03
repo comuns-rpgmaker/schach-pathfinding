@@ -67,6 +67,37 @@
 				used directly with game characters on the map or on generic graph structures.</p>
 				<p>It is also extensible via definition of custom path finding/following
 				strategies following a common interface.</p>
+				<p>Please read the documentation an plugin instructions before asking any
+				questions. Feel free to report bugs and request features via Github issues.</p>
+				<a href="#releases" id="releases" style="color: inherit; text-decoration: none;">
+					<h2>Releases</h2>
+				</a>
+				<p>If you&#39;re interested on getting the latest versions of the plugin, see the
+					<a href="https://github.com/comuns-rpgmaker/schach-pathfinding/releases">Releases</a>
+				page.</p>
+				<a href="#building-from-source" id="building-from-source" style="color: inherit; text-decoration: none;">
+					<h2>Building from source</h2>
+				</a>
+				<p>This plugin is built with <a href="https://nodejs.org/en/">Node</a> and
+				<a href="https://emscripten.org/">Emscripten</a>, so make sure you have both installed.</p>
+				<p>If you&#39;re on Windows, you&#39;ll most likely need to install
+				<a href="https://chocolatey.org/packages/make">make</a> too.</p>
+				<p>To build the project, run:</p>
+				<pre><code><span class="hljs-built_in">npm</span> ci
+<span class="hljs-built_in">npm</span> run build</code></pre>
+				<p>This will output a file named <code>schach-pathfinding.js</code> on the <code>dist/js/plugins</code>
+					directory and a file named <code>schach-pathfinding.debug.js</code> on <code>../../js/plugins</code>.
+					The relative path is intenteded to be used such that you can clone the plugin
+				repository into the <code>js</code> folder of a RMMZ project and test it easily.</p>
+				<p>We recommend using <a href="https://code.visualstudio.com/">VS Code</a> to build and edit
+					sources, since we provide ready-made settings for building and debugging the
+				plugin on it. </p>
+				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+					<h2>License</h2>
+				</a>
+				<p>See <a href="./LICENSE">LICENSE</a>.</p>
+				<p>This project uses Emscripten, which is licensed under the MIT license. For more
+				information see <a href="./LICENSE.emscripten">LICENSE.emscripten</a>.</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
