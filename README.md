@@ -33,6 +33,10 @@ directory and a file named `schach-pathfinding.debug.js` on `../../js/plugins`.
 The relative path is intenteded to be used such that you can clone the plugin
 repository into the `js` folder of a RMMZ project and test it easily.
 
+We recommend using [VS Code](https://code.visualstudio.com/) to build and edit
+sources, since we provide ready-made settings for building and debugging the
+plugin on it. 
+
 ## License
 
 See [LICENSE](./LICENSE).
