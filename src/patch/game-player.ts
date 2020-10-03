@@ -1,15 +1,6 @@
-declare const $gameTemp: {
-    isDestinationValid(): boolean;
-}
+import { Game_Character } from './game-character';
 
-declare class Game_Character
-{
-    canMoveBasic(): boolean;
-    canMove(): boolean;
-    isFollowingPath(): boolean;
-}
-
-declare class Game_Player extends Game_Character {}
+export declare class Game_Player extends Game_Character {}
 
 Game_Player.prototype.canMoveBasic = Game_Player.prototype.canMove;
 

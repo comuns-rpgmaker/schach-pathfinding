@@ -9,6 +9,8 @@ import "./patch/game-character";
 import "./patch/game-player";
 import "./patch/game-map";
 
+import "./plugin";
+
 import { init as initREAStar } from "./algorithm/rea-star";
 
 export async function init(): Promise<void>

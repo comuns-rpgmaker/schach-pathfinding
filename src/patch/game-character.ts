@@ -11,7 +11,7 @@ declare const $gameMap: {
 
 type Strategy = TargetFollowingStrategy<Point2, StandardMap>;
 
-declare class Game_Character
+export declare class Game_Character
     implements
         PathFollower<Point2>,
         TargetFollower<Game_Character, Point2, StandardMap>,
@@ -45,6 +45,10 @@ declare class Game_Character
 
     get x(): number;
     get y(): number;
+    
+    canMoveBasic(): boolean;
+    canMove(): boolean;
+    isFollowingPath(): boolean;
 };
 
 const updateStop = Game_Character.prototype.updateStop;

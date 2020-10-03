@@ -1,6 +1,6 @@
 import { GameMapGraph } from "../data/game-map-graph";
 
-declare class Game_Map {
+export declare class Game_Map {
     initialize(): void;
     graph(): GameMapGraph;
 }

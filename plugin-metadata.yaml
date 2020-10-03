@@ -5,8 +5,8 @@ languages:
     - pt
 
 description:
-    default: Shortest path algorithm implementation.
-    pt: Implementação de algoritmo de menor caminho.
+    default: Shortest path algorithm implementations.
+    pt: Implementação de algoritmos de menor caminho.
 
 help:
     default: |-
@@ -28,3 +28,206 @@ help:
 
         Também é possível extender o plugin definindo estratégias
         personalizadas de cálculo e seguimento de caminho.
+
+commands:
+    #==========================================================================
+    # Event -> Player
+    #==========================================================================
+    - name: event_follow_player
+      text:
+        default: Event follow player
+        pt: Evento seguir jogador
+      description:
+        default: Makes an event follow the player using pathfinding.
+        pt: Faz com que um evento siga o jogador usando pathfinding.
+      args:
+        - name: event_id
+          type: number
+          min: 0
+          text:
+            default: Event Id
+            pt: Id do Evento
+          description:
+            default: Event Id
+            pt: Id do evento
+        
+        - name: strategy
+          type: text
+          text:
+            default: Strategy
+            pt: Estrategia
+          description:
+                default: |-
+                    Pathfinding strategy class to use. The default is usually
+                    best.
+                pt: |-
+                    Classe de strategia de pathfinding a ser usada. O padrão
+                    costuma ser a melhor opção.
+          default: Schach.Pathfinding.Strategy.StandardStrategy
+
+    #==========================================================================
+    # Event -> Point
+    #==========================================================================
+    - name: event_to_point
+      text:
+        default: Event to point
+        pt: Evento para ponto
+      description:
+        default: Makes an event go to a point on the map using pathfinding.
+        pt: Faz com que um evento vá até um ponto no mapa usando pathfinding.
+      args:
+        - name: event_id
+          min: 0
+          text:
+            default: Event Id
+            pt: Id do Evento
+          description:
+            default: Event Id
+            pt: Id do evento
+          type: number
+
+        - name: point_x
+          type: number
+          min: 0
+          text:
+            default: Point X
+            pt: Ponto X
+          description:
+            default: X coordinate of the target point.
+            pt: Coordenada X do ponto de destino.
+
+        - name: point_y
+          type: number
+          min: 0
+          text:
+            default: Point Y
+            pt: Ponto Y
+          description:
+            default: Y coordinate of the target point.
+            pt: Coordenada Y do ponto de destino.
+        
+        - name: strategy
+          type: text
+          text:
+            default: Strategy
+            pt: Estrategia
+          description:
+                default: |-
+                    Pathfinding strategy class to use. The default is usually
+                    best.
+                pt: |-
+                    Classe de strategia de pathfinding a ser usada. O padrão
+                    costuma ser a melhor opção.
+          default: Schach.Pathfinding.Strategy.StandardStrategy
+
+    #==========================================================================
+    # Event clear
+    #==========================================================================
+    - name: event_clear
+      text:
+        default: Clear Event path 
+        pt: Limpar caminho de Evento
+      description:
+        default: Cancels path following for an event.
+        pt: Cancela o seguimento de caminho para um evento.
+      args:
+        - name: event_id
+          min: 0
+          text:
+            default: Event Id
+            pt: Id do Evento
+          description:
+            default: Event Id
+            pt: Id do evento
+          type: number
+
+    #==========================================================================
+    # Player -> Event
+    #==========================================================================
+    - name: player_follow_event
+      text:
+        default: Player follow event
+        pt: Jogador seguir evento 
+      description:
+        default: Makes the player follow an event using pathfinding.
+        pt: Faz com que o jogador siga um evento usando pathfinding.
+      args:
+        - name: event_id
+          type: number
+          min: 0
+          text:
+            default: Event Id
+            pt: Id do Evento
+          description:
+            default: Event Id
+            pt: Id do evento
+        
+        - name: strategy
+          type: text
+          text:
+            default: Strategy
+            pt: Estrategia
+          description:
+                default: |-
+                    Pathfinding strategy class to use. The default is usually
+                    best.
+                pt: |-
+                    Classe de strategia de pathfinding a ser usada. O padrão
+                    costuma ser a melhor opção.
+          default: Schach.Pathfinding.Strategy.StandardStrategy
+
+    #==========================================================================
+    # Player -> Point
+    #==========================================================================
+    - name: player_to_point
+      text:
+        default: Player to point
+        pt: Jogador para ponto
+      description:
+        default: Makes the player go to a point on the map using pathfinding.
+        pt: Faz com que o jogador vá até um ponto no mapa usando pathfinding.
+      args:
+        - name: point_x
+          type: number
+          min: 0
+          text:
+            default: Point X
+            pt: Ponto X
+          description:
+            default: X coordinate of the target point.
+            pt: Coordenada X do ponto de destino.
+
+        - name: point_y
+          type: number
+          min: 0
+          text:
+            default: Point Y
+            pt: Ponto Y
+          description:
+            default: Y coordinate of the target point.
+            pt: Coordenada Y do ponto de destino.
+        
+        - name: strategy
+          type: text
+          text:
+            default: Strategy
+            pt: Estrategia
+          description:
+                default: |-
+                    Pathfinding strategy class to use. The default is usually
+                    best.
+                pt: |-
+                    Classe de strategia de pathfinding a ser usada. O padrão
+                    costuma ser a melhor opção.
+          default: Schach.Pathfinding.Strategy.StandardStrategy
+
+    #==========================================================================
+    # Player clear
+    #==========================================================================
+    - name: player_clear
+      text:
+        default: Clear Player path 
+        pt: Limpar caminho do Jogador
+      description:
+        default: Cancels path following for the player.
+        pt: Cancela o seguimento de caminho para o jogador.
