@@ -37,6 +37,13 @@ declare const $dataMap: {
     data: number[];
 };
 
+/**
+ * Game map graph implementation.
+ * 
+ * The colors on the graph represent the adirectional passability on the map
+ * (tiles not passable by either direction will be considered unpassable), and
+ * weights are calculated using Manhattan distance (tiled walk distance). 
+ */
 export class GameMapGraph extends SquareGridMap
     implements Colored<Point2, boolean>, Weighted<Point2>
 {

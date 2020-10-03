@@ -16,8 +16,6 @@
 #include "../data/grid.hpp"
 
 namespace rea_star {
-    extern emscripten::val show_tile;
-
     /**
      * Path container type.
      */

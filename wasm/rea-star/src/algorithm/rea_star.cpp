@@ -103,7 +103,6 @@ namespace rea_star {
                 }
 
                 for (const Point& p : rect.boundaries()) {
-                    //show_tile(p, emscripten::val("darkgrey"));
                     m_nodes[p] = Node {
                         .type = NodeType::GPOINT,
                         .gvalue = octile(p, m_source)
@@ -177,7 +176,6 @@ namespace rea_star {
 
                 for (const Interval& wall : rect.walls(interval.cardinal())) {
                     for (const Point& p : wall) {
-                        //show_tile(p, emscripten::val("darkgrey"));
                         for (const Point& pp : interval) {
                             double d = octile(p, pp);
                             double pgvalue = m_nodes[pp].gvalue + d;
@@ -228,7 +226,6 @@ namespace rea_star {
                 double minfval = INFINITY;
 
                 for (const auto& p : interval) {
-                    //show_tile(p, emscripten::val("red"));
                     auto node = m_nodes[p];
                     double fvalue = node.gvalue + node.hvalue;
                     if (fvalue < minfval) {

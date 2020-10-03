@@ -51,15 +51,16 @@ const updateStop = Game_Character.prototype.updateStop;
 Game_Character.prototype.updateStop = function() {
     updateStop.call(this);
 
-    if (
-        this.isMoveRouteForcing()
-        || ('canMoveBasic' in this && !this.canMoveBasic())) return;
+    if (this.isMoveRouteForcing()
+        || ('canMoveBasic' in this && !this.canMoveBasic()))
+        return;
 
-    if (!this._pathFollowingStrategy) return;
-    this._pathFollowingStrategy.update($gameMap.graph());
-    this._assignedPath = this._pathFollowingStrategy.path();
+    if (this._pathFollowingStrategy) {
+        this._pathFollowingStrategy.update($gameMap.graph());
+        this._assignedPath = this._pathFollowingStrategy.path();
+    }
 
-    if (this._assignedPath !== undefined) this.updateFollowPath();
+    if (this.isFollowingPath()) this.updateFollowPath();
 };
 
 Game_Character.prototype.follow = function<T  extends Game_Character | Point2>(
@@ -83,7 +84,6 @@ Game_Character.prototype.clearPath = function(): void
 
 Game_Character.prototype.assignPath = function(path: Deque<Point2>): void
 {
-    this.clearPathFollowingStrategy();
     this._assignedPath = path;
 }
 
@@ -113,17 +113,24 @@ Game_Character.prototype.updateFollowPath = function(): void
 
 Game_Character.prototype.onFinishFollowingPath = function(): void
 {
-    const finished = this._pathFollowingStrategy.onFinish(
-        $gameMap.graph(),
-        [this.x, this.y]
-    );
+    if (this._pathFollowingStrategy) {
+        const finished = this._pathFollowingStrategy.onFinish(
+            $gameMap.graph(),
+            [this.x, this.y]
+        );
 
-    if (!finished) this._assignedPath = this._pathFollowingStrategy.path();
-    else this._pathFollowingStrategy = this._assignedPath = undefined;
+        if (!finished) {
+            this.assignPath(this._pathFollowingStrategy.path());
+            return;
+        }
+    }
+
+    this.clearPath();
 }
 
 Game_Character.prototype.onFailFollowingPath = function(): void
 {
+    if (!this._pathFollowingStrategy) return;
     this._pathFollowingStrategy.onFail($gameMap.graph());
 }
 

@@ -4,10 +4,9 @@
         "moduleResolution": "node",
         "target": "ES6",
         "lib": ["ES5", "ES6", "DOM"],
-        "downlevelIteration": true,
         "removeComments": true,
         "strictNullChecks": true
     },
-    "include": ["src/**/*.ts", "spec/**/*.ts", "src/patch/game-character.js"],
+    "include": ["src/**/*.ts", "spec/**/*.ts"],
     "exclude": ["node_modules"]
 }

@@ -11,7 +11,6 @@
 import { SquareGridMap, Point2 } from "../data/square-grid";
 import { Colored } from '../data/graph';
 import { Deque } from "../util/deque";
-import { showTile } from "../main";
 
 export declare namespace REAStarWASM
 {
@@ -57,7 +56,6 @@ let WASM: typeof REAStarWASM;
 export async function init(): Promise<void>
 {
     WASM = await initREAStarWASM();
-    WASM.registerShowTile(() => {});
 }
 
 /**
