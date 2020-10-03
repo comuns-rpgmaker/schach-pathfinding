@@ -21,6 +21,7 @@ declare class Game_Character
     isMoveRouteForcing(): boolean;
     findDirectionTo(x: number, y: number): number;
     moveStraight(d: number): void;
+    isMovementSucceeded(): boolean;
 
     follow<T extends Game_Character | Point2>(
         target: T,
@@ -28,26 +29,40 @@ declare class Game_Character
     ): void;
 
     assignPath(path: Deque<Point2>): void;
-    walkToPoint(x: number, y: number): void;
+    clearPath(): void;
 
-    private _updateFollowPath(): void;
+    updateFollowPath(): void;
+    isFollowingPath(): boolean;
+
+    clearPathFollowingStrategy(): void;
+    onFinishFollowingPath(): void;
+    onFailFollowingPath(): void;
+
+    walkToPoint(x: number, y: number): void;
+    
+    private _pathFollowingStrategy: Strategy;
     private _assignedPath?: Deque<Point2>;
+
+    get x(): number;
+    get y(): number;
 };
 
 const updateStop = Game_Character.prototype.updateStop;
 Game_Character.prototype.updateStop = function() {
     updateStop.call(this);
 
-    if (this.isMoveRouteForcing()) return;
-    if (!this._pathFollowingStrategy) return;
+    if (
+        this.isMoveRouteForcing()
+        || ('canMoveBasic' in this && !this.canMoveBasic())) return;
 
+    if (!this._pathFollowingStrategy) return;
     this._pathFollowingStrategy.update($gameMap.graph());
     this._assignedPath = this._pathFollowingStrategy.path();
 
-    if (this._assignedPath !== undefined) this._updateFollowPath();
+    if (this._assignedPath !== undefined) this.updateFollowPath();
 };
 
-Game_Character.prototype.follow = function<T>(
+Game_Character.prototype.follow = function<T  extends Game_Character | Point2>(
     target: T,
     strategy: new (s: Game_Character, t: T) => Strategy
 ): void
@@ -55,19 +70,37 @@ Game_Character.prototype.follow = function<T>(
     this._pathFollowingStrategy = new strategy(this, target);
 }
 
+Game_Character.prototype.clearPathFollowingStrategy = function(): void
+{
+    this._pathFollowingStrategy = undefined;
+}
+
+Game_Character.prototype.clearPath = function(): void
+{
+    this.clearPathFollowingStrategy();
+    this._assignedPath = undefined;
+}
+
 Game_Character.prototype.assignPath = function(path: Deque<Point2>): void
 {
+    this.clearPathFollowingStrategy();
     this._assignedPath = path;
 }
 
-Game_Character.prototype['_updateFollowPath'] = function(): void
+Game_Character.prototype.isFollowingPath = function(): boolean
+{
+    return this._pathFollowingStrategy !== undefined
+            || this._assignedPath !== undefined;
+}
+
+Game_Character.prototype.updateFollowPath = function(): void
 {
     let p = this._assignedPath.bottom();
     if (p === undefined)
     {
-        this._pathFollowingStrategy.onFinish($gameMap.graph(), [this.x, this.y]);
-        this._assignedPath = this._pathFollowingStrategy.path();
+        this.onFinishFollowingPath();
         if (!this._assignedPath) return;
+        else p = this._assignedPath.bottom();
     }
 
     const [x, y] = p;
@@ -76,13 +109,26 @@ Game_Character.prototype['_updateFollowPath'] = function(): void
     this.walkToPoint(x, y);
 }
 
+Game_Character.prototype.onFinishFollowingPath = function(): void
+{
+    const finished = this._pathFollowingStrategy.onFinish(
+        $gameMap.graph(),
+        [this.x, this.y]
+    );
+
+    if (!finished) this._assignedPath = this._pathFollowingStrategy.path();
+    else this._pathFollowingStrategy = this._assignedPath = undefined;
+}
+
+Game_Character.prototype.onFailFollowingPath = function(): void
+{
+    this._pathFollowingStrategy.onFail($gameMap.graph());
+}
+
 Game_Character.prototype.walkToPoint = function(x: number, y: number): void
 {
     const d = this.findDirectionTo(x, y);
     this.moveStraight(d);
 
-    if (!this.isMovementSucceeded())
-    {
-        this._pathFollowingStrategy.onFail($gameMap.graph());
-    }
+    if (!this.isMovementSucceeded()) this.onFailFollowingPath();
 }

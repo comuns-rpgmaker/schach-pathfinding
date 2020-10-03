@@ -19,7 +19,7 @@ export interface TargetFollowingStrategy<U, G extends Graph<U>>
     path(): Deque<U> | undefined;
     update(map: G): void;
     onFail(map: G): void;
-    onFinish(map: G, v: U): void;
+    onFinish(map: G, v: U): boolean;
 }
 
 /**

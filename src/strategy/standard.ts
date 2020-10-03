@@ -32,7 +32,7 @@ export class StandardStrategy
     >
 {
     private readonly _source: Game_Character;
-    private readonly _target: Game_Character;
+    private readonly _target: { x: number, y: number };
 
     private _targetX: number;
     private _targetY: number;
@@ -40,10 +40,15 @@ export class StandardStrategy
     private _forceRefresh: boolean = true
     private _cached?: Deque<Point2>;
 
-    constructor(source: Game_Character, target: Game_Character)
+    constructor(source: Game_Character, target: Point2 | { x: number, y: number })
     {
         this._source = source;
-        this._target = target;
+
+        if (target instanceof Array)
+            this._target = { x: target[0], y: target[1] };
+        else
+            this._target = target;
+
         this._targetX = this._target.x;
         this._targetY = this._target.y;
     }
@@ -52,9 +57,15 @@ export class StandardStrategy
         this.refresh(map);
     }
 
-    onFinish(map: StandardMap, [x, y]: Point2): void
+    onFinish(map: StandardMap, [x, y]: Point2): boolean
     {
-        if (this._target.x != x || this._target.y != y) this.refresh(map);
+        if (this._target.x != x || this._target.y != y)
+        {
+            this.refresh(map);
+            return false;
+        }
+
+        return true;
     }
 
     path(): Deque<Point2> | undefined
