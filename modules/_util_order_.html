@@ -62,6 +62,25 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<dl class="tsd-comment-tags">
+						<dt>file</dt>
+						<dd><p>order.ts</p>
+						</dd>
+						<dt>author</dt>
+						<dd><p>Brandt</p>
+						</dd>
+						<dt>date</dt>
+						<dd><p>2020/08/23</p>
+						</dd>
+						<dt>license</dt>
+						<dd><p>Zlib</p>
+							<p>Ordering relation definitions.</p>
+						</dd>
+					</dl>
+				</div>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
@@ -86,16 +105,26 @@
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter">
 					<a name="relation" class="tsd-anchor"></a>
 					<h3>Relation</h3>
-					<div class="tsd-signature tsd-kind-icon">Relation&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, b<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span></div>
+					<div class="tsd-signature tsd-kind-icon">Relation&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>lhs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, rhs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/583360c/src/util/order.ts#L2">util/order.ts:2</a></li>
+							<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/util/order.ts#L16">util/order.ts:16</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Generic relation truth-function type.</p>
+						</div>
+					</div>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
 					<ul class="tsd-type-parameters">
 						<li>
 							<h4>T</h4>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>domain of the relation.</p>
+								</div>
+							</div>
 						</li>
 					</ul>
 					<div class="tsd-type-declaration">
@@ -103,17 +132,17 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-signature">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, b<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>lhs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, rhs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>a: <span class="tsd-signature-type">T</span></h5>
+												<h5>lhs: <span class="tsd-signature-type">T</span></h5>
 											</li>
 											<li>
-												<h5>b: <span class="tsd-signature-type">T</span></h5>
+												<h5>rhs: <span class="tsd-signature-type">T</span></h5>
 											</li>
 										</ul>
 										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -130,15 +159,20 @@
 					<a name="less" class="tsd-anchor"></a>
 					<h3>less</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">less&lt;T&gt;<span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, b<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">less&lt;T&gt;<span class="tsd-signature-symbol">(</span>lhs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, rhs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/583360c/src/util/order.ts#L4">util/order.ts:4</a></li>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/util/order.ts#L24">util/order.ts:24</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Defines a strict order between values.</p>
+								</div>
+							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -148,10 +182,16 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>a: <span class="tsd-signature-type">T</span></h5>
+									<h5>lhs: <span class="tsd-signature-type">T</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>left hand side.</p>
+									</div>
 								</li>
 								<li>
-									<h5>b: <span class="tsd-signature-type">T</span></h5>
+									<h5>rhs: <span class="tsd-signature-type">T</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>right hand side.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -173,7 +213,19 @@
 						<a href="_algorithm_flood_fill_.html">&quot;algorithm/flood-<wbr>fill&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="_algorithm_index_.html">&quot;algorithm/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="_algorithm_rea_star_.html">&quot;algorithm/rea-<wbr>star&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="_core_index_.html">&quot;core/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="_core_path_follower_.html">&quot;core/path-<wbr>follower&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="_core_target_follower_.html">&quot;core/target-<wbr>follower&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="_data_game_map_graph_.html">&quot;data/game-<wbr>map-<wbr>graph&quot;</a>
@@ -182,16 +234,43 @@
 						<a href="_data_graph_.html">&quot;data/graph&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="_data_index_.html">&quot;data/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="_data_square_grid_.html">&quot;data/square-<wbr>grid&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="_main_.html">&quot;main&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="_util_array_map_.html">&quot;util/array-<wbr>map&quot;</a>
+						<a href="_patch_game_character_.html">&quot;patch/game-<wbr>character&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="_patch_game_map_.html">&quot;patch/game-<wbr>map&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="_patch_game_player_.html">&quot;patch/game-<wbr>player&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="_patch_game_system_.html">&quot;patch/game-<wbr>system&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="_plugin_.html">&quot;plugin&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="_strategy_index_.html">&quot;strategy/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="_strategy_loop_.html">&quot;strategy/loop&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="_strategy_standard_.html">&quot;strategy/standard&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="_util_deque_.html">&quot;util/deque&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="_util_index_.html">&quot;util/index&quot;</a>
 					</li>
 					<li class="current tsd-kind-module">
 						<a href="_util_order_.html">&quot;util/order&quot;</a>
@@ -219,8 +298,6 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-namespace"><span class="tsd-kind-icon">Namespace</span></li>
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
 				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>

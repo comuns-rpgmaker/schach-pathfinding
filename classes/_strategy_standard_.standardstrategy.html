@@ -1,0 +1,573 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>StandardStrategy | schach-pathfinding</title>
+	<meta name="description" content="Documentation for schach-pathfinding">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">schach-pathfinding</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="../modules/_strategy_standard_.html">&quot;strategy/standard&quot;</a>
+				</li>
+				<li>
+					<a href="_strategy_standard_.standardstrategy.html">StandardStrategy</a>
+				</li>
+			</ul>
+			<h1>Class StandardStrategy</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Standard path following strategy.</p>
+					</div>
+					<p>This strategy controls the path discovery from a Game_Character source to
+					either a point or Game_Character target.</p>
+					<p>It will use REA* when possible to generate better-than optimal paths and
+						fallback to simple A* when it fails to derive a full path from that
+					approach.</p>
+					<p>This strategy completes once the source character reaches the desired target
+						<strong>EXACTLY</strong>. Touching an event does not count as completing the full path.
+					It will keep looking for paths until it is completed.</p>
+					<p>To avoid running the full pathfinding algorithm at every frame, the strategy
+						will only recalculate it when it receives a failure signal (i.e. <code>onFail</code>)
+						or the target&#39;s position changes (so be cautious when using it on moving
+					events).</p>
+					<p>Paths are limited to 128 steps for REA* and 32 for plain A* to avoid
+						lagging. Some optimizations are applied to avoid running to far when the
+					target is close to the source.</p>
+					<dl class="tsd-comment-tags">
+						<dt>see</dt>
+						<dd><p>LoopingStrategy</p>
+						</dd>
+					</dl>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">StandardStrategy</span>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/_core_target_follower_.targetfollowingstrategy.html" class="tsd-signature-type">TargetFollowingStrategy</a><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_data_square_grid_.html#point2" class="tsd-signature-type">Point2</a><span class="tsd-signature-symbol">, </span><a href="../modules/_strategy_standard_.html#standardmap" class="tsd-signature-type">StandardMap</a><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_strategy_standard_.standardstrategy.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_strategy_standard_.standardstrategy.html#astarsearchlimit" class="tsd-kind-icon">a<wbr>Star<wbr>Search<wbr>Limit</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_strategy_standard_.standardstrategy.html#onfail" class="tsd-kind-icon">on<wbr>Fail</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_strategy_standard_.standardstrategy.html#onfinish" class="tsd-kind-icon">on<wbr>Finish</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_strategy_standard_.standardstrategy.html#path" class="tsd-kind-icon">path</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_strategy_standard_.standardstrategy.html#reastarsearchlimit" class="tsd-kind-icon">rea<wbr>Star<wbr>Search<wbr>Limit</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_strategy_standard_.standardstrategy.html#reastarthreshold" class="tsd-kind-icon">rea<wbr>Star<wbr>Threshold</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_strategy_standard_.standardstrategy.html#refresh" class="tsd-kind-icon">refresh</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_strategy_standard_.standardstrategy.html#shouldrefresh" class="tsd-kind-icon">should<wbr>Refresh</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_strategy_standard_.standardstrategy.html#update" class="tsd-kind-icon">update</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Standard<wbr>Strategy<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Game_Character</span>, target<span class="tsd-signature-symbol">: </span><a href="../modules/_data_square_grid_.html#point2" class="tsd-signature-type">Point2</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_strategy_standard_.standardstrategy.html" class="tsd-signature-type">StandardStrategy</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/strategy/standard.ts#L75">strategy/standard.ts:75</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>source: <span class="tsd-signature-type">Game_Character</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Source character.</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<h5>target: <a href="../modules/_data_square_grid_.html#point2" class="tsd-signature-type">Point2</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Target point/character.</p>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_strategy_standard_.standardstrategy.html" class="tsd-signature-type">StandardStrategy</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="astarsearchlimit" class="tsd-anchor"></a>
+					<h3>a<wbr>Star<wbr>Search<wbr>Limit</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">a<wbr>Star<wbr>Search<wbr>Limit<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><a href="../modules/_data_square_grid_.html#point2" class="tsd-signature-type">Point2</a>, target<span class="tsd-signature-symbol">: </span><a href="../modules/_data_square_grid_.html#point2" class="tsd-signature-type">Point2</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/strategy/standard.ts#L188">strategy/standard.ts:188</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Maximum number of steps allowed on a path using A*.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>source: <a href="../modules/_data_square_grid_.html#point2" class="tsd-signature-type">Point2</a></h5>
+								</li>
+								<li>
+									<h5>target: <a href="../modules/_data_square_grid_.html#point2" class="tsd-signature-type">Point2</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="onfail" class="tsd-anchor"></a>
+					<h3>on<wbr>Fail</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Fail<span class="tsd-signature-symbol">(</span>map<span class="tsd-signature-symbol">: </span><a href="../modules/_strategy_standard_.html#standardmap" class="tsd-signature-type">StandardMap</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/strategy/standard.ts#L101">strategy/standard.ts:101</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>map: <a href="../modules/_strategy_standard_.html#standardmap" class="tsd-signature-type">StandardMap</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="onfinish" class="tsd-anchor"></a>
+					<h3>on<wbr>Finish</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Finish<span class="tsd-signature-symbol">(</span>map<span class="tsd-signature-symbol">: </span><a href="../modules/_strategy_standard_.html#standardmap" class="tsd-signature-type">StandardMap</a>, __namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/strategy/standard.ts#L105">strategy/standard.ts:105</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>map: <a href="../modules/_strategy_standard_.html#standardmap" class="tsd-signature-type">StandardMap</a></h5>
+								</li>
+								<li>
+									<h5>__namedParameters: <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="path" class="tsd-anchor"></a>
+					<h3>path</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">path<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_util_deque_.deque.html" class="tsd-signature-type">Deque</a><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_data_square_grid_.html#point2" class="tsd-signature-type">Point2</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_target_follower_.targetfollowingstrategy.html">TargetFollowingStrategy</a>.<a href="../interfaces/_core_target_follower_.targetfollowingstrategy.html#path">path</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/strategy/standard.ts#L91">strategy/standard.ts:91</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="_util_deque_.deque.html" class="tsd-signature-type">Deque</a><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_data_square_grid_.html#point2" class="tsd-signature-type">Point2</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="reastarsearchlimit" class="tsd-anchor"></a>
+					<h3>rea<wbr>Star<wbr>Search<wbr>Limit</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">rea<wbr>Star<wbr>Search<wbr>Limit<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><a href="../modules/_data_square_grid_.html#point2" class="tsd-signature-type">Point2</a>, target<span class="tsd-signature-symbol">: </span><a href="../modules/_data_square_grid_.html#point2" class="tsd-signature-type">Point2</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/strategy/standard.ts#L180">strategy/standard.ts:180</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Maximum number of steps allowed on a path using REA*.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>source: <a href="../modules/_data_square_grid_.html#point2" class="tsd-signature-type">Point2</a></h5>
+								</li>
+								<li>
+									<h5>target: <a href="../modules/_data_square_grid_.html#point2" class="tsd-signature-type">Point2</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="reastarthreshold" class="tsd-anchor"></a>
+					<h3>rea<wbr>Star<wbr>Threshold</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">rea<wbr>Star<wbr>Threshold<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/strategy/standard.ts#L172">strategy/standard.ts:172</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Minimum distance between points such that REA* should be applied.</p>
+								</div>
+								<p>Simple A* is actually more efficient for short paths depending on the
+								room size.</p>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="refresh" class="tsd-anchor"></a>
+					<h3>refresh</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">refresh<span class="tsd-signature-symbol">(</span>map<span class="tsd-signature-symbol">: </span><a href="../modules/_strategy_standard_.html#standardmap" class="tsd-signature-type">StandardMap</a>, fallback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/strategy/standard.ts#L131">strategy/standard.ts:131</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Recalculates the path to the target.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>map: <a href="../modules/_strategy_standard_.html#standardmap" class="tsd-signature-type">StandardMap</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Graph on which to calculate the path.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> fallback: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Whether to apply fallback behavior (i.e. plain A*).</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="shouldrefresh" class="tsd-anchor"></a>
+					<h3>should<wbr>Refresh</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">should<wbr>Refresh<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/strategy/standard.ts#L119">strategy/standard.ts:119</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Determines whether to recalculate the path.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="update" class="tsd-anchor"></a>
+					<h3>update</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">update<span class="tsd-signature-symbol">(</span>map<span class="tsd-signature-symbol">: </span><a href="../modules/_strategy_standard_.html#standardmap" class="tsd-signature-type">StandardMap</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/strategy/standard.ts#L96">strategy/standard.ts:96</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>map: <a href="../modules/_strategy_standard_.html#standardmap" class="tsd-signature-type">StandardMap</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_algorithm_a_star_.html">&quot;algorithm/a-<wbr>star&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_algorithm_flood_fill_.html">&quot;algorithm/flood-<wbr>fill&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_algorithm_index_.html">&quot;algorithm/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_algorithm_rea_star_.html">&quot;algorithm/rea-<wbr>star&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_core_index_.html">&quot;core/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_core_path_follower_.html">&quot;core/path-<wbr>follower&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_core_target_follower_.html">&quot;core/target-<wbr>follower&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_data_game_map_graph_.html">&quot;data/game-<wbr>map-<wbr>graph&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_data_graph_.html">&quot;data/graph&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_data_index_.html">&quot;data/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_data_square_grid_.html">&quot;data/square-<wbr>grid&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_main_.html">&quot;main&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_patch_game_character_.html">&quot;patch/game-<wbr>character&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_patch_game_map_.html">&quot;patch/game-<wbr>map&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_patch_game_player_.html">&quot;patch/game-<wbr>player&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_patch_game_system_.html">&quot;patch/game-<wbr>system&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_plugin_.html">&quot;plugin&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_strategy_index_.html">&quot;strategy/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_strategy_loop_.html">&quot;strategy/loop&quot;</a>
+					</li>
+					<li class="current tsd-kind-module">
+						<a href="../modules/_strategy_standard_.html">&quot;strategy/standard&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_util_deque_.html">&quot;util/deque&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_util_index_.html">&quot;util/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_util_order_.html">&quot;util/order&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_util_priority_queue_.html">&quot;util/priority-<wbr>queue&quot;</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-module">
+						<a href="_strategy_standard_.standardstrategy.html" class="tsd-kind-icon">Standard<wbr>Strategy</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="_strategy_standard_.standardstrategy.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_strategy_standard_.standardstrategy.html#astarsearchlimit" class="tsd-kind-icon">a<wbr>Star<wbr>Search<wbr>Limit</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_strategy_standard_.standardstrategy.html#onfail" class="tsd-kind-icon">on<wbr>Fail</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_strategy_standard_.standardstrategy.html#onfinish" class="tsd-kind-icon">on<wbr>Finish</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_strategy_standard_.standardstrategy.html#path" class="tsd-kind-icon">path</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_strategy_standard_.standardstrategy.html#reastarsearchlimit" class="tsd-kind-icon">rea<wbr>Star<wbr>Search<wbr>Limit</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_strategy_standard_.standardstrategy.html#reastarthreshold" class="tsd-kind-icon">rea<wbr>Star<wbr>Threshold</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_strategy_standard_.standardstrategy.html#refresh" class="tsd-kind-icon">refresh</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_strategy_standard_.standardstrategy.html#shouldrefresh" class="tsd-kind-icon">should<wbr>Refresh</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_strategy_standard_.standardstrategy.html#update" class="tsd-kind-icon">update</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="../modules/_strategy_standard_.html#standardmap" class="tsd-kind-icon">Standard<wbr>Map</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

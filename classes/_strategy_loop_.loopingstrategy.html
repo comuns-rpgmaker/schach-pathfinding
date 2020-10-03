@@ -1,0 +1,401 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>LoopingStrategy | schach-pathfinding</title>
+	<meta name="description" content="Documentation for schach-pathfinding">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">schach-pathfinding</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="../modules/_strategy_loop_.html">&quot;strategy/loop&quot;</a>
+				</li>
+				<li>
+					<a href="_strategy_loop_.loopingstrategy.html">LoopingStrategy</a>
+				</li>
+			</ul>
+			<h1>Class LoopingStrategy&lt;T, U, A&gt;</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Looping strategy decorator.</p>
+					</div>
+					<p>Wraps a strategy to make it infinite (i.e. <code>onFinish</code> always returns false).</p>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>T</h4>
+					</li>
+					<li>
+						<h4>U<span class="tsd-signature-symbol">: </span><a href="../interfaces/_data_graph_.graph.html" class="tsd-signature-type">Graph</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+					</li>
+					<li>
+						<h4>A<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span> = <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">LoopingStrategy</span>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/_core_target_follower_.targetfollowingstrategy.html" class="tsd-signature-type">TargetFollowingStrategy</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">U</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_strategy_loop_.loopingstrategy.html#onfail" class="tsd-kind-icon">on<wbr>Fail</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_strategy_loop_.loopingstrategy.html#onfinish" class="tsd-kind-icon">on<wbr>Finish</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_strategy_loop_.loopingstrategy.html#path" class="tsd-kind-icon">path</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_strategy_loop_.loopingstrategy.html#update" class="tsd-kind-icon">update</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="_strategy_loop_.loopingstrategy.html#wrap" class="tsd-kind-icon">wrap</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="onfail" class="tsd-anchor"></a>
+					<h3>on<wbr>Fail</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Fail<span class="tsd-signature-symbol">(</span>map<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">U</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_target_follower_.targetfollowingstrategy.html">TargetFollowingStrategy</a>.<a href="../interfaces/_core_target_follower_.targetfollowingstrategy.html#onfail">onFail</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/strategy/loop.ts#L60">strategy/loop.ts:60</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>map: <span class="tsd-signature-type">U</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="onfinish" class="tsd-anchor"></a>
+					<h3>on<wbr>Finish</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Finish<span class="tsd-signature-symbol">(</span>map<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">U</span>, v<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_target_follower_.targetfollowingstrategy.html">TargetFollowingStrategy</a>.<a href="../interfaces/_core_target_follower_.targetfollowingstrategy.html#onfinish">onFinish</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/strategy/loop.ts#L64">strategy/loop.ts:64</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>map: <span class="tsd-signature-type">U</span></h5>
+								</li>
+								<li>
+									<h5>v: <span class="tsd-signature-type">T</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="path" class="tsd-anchor"></a>
+					<h3>path</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">path<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_util_deque_.deque.html" class="tsd-signature-type">Deque</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_target_follower_.targetfollowingstrategy.html">TargetFollowingStrategy</a>.<a href="../interfaces/_core_target_follower_.targetfollowingstrategy.html#path">path</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/strategy/loop.ts#L52">strategy/loop.ts:52</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="_util_deque_.deque.html" class="tsd-signature-type">Deque</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="update" class="tsd-anchor"></a>
+					<h3>update</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">update<span class="tsd-signature-symbol">(</span>map<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">U</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_core_target_follower_.targetfollowingstrategy.html">TargetFollowingStrategy</a>.<a href="../interfaces/_core_target_follower_.targetfollowingstrategy.html#update">update</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/strategy/loop.ts#L56">strategy/loop.ts:56</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>map: <span class="tsd-signature-type">U</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+					<a name="wrap" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> wrap</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">wrap&lt;T, U, A&gt;<span class="tsd-signature-symbol">(</span>f<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{}</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/strategy/loop.ts#L30">strategy/loop.ts:30</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>T</h4>
+								</li>
+								<li>
+									<h4>U<span class="tsd-signature-symbol">: </span><a href="../interfaces/_data_graph_.graph.html" class="tsd-signature-type">Graph</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+								</li>
+								<li>
+									<h4>A<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>f: <span class="tsd-signature-symbol">{}</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Strategy class to be wrapped.</p>
+									</div>
+									<ul class="tsd-parameters">
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{}</span></h4>
+							<p>a constructor for a looping strategy over the wrapped one.</p>
+							<ul class="tsd-parameters">
+							</ul>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_algorithm_a_star_.html">&quot;algorithm/a-<wbr>star&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_algorithm_flood_fill_.html">&quot;algorithm/flood-<wbr>fill&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_algorithm_index_.html">&quot;algorithm/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_algorithm_rea_star_.html">&quot;algorithm/rea-<wbr>star&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_core_index_.html">&quot;core/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_core_path_follower_.html">&quot;core/path-<wbr>follower&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_core_target_follower_.html">&quot;core/target-<wbr>follower&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_data_game_map_graph_.html">&quot;data/game-<wbr>map-<wbr>graph&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_data_graph_.html">&quot;data/graph&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_data_index_.html">&quot;data/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_data_square_grid_.html">&quot;data/square-<wbr>grid&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_main_.html">&quot;main&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_patch_game_character_.html">&quot;patch/game-<wbr>character&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_patch_game_map_.html">&quot;patch/game-<wbr>map&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_patch_game_player_.html">&quot;patch/game-<wbr>player&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_patch_game_system_.html">&quot;patch/game-<wbr>system&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_plugin_.html">&quot;plugin&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_strategy_index_.html">&quot;strategy/index&quot;</a>
+					</li>
+					<li class="current tsd-kind-module">
+						<a href="../modules/_strategy_loop_.html">&quot;strategy/loop&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_strategy_standard_.html">&quot;strategy/standard&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_util_deque_.html">&quot;util/deque&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_util_index_.html">&quot;util/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_util_order_.html">&quot;util/order&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_util_priority_queue_.html">&quot;util/priority-<wbr>queue&quot;</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_strategy_loop_.loopingstrategy.html" class="tsd-kind-icon">Looping<wbr>Strategy</a>
+						<ul>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_strategy_loop_.loopingstrategy.html#onfail" class="tsd-kind-icon">on<wbr>Fail</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_strategy_loop_.loopingstrategy.html#onfinish" class="tsd-kind-icon">on<wbr>Finish</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_strategy_loop_.loopingstrategy.html#path" class="tsd-kind-icon">path</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_strategy_loop_.loopingstrategy.html#update" class="tsd-kind-icon">update</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
+								<a href="_strategy_loop_.loopingstrategy.html#wrap" class="tsd-kind-icon">wrap</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

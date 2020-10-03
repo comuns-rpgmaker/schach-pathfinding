@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ColoredMutable | schach-pathfinding</title>
+	<title>TargetFollowingStrategy | schach-pathfinding</title>
 	<meta name="description" content="Documentation for schach-pathfinding">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -52,13 +52,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_data_graph_.html">&quot;data/graph&quot;</a>
+					<a href="../modules/_core_target_follower_.html">&quot;core/target-follower&quot;</a>
 				</li>
 				<li>
-					<a href="_data_graph_.coloredmutable.html">ColoredMutable</a>
+					<a href="_core_target_follower_.targetfollowingstrategy.html">TargetFollowingStrategy</a>
 				</li>
 			</ul>
-			<h1>Interface ColoredMutable&lt;T, C&gt;</h1>
+			<h1>Interface TargetFollowingStrategy&lt;U, G&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -68,7 +68,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Generic mutably colored graph interface.</p>
+						<p>Interface for an strategy used to follow some target.</p>
 					</div>
 				</div>
 			</section>
@@ -76,20 +76,10 @@
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
 					<li>
-						<h4>T</h4>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>type of vertex on the graph.</p>
-							</div>
-						</div>
+						<h4>U</h4>
 					</li>
 					<li>
-						<h4>C</h4>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>color type.</p>
-							</div>
-						</div>
+						<h4>G<span class="tsd-signature-symbol">: </span><a href="_data_graph_.graph.html" class="tsd-signature-type">Graph</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">U</span><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 				</ul>
 			</section>
@@ -97,13 +87,15 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="_data_graph_.colored.html" class="tsd-signature-type">Colored</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span>
-						<ul class="tsd-hierarchy">
-							<li>
-								<span class="target">ColoredMutable</span>
-							</li>
-						</ul>
+						<span class="target">TargetFollowingStrategy</span>
 					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implemented by</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../classes/_strategy_loop_.loopingstrategy.html" class="tsd-signature-type">LoopingStrategy</a></li>
+					<li><a href="../classes/_strategy_standard_.standardstrategy.html" class="tsd-signature-type">StandardStrategy</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -113,8 +105,10 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="_data_graph_.coloredmutable.html#color" class="tsd-kind-icon">color</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_data_graph_.coloredmutable.html#setcolor" class="tsd-kind-icon">set<wbr>Color</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_core_target_follower_.targetfollowingstrategy.html#onfail" class="tsd-kind-icon">on<wbr>Fail</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_core_target_follower_.targetfollowingstrategy.html#onfinish" class="tsd-kind-icon">on<wbr>Finish</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_core_target_follower_.targetfollowingstrategy.html#path" class="tsd-kind-icon">path</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_core_target_follower_.targetfollowingstrategy.html#update" class="tsd-kind-icon">update</a></li>
 							</ul>
 						</section>
 					</div>
@@ -122,50 +116,123 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-					<a name="color" class="tsd-anchor"></a>
-					<h3>color</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">color<span class="tsd-signature-symbol">(</span>v<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="onfail" class="tsd-anchor"></a>
+					<h3>on<wbr>Fail</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Fail<span class="tsd-signature-symbol">(</span>map<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">G</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_data_graph_.colored.html">Colored</a>.<a href="_data_graph_.colored.html#color">color</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/data/graph.ts#L66">data/graph.ts:66</a></li>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/core/target-follower.ts#L38">core/target-follower.ts:38</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Signals failure when trying to follow a path generated by the strategy.
+									Used for recovery when a path becomes invalid after calculation.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>v: <span class="tsd-signature-type">T</span></h5>
+									<h5>map: <span class="tsd-signature-type">G</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>graph on which to calculate the path.</p>
+									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">C</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="setcolor" class="tsd-anchor"></a>
-					<h3>set<wbr>Color</h3>
+					<a name="onfinish" class="tsd-anchor"></a>
+					<h3>on<wbr>Finish</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>Color<span class="tsd-signature-symbol">(</span>v<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, color<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Finish<span class="tsd-signature-symbol">(</span>map<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">G</span>, v<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">U</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/data/graph.ts#L77">data/graph.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/core/target-follower.ts#L48">core/target-follower.ts:48</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Signals that the follower has finished following a path that was
+										generated by the strategy. This can used to compute partial paths and
+									then complete them later as possible/necessary.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>v: <span class="tsd-signature-type">T</span></h5>
+									<h5>map: <span class="tsd-signature-type">G</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>graph on which to calculate the path.</p>
+									</div>
 								</li>
 								<li>
-									<h5>color: <span class="tsd-signature-type">C</span></h5>
+									<h5>v: <span class="tsd-signature-type">U</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the actual vertex where the follower stopped.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="path" class="tsd-anchor"></a>
+					<h3>path</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">path<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/_util_deque_.deque.html" class="tsd-signature-type">Deque</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">U</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/core/target-follower.ts#L23">core/target-follower.ts:23</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="../classes/_util_deque_.deque.html" class="tsd-signature-type">Deque</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">U</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
+							<p>the calculated path to the target, or undefined if none has
+							been found.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="update" class="tsd-anchor"></a>
+					<h3>update</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">update<span class="tsd-signature-symbol">(</span>map<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">G</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/core/target-follower.ts#L30">core/target-follower.ts:30</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Updates path calculation.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>map: <span class="tsd-signature-type">G</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>graph on which to calculate the path.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -198,13 +265,13 @@
 					<li class=" tsd-kind-module">
 						<a href="../modules/_core_path_follower_.html">&quot;core/path-<wbr>follower&quot;</a>
 					</li>
-					<li class=" tsd-kind-module">
+					<li class="current tsd-kind-module">
 						<a href="../modules/_core_target_follower_.html">&quot;core/target-<wbr>follower&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="../modules/_data_game_map_graph_.html">&quot;data/game-<wbr>map-<wbr>graph&quot;</a>
 					</li>
-					<li class="current tsd-kind-module">
+					<li class=" tsd-kind-module">
 						<a href="../modules/_data_graph_.html">&quot;data/graph&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -257,32 +324,29 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="_data_graph_.colored.html" class="tsd-kind-icon">Colored</a>
+						<a href="_core_target_follower_.targetfollower.html" class="tsd-kind-icon">Target<wbr>Follower</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="_data_graph_.coloredmutable.html" class="tsd-kind-icon">Colored<wbr>Mutable</a>
+						<a href="_core_target_follower_.targetfollowingstrategy.html" class="tsd-kind-icon">Target<wbr>Following<wbr>Strategy</a>
 						<ul>
-							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="_data_graph_.coloredmutable.html#color" class="tsd-kind-icon">color</a>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="_core_target_follower_.targetfollowingstrategy.html#onfail" class="tsd-kind-icon">on<wbr>Fail</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_data_graph_.coloredmutable.html#setcolor" class="tsd-kind-icon">set<wbr>Color</a>
+								<a href="_core_target_follower_.targetfollowingstrategy.html#onfinish" class="tsd-kind-icon">on<wbr>Finish</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="_core_target_follower_.targetfollowingstrategy.html#path" class="tsd-kind-icon">path</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="_core_target_follower_.targetfollowingstrategy.html#update" class="tsd-kind-icon">update</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="_data_graph_.digraph.html" class="tsd-kind-icon">Di<wbr>Graph</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="_data_graph_.graph.html" class="tsd-kind-icon">Graph</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="_data_graph_.weighted.html" class="tsd-kind-icon">Weighted</a>
-					</li>
 				</ul>
 			</nav>
 		</div>

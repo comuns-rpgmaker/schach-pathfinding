@@ -65,6 +65,16 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Game map graph implementation.</p>
+					</div>
+					<p>The colors on the graph represent the adirectional passability on the map
+						(tiles not passable by either direction will be considered unpassable), and
+					weights are calculated using Manhattan distance (tiled walk distance).</p>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -83,6 +93,7 @@
 				<ul class="tsd-hierarchy">
 					<li><a href="../interfaces/_data_graph_.graph.html" class="tsd-signature-type">Graph</a><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_data_square_grid_.html#point2" class="tsd-signature-type">Point2</a><span class="tsd-signature-symbol">&gt;</span></li>
 					<li><a href="../interfaces/_data_graph_.colored.html" class="tsd-signature-type">Colored</a><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_data_square_grid_.html#point2" class="tsd-signature-type">Point2</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li><a href="../interfaces/_data_graph_.weighted.html" class="tsd-signature-type">Weighted</a><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_data_square_grid_.html#point2" class="tsd-signature-type">Point2</a><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -103,6 +114,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_data_game_map_graph_.gamemapgraph.html#contains" class="tsd-kind-icon">contains</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_data_game_map_graph_.gamemapgraph.html#from" class="tsd-kind-icon">from</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_data_game_map_graph_.gamemapgraph.html#id" class="tsd-kind-icon">id</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_data_game_map_graph_.gamemapgraph.html#weight" class="tsd-kind-icon">weight</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_data_game_map_graph_.gamemapgraph.html#d1" class="tsd-kind-icon">d1</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_data_game_map_graph_.gamemapgraph.html#d2" class="tsd-kind-icon">d2</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_data_game_map_graph_.gamemapgraph.html#octile" class="tsd-kind-icon">octile</a></li>
@@ -124,7 +136,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_data_square_grid_.squaregridmap.html">SquareGridMap</a>.<a href="_data_square_grid_.squaregridmap.html#height">height</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/583360c/src/data/game-map-graph.ts#L46">data/game-map-graph.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/data/game-map-graph.ts#L55">data/game-map-graph.ts:55</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -142,7 +154,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_data_square_grid_.squaregridmap.html">SquareGridMap</a>.<a href="_data_square_grid_.squaregridmap.html#width">width</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/583360c/src/data/game-map-graph.ts#L42">data/game-map-graph.ts:42</a></li>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/data/game-map-graph.ts#L50">data/game-map-graph.ts:50</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -162,7 +174,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/583360c/src/data/game-map-graph.ts#L87">data/game-map-graph.ts:87</a></li>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/data/game-map-graph.ts#L73">data/game-map-graph.ts:73</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -186,7 +198,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_data_square_grid_.squaregridmap.html">SquareGridMap</a>.<a href="_data_square_grid_.squaregridmap.html#contains">contains</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/583360c/src/data/square-grid.ts#L39">data/square-grid.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/data/square-grid.ts#L39">data/square-grid.ts:39</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -213,7 +225,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_data_square_grid_.squaregridmap.html">SquareGridMap</a>.<a href="_data_square_grid_.squaregridmap.html#from">from</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/583360c/src/data/game-map-graph.ts#L50">data/game-map-graph.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/data/game-map-graph.ts#L60">data/game-map-graph.ts:60</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -237,7 +249,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_data_square_grid_.squaregridmap.html">SquareGridMap</a>.<a href="_data_square_grid_.squaregridmap.html#id">id</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/583360c/src/data/square-grid.ts#L28">data/square-grid.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/data/square-grid.ts#L28">data/square-grid.ts:28</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -247,6 +259,32 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="weight" class="tsd-anchor"></a>
+					<h3>weight</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">weight<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><a href="../modules/_data_square_grid_.html#point2" class="tsd-signature-type">Point2</a>, target<span class="tsd-signature-symbol">: </span><a href="../modules/_data_square_grid_.html#point2" class="tsd-signature-type">Point2</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/data/game-map-graph.ts#L92">data/game-map-graph.ts:92</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>source: <a href="../modules/_data_square_grid_.html#point2" class="tsd-signature-type">Point2</a></h5>
+								</li>
+								<li>
+									<h5>target: <a href="../modules/_data_square_grid_.html#point2" class="tsd-signature-type">Point2</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -261,7 +299,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_data_square_grid_.squaregridmap.html">SquareGridMap</a>.<a href="_data_square_grid_.squaregridmap.html#d1">d1</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/583360c/src/data/square-grid.ts#L50">data/square-grid.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/data/square-grid.ts#L50">data/square-grid.ts:50</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -293,7 +331,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_data_square_grid_.squaregridmap.html">SquareGridMap</a>.<a href="_data_square_grid_.squaregridmap.html#d2">d2</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/583360c/src/data/square-grid.ts#L61">data/square-grid.ts:61</a></li>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/data/square-grid.ts#L61">data/square-grid.ts:61</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -325,7 +363,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_data_square_grid_.squaregridmap.html">SquareGridMap</a>.<a href="_data_square_grid_.squaregridmap.html#octile">octile</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/583360c/src/data/square-grid.ts#L72">data/square-grid.ts:72</a></li>
+									<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/data/square-grid.ts#L72">data/square-grid.ts:72</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -361,7 +399,19 @@
 						<a href="../modules/_algorithm_flood_fill_.html">&quot;algorithm/flood-<wbr>fill&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="../modules/_algorithm_index_.html">&quot;algorithm/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="../modules/_algorithm_rea_star_.html">&quot;algorithm/rea-<wbr>star&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_core_index_.html">&quot;core/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_core_path_follower_.html">&quot;core/path-<wbr>follower&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_core_target_follower_.html">&quot;core/target-<wbr>follower&quot;</a>
 					</li>
 					<li class="current tsd-kind-module">
 						<a href="../modules/_data_game_map_graph_.html">&quot;data/game-<wbr>map-<wbr>graph&quot;</a>
@@ -370,16 +420,43 @@
 						<a href="../modules/_data_graph_.html">&quot;data/graph&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="../modules/_data_index_.html">&quot;data/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="../modules/_data_square_grid_.html">&quot;data/square-<wbr>grid&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="../modules/_main_.html">&quot;main&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="../modules/_util_array_map_.html">&quot;util/array-<wbr>map&quot;</a>
+						<a href="../modules/_patch_game_character_.html">&quot;patch/game-<wbr>character&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_patch_game_map_.html">&quot;patch/game-<wbr>map&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_patch_game_player_.html">&quot;patch/game-<wbr>player&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_patch_game_system_.html">&quot;patch/game-<wbr>system&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_plugin_.html">&quot;plugin&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_strategy_index_.html">&quot;strategy/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_strategy_loop_.html">&quot;strategy/loop&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_strategy_standard_.html">&quot;strategy/standard&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="../modules/_util_deque_.html">&quot;util/deque&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_util_index_.html">&quot;util/index&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="../modules/_util_order_.html">&quot;util/order&quot;</a>
@@ -414,6 +491,9 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_data_game_map_graph_.gamemapgraph.html#id" class="tsd-kind-icon">id</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_data_game_map_graph_.gamemapgraph.html#weight" class="tsd-kind-icon">weight</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
 								<a href="_data_game_map_graph_.gamemapgraph.html#d1" class="tsd-kind-icon">d1</a>
 							</li>
@@ -437,8 +517,6 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-namespace"><span class="tsd-kind-icon">Namespace</span></li>
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
 				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;util/array-map&quot; | schach-pathfinding</title>
+	<title>&quot;strategy/standard&quot; | schach-pathfinding</title>
 	<meta name="description" content="Documentation for schach-pathfinding">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -52,36 +52,16 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_util_array_map_.html">&quot;util/array-map&quot;</a>
+					<a href="_strategy_standard_.html">&quot;strategy/standard&quot;</a>
 				</li>
 			</ul>
-			<h1>Module &quot;util/array-map&quot;</h1>
+			<h1>Module &quot;strategy/standard&quot;</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<dl class="tsd-comment-tags">
-						<dt>file</dt>
-						<dd><p>array-map.ts</p>
-						</dd>
-						<dt>author</dt>
-						<dd><p>Brandt</p>
-						</dd>
-						<dt>date</dt>
-						<dd><p>2020/08/23</p>
-						</dd>
-						<dt>license</dt>
-						<dd><p>Zlib</p>
-							<p>Array map, only supports number indexes but is faster than a proper Map in
-							practice, at the cost of taking up more space if the map is sparse.</p>
-						</dd>
-					</dl>
-				</div>
-			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
@@ -89,9 +69,39 @@
 						<section class="tsd-index-section ">
 							<h3>Classes</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter"><a href="../classes/_util_array_map_.arraymap.html" class="tsd-kind-icon">Array<wbr>Map</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/_strategy_standard_.standardstrategy.html" class="tsd-kind-icon">Standard<wbr>Strategy</a></li>
 							</ul>
 						</section>
+						<section class="tsd-index-section ">
+							<h3>Type aliases</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="_strategy_standard_.html#standardmap" class="tsd-kind-icon">Standard<wbr>Map</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Type aliases</h2>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
+					<a name="standardmap" class="tsd-anchor"></a>
+					<h3>Standard<wbr>Map</h3>
+					<div class="tsd-signature tsd-kind-icon">Standard<wbr>Map<span class="tsd-signature-symbol">:</span> <a href="../classes/_data_square_grid_.squaregridmap.html" class="tsd-signature-type">SquareGridMap</a><span class="tsd-signature-symbol"> &amp; </span><a href="../interfaces/_data_graph_.colored.html" class="tsd-signature-type">Colored</a><span class="tsd-signature-symbol">&lt;</span><a href="_data_square_grid_.html#point2" class="tsd-signature-type">Point2</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><a href="../interfaces/_data_graph_.weighted.html" class="tsd-signature-type">Weighted</a><span class="tsd-signature-symbol">&lt;</span><a href="_data_square_grid_.html#point2" class="tsd-signature-type">Point2</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/comuns-rpgmaker/schach-pathfinding/blob/19aeca8/src/strategy/standard.ts#L35">strategy/standard.ts:35</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Standard map type.</p>
+						</div>
+						<p>This is guaranteed to at least accomodate GameMapGraph.</p>
+						<dl class="tsd-comment-tags">
+							<dt>see</dt>
+							<dd><p>GameMapGraph</p>
+							</dd>
+						</dl>
 					</div>
 				</section>
 			</section>
@@ -109,7 +119,19 @@
 						<a href="_algorithm_flood_fill_.html">&quot;algorithm/flood-<wbr>fill&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="_algorithm_index_.html">&quot;algorithm/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="_algorithm_rea_star_.html">&quot;algorithm/rea-<wbr>star&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="_core_index_.html">&quot;core/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="_core_path_follower_.html">&quot;core/path-<wbr>follower&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="_core_target_follower_.html">&quot;core/target-<wbr>follower&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="_data_game_map_graph_.html">&quot;data/game-<wbr>map-<wbr>graph&quot;</a>
@@ -118,16 +140,43 @@
 						<a href="_data_graph_.html">&quot;data/graph&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="_data_index_.html">&quot;data/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="_data_square_grid_.html">&quot;data/square-<wbr>grid&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="_main_.html">&quot;main&quot;</a>
 					</li>
+					<li class=" tsd-kind-module">
+						<a href="_patch_game_character_.html">&quot;patch/game-<wbr>character&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="_patch_game_map_.html">&quot;patch/game-<wbr>map&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="_patch_game_player_.html">&quot;patch/game-<wbr>player&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="_patch_game_system_.html">&quot;patch/game-<wbr>system&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="_plugin_.html">&quot;plugin&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="_strategy_index_.html">&quot;strategy/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="_strategy_loop_.html">&quot;strategy/loop&quot;</a>
+					</li>
 					<li class="current tsd-kind-module">
-						<a href="_util_array_map_.html">&quot;util/array-<wbr>map&quot;</a>
+						<a href="_strategy_standard_.html">&quot;strategy/standard&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="_util_deque_.html">&quot;util/deque&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="_util_index_.html">&quot;util/index&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="_util_order_.html">&quot;util/order&quot;</a>
@@ -139,8 +188,11 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="../classes/_util_array_map_.arraymap.html" class="tsd-kind-icon">Array<wbr>Map</a>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="../classes/_strategy_standard_.standardstrategy.html" class="tsd-kind-icon">Standard<wbr>Strategy</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="_strategy_standard_.html#standardmap" class="tsd-kind-icon">Standard<wbr>Map</a>
 					</li>
 				</ul>
 			</nav>
@@ -152,8 +204,6 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-namespace"><span class="tsd-kind-icon">Namespace</span></li>
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
 				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
