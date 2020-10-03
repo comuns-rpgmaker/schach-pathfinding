@@ -9,7 +9,7 @@
  */
 
 import { Point2, SquareGridMap } from '../data/square-grid';
-import { Colored } from './graph';
+import { Colored, Weighted } from './graph';
 
 declare class Game_Vehicle {
     posNt(x: number, y: number): boolean;
@@ -37,13 +37,23 @@ declare const $dataMap: {
     data: number[];
 };
 
+/**
+ * Game map graph implementation.
+ * 
+ * The colors on the graph represent the adirectional passability on the map
+ * (tiles not passable by either direction will be considered unpassable), and
+ * weights are calculated using Manhattan distance (tiled walk distance). 
+ */
 export class GameMapGraph extends SquareGridMap
-implements Colored<Point2, boolean> {
-    get width(): number {
+    implements Colored<Point2, boolean>, Weighted<Point2>
+{
+    get width(): number
+    {
         return $gameMap.width();
     }
 
-    get height(): number {
+    get height(): number
+    {
         return $gameMap.height();
     }
 
@@ -58,6 +68,29 @@ implements Colored<Point2, boolean> {
         }
 
         return neighbors;
+    }
+
+    color([x, y]: Point2): boolean
+    {
+        if (this.collidesWithEvents(x, y)) return false;
+
+        const width = this.width;
+        const height = this.height;
+        const flags = $gameMap.tilesetFlags();
+        for (let z = 3; z >= 0; z--)
+        {
+            const tile = $dataMap.data[(z * height + y) * width + x] || 0;
+            const flag = flags[tile];
+
+            if ((flag & 0x10) !== 0) continue;
+            return (flag & 0xf) === 0;
+        }
+
+        return true;
+    }
+
+    weight(source: Point2, target: Point2): number {
+        return SquareGridMap.d1(source, target);
     }
 
     private canPass([x, y]: Point2, d: number): boolean
@@ -75,31 +108,12 @@ implements Colored<Point2, boolean> {
             return false;
         }
 
-        return this.collidesWithEvents(x, y);
+        return !this.collidesWithEvents(x, y);
     }
 
     private collidesWithEvents(x: number, y: number): boolean
     {
         const events = $gameMap.eventsXyNt(x, y);
         return events.some(e => e.isNormalPriority());
-    }
-
-    color([x, y]: Point2): boolean
-    {
-        if (this.collidesWithEvents(x, y)) return false;
-
-        const width = this.width;
-        const height = this.height;
-        const flags = $gameMap.tilesetFlags();
-        for (let z = 0; z < 4; z++)
-        {
-            const tile = $dataMap.data[(z * height + y) * width + x] || 0;
-            const flag = flags[tile];
-
-            if ((flag & 0x10) !== 0) continue;
-            return (flag & 0xf) === 0;
-        }
-
-        return true;
     }
 }

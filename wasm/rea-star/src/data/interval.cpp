@@ -27,13 +27,21 @@ Interval Interval::subinterval(int start, int end) const {
 }
 
 bool Interval::contains(const Point& p) const {
-    int a = static_cast<int>(axis());
+    Axis a = axis();
 
-    int fixed = p.coords[a], broad = p.coords[!a];
+    int fixed, broad;
+    if (a == Axis::X) {
+        fixed = p.x;
+        broad = p.y;
+    } else {
+        fixed = p.y;
+        broad = p.x;
+    }
+
     return fixed == m_fixed && m_min <= broad && broad <= m_max;
 }
 
-bool Interval::is_free(const Grid<bool>& g) const {
+bool Interval::is_free(Grid<bool>& g) const {
     if (!is_valid(g)) return false;
 
     for (int i = 0; i < length(); i++) {
@@ -45,9 +53,11 @@ bool Interval::is_free(const Grid<bool>& g) const {
 }
 
 bool Interval::is_valid(const Grid<bool>& g) const {
-    return fixed() >= 0 && (
-        (axis() == Axis::X && fixed() <= g.width()) ||
-        (axis() == Axis::Y && fixed() <= g.height()));
+    int f = fixed();
+    Axis a = axis();
+    return f >= 0 && (
+        (a == Axis::X && f < g.width()) ||
+        (a == Axis::Y && f < g.height()));
 }
 
 template<typename T>
@@ -56,13 +66,13 @@ Interval Interval::clip(const Grid<T>& g) const {
         m_cardinal,
         m_fixed,
         std::max(m_min, 0),
-        std::min(m_max, axis() == Axis::X ? g.height() : g.width())
+        std::min(m_max, (axis() == Axis::X ? g.height() : g.width()) - 1)
     );
 }
 
 template Interval Interval::clip<bool>(const Grid<bool>& g) const;
 
-std::vector<Interval> Interval::free_subintervals(const Grid<bool>& g) const {
+std::vector<Interval> Interval::free_subintervals(Grid<bool>& g) const {
     Interval clipped = clip(g);
     int len = clipped.length();
     

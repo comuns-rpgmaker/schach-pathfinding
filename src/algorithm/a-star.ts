@@ -28,8 +28,9 @@ export function aStar<T>(
     source: T,
     target: T,
     g: Graph<T> & Weighted<T>,
-    heuristic: (s: T, t: T) => number
-): Deque<T> | undefined
+    heuristic: (s: T, t: T) => number,
+    maxlen: number
+): Deque<T>
 {
     const sourceId = g.id(source)!;
     const targetId = g.id(target)!;
@@ -38,7 +39,11 @@ export function aStar<T>(
     gscore.set(sourceId, 0);
 
     const fscore = new Map<number, number>();
-    fscore.set(sourceId, heuristic(source, target));
+    const f = heuristic(source, target);
+    fscore.set(sourceId, f);
+
+    let best = source;
+    let bestH = f;
 
     const q = new PriorityQueue<{ id: number, node: T }>(
         ({ id: idA }, { id: idB }) => fscore.get(idA)! < fscore.get(idB)!);
@@ -65,11 +70,22 @@ export function aStar<T>(
                 const score = nodeScore + g.weight(node, neighbor)!;
 
                 const neighborId = g.id(neighbor)!;
-                if (score < (gscore.get(neighborId) ?? Infinity))
+                if (score < maxlen &&
+                    score < (gscore.get(neighborId) ?? Infinity)
+                )
                 {
                     cameFrom.set(neighborId, node);
                     gscore.set(neighborId, score);
-                    fscore.set(neighborId, score + heuristic(neighbor, target));
+
+                    const h = heuristic(neighbor, target);
+                    const f = score + h;
+                    fscore.set(neighborId, f);
+
+                    if (h < bestH)
+                    {
+                        best = neighbor;
+                        bestH = h;
+                    }
 
                     if (!open.has(neighborId)) {
                         q.add({ id: neighborId, node: neighbor });
@@ -80,7 +96,7 @@ export function aStar<T>(
         }
     }
 
-    return undefined;
+    return makePath(g, best, cameFrom);
 }
 
 function makePath<T>(g: Graph<T>, target: T, cameFrom: Map<number, T>): Deque<T>

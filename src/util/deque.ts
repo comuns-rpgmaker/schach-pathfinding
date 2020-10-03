@@ -15,7 +15,6 @@
  */
 export class Deque<T>
 {
-
     private _data: T[] = [];
     private _start = 0;
     private _length = 0;

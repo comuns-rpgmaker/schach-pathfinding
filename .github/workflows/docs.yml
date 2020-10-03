@@ -23,6 +23,7 @@ jobs:
             --excludeNotExported \
             --excludePrivate \
             --excludeExternals \
+            --exclude "**/*+.spec.ts" \
             --externalPattern "node_modules/**" \
             --readme README.md \
             --out docs \

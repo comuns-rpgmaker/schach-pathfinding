@@ -1,4 +1,5 @@
 import typescript from '@rollup/plugin-typescript';
+import replace from '@rollup/plugin-replace';
 
 import { terser } from 'rollup-plugin-terser';
 import externalGlobals from "rollup-plugin-external-globals";
@@ -25,6 +26,9 @@ export default [
                 sourcemap: false,
                 outro: wasm,
                 plugins: [
+                    replace({
+                        __pluginId__: pkg.name
+                    }),
                     terser({
                         format: {
                             comments: false,
@@ -40,7 +44,13 @@ export default [
                 name: pkg.namespace,
                 format: 'iife',
                 sourcemap: true,
-                outro: wasm
+                banner: header,
+                outro: wasm,
+                plugins: [
+                    replace({
+                        __pluginId__: `${pkg.name}.debug`
+                    })
+                ]
             }
         ],
         plugins: [
@@ -48,6 +58,7 @@ export default [
             externalGlobals({
                 "rmmz": "window"
             })
-        ]
+        ],
+        onwarn: () => {}
 	}
 ];

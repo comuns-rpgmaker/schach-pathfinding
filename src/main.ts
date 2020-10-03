@@ -1,85 +1,42 @@
-export * from "./util/priority-queue";
-export * from "./util/deque";
+export * from "./data";
+export * from "./core";
 
-export * from "./algorithm/flood-fill";
-export * from "./algorithm/a-star";
+export * as Util from "./util";
+export * as Algorithm from "./algorithm";
+export * as Strategy from "./strategy";
 
-export * from "./data/square-grid";
+import "./patch/game-character";
+import "./patch/game-player";
+import "./patch/game-map";
+import "./patch/game-system";
 
-import {
-    rectangleExpansionAStar,
-    init as initREAStar
-} from "./algorithm/rea-star";
-import { GameMapGraph } from "./data/game-map-graph";
+import "./plugin";
 
-export { rectangleExpansionAStar };
-
-import { Point2 } from "./data/square-grid";
+import { init as initREAStar } from "./algorithm/rea-star";
 
 export async function init(): Promise<void>
 {
     await initREAStar();
 }
 
-declare class Game_Event
-{
-    isNormalPriority(): boolean;
+declare class Scene_Boot {
+    create(): void;
+    isReady(): boolean;
 }
 
-declare const $gameMap: {
-    width(): number;
-    height(): number;
-    checkPassage(x: number, y: number, flag: number): boolean;
-    eventsXyNt(x: number, y: number): Game_Event[];
-    displayX(): number;
-    displayY(): number;
-};
-
-declare class Bitmap
+const create = Scene_Boot.prototype.create;
+Scene_Boot.prototype.create = function(): void
 {
-    constructor(width: number, height: number);
-
-    fillAll(color: string): void;
+    create.call(this);
+    
+    (async () => {
+        await init()
+        this._pathfindingLoaded = true
+    })();
 }
 
-declare class Sprite
+const isReady = Scene_Boot.prototype.isReady;
+Scene_Boot.prototype.isReady = function(): boolean
 {
-    x: number;
-    y: number;
-    opacity: number;
-
-    constructor(bitmap: Bitmap);
-}
-
-declare namespace SceneManager
-{
-    const _scene: { addChild(s: Sprite): void };
-}
-
-export function showTile([x, y]: Point2, color: string)
-{
-    let bmp = new Bitmap(48, 48);
-    bmp.fillAll(color);
-
-    let s = new Sprite(bmp);
-    s.opacity = 100;
-
-    let update = () => {
-        s.x = (x - $gameMap.displayX()) * 48;
-        s.y = (y - $gameMap.displayY()) * 48;
-        requestAnimationFrame(update);
-    };
-
-    requestAnimationFrame(update);
-
-    SceneManager._scene.addChild(s);
-}
-
-export function test(p: Point2, q: Point2, m?: GameMapGraph): GameMapGraph
-{
-    m ||= new GameMapGraph();
-    let path = rectangleExpansionAStar(p, q, m)!;
-    path.forEach(p => showTile(p, 'blue'));
-
-    return m;
+    return isReady.call(this) && this._pathfindingLoaded;
 }

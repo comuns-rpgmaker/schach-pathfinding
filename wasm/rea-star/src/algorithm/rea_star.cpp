@@ -45,7 +45,8 @@ namespace rea_star {
             REAStarSolver(
                 const Point& source,
                 const Point& target,
-                const Grid<bool>& g
+                const Grid<bool>& g,
+                int maxlen
             ): m_source(source),
                 m_target(target),
                 m_g(g),
@@ -57,7 +58,10 @@ namespace rea_star {
                         .gvalue = INFINITY
                     }
                 ),
-                m_parents(g.width(), g.height()) {}
+                m_parents(g.width(), g.height(), source),
+                m_maxlen(maxlen),
+                m_best(source),
+                m_best_hval(octile(source, target)) {}
 
             std::optional<path_t> find_path() {
                 auto path = insert_start();
@@ -71,7 +75,8 @@ namespace rea_star {
                     if (path.has_value()) return path;
                 }
 
-                return std::nullopt;
+                m_target = m_best;
+                return build_path();
             }
             
         private:
@@ -80,6 +85,11 @@ namespace rea_star {
             Grid<bool> m_g;
             Grid<Node> m_nodes;
             Grid<Point> m_parents;
+            int m_maxlen;
+
+            Point m_best;
+            double m_best_hval;
+
             std::priority_queue<
                 SearchNode,
                 std::vector<SearchNode>,
@@ -93,7 +103,6 @@ namespace rea_star {
                 }
 
                 for (const Point& p : rect.boundaries()) {
-                    m_parents[p] = m_source;
                     m_nodes[p] = Node {
                         .type = NodeType::GPOINT,
                         .gvalue = octile(p, m_source)
@@ -127,13 +136,19 @@ namespace rea_star {
                             double d = octile(p, pp);
                             double pgvalue = m_nodes[pp].gvalue + d;
 
-                            if (pgvalue < gvalue) {
+                            if (pgvalue < gvalue && pgvalue < m_maxlen) {
+                                double h = octile(p, m_target);
+                                if (h < m_best_hval) {
+                                    m_best = p;
+                                    m_best_hval = h;
+                                }
+
                                 gvalue = pgvalue;
                                 m_parents[p] = pp;
                                 m_nodes[p] = Node {
                                     .type = NodeType::HPOINT,
                                     .gvalue = gvalue,
-                                    .hvalue = octile(p, m_target)
+                                    .hvalue = h
                                 };
 
                                 updated = true;
@@ -167,7 +182,13 @@ namespace rea_star {
 
                             Node pnode = m_nodes[p];
 
-                            if (pgvalue < pnode.gvalue) {
+                            if (pgvalue < pnode.gvalue && pgvalue < m_maxlen) {
+                                double h = octile(p, m_target);
+                                if (h < m_best_hval) {
+                                    m_best = p;
+                                    m_best_hval = h;
+                                }
+
                                 m_parents[p] = pp;
                                 m_nodes[p].gvalue = pgvalue;
                             }
@@ -175,6 +196,8 @@ namespace rea_star {
                     }
 
                     auto eni = rect.extend_neighbor_interval(wall.cardinal());
+                    if (!eni.is_valid(m_g)) continue;
+
                     auto path = successor(eni);
                     if (path.has_value()) return path;
                 }
@@ -187,10 +210,10 @@ namespace rea_star {
                 path.reserve(m_g.width() * m_g.height() / 2);
                 
                 Point current = m_target;
-                do { 
+                while (current != m_source) {
                     path.push_back(current);
                     current = m_parents[current];
-                } while (current != m_source);
+                }
 
                 path.push_back(m_source);
 
@@ -223,7 +246,8 @@ namespace rea_star {
 std::optional<rea_star::path_t> rea_star::rectangle_expansion_astar(
     Point source,
     Point target,
-    Grid<bool> g
+    const Grid<bool>& g,
+    int maxlen
 ) {
-    return rea_star::REAStarSolver(source, target, g).find_path();
+    return rea_star::REAStarSolver(source, target, g, maxlen).find_path();
 }

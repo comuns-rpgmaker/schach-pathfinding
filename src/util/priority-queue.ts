@@ -17,7 +17,6 @@ import { Relation, less } from "./order";
  */
 export class PriorityQueue<T> implements Iterator<T>
 {
-
     readonly isLess: Relation<T>;
     
     private _data: T | undefined;
